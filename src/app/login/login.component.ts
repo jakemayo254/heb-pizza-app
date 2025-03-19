@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { PizzaService } from '../services/pizza.service';
-import { AuthDetails } from '../models/auth.model';
+import { AuthRequest } from '../models/auth.model';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {Order} from '@src/app/models/order.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +12,11 @@ import {Order} from '@src/app/models/order.model';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  authDetails: AuthDetails = {
+  authRequest: AuthRequest = {
     username: '',
     password: ''
   }
-  authToken = '';
+  authToken: string | null = null;
   deleteOrderID = null;
   showPassword = false;
   errorMessage = '';
@@ -28,14 +29,14 @@ export class LoginComponent {
 
   newOrder: Order | null = null;
 
-  constructor(private pizzaService: PizzaService) {}
+  constructor(private pizzaService: PizzaService, private toast: ToastrService) {}
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
   submitOrder(): void {
-    if (this.newOrderTableNo != null && this.newOrderFlavor != null && this.newOrderCrust != null && this.newOrderSize != null) {
+    if (this.authToken != null && this.newOrderTableNo != null && this.newOrderFlavor != null && this.newOrderCrust != null && this.newOrderSize != null) {
       let newOrder: Order = {
         Table_No: this.newOrderTableNo,
         Flavor: this.newOrderFlavor,
@@ -44,18 +45,17 @@ export class LoginComponent {
       }
 
       this.pizzaService.createOrder(newOrder, this.authToken).subscribe(res => {
-        console.log("New Order Details: " + JSON.stringify(res));
-        this.newOrder = res;
+        this.newOrder = res.body;
         this.getOrders()
+        this.toast.success("Order added successfully.", "Success");
       })
     }
   }
 
-
   getOrders(): void {
     this.pizzaService.getAllOrders().subscribe({
       next: result => {
-        this.orders = result
+        this.orders = result.body ?? []
       }
     });
   }
@@ -64,26 +64,24 @@ export class LoginComponent {
     if (this.deleteOrderID != null) {
       this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
         next: result => {
-          console.log("delete result: " + JSON.stringify(result));
-          this.getOrders()
+          this.getOrders();
+          this.toast.success("Order deleted successfully.", "Success");
         }
       })
-
-
     }
   }
 
-  onSubmit(): void {
-    this.pizzaService.getAuthToken(this.authDetails).subscribe({
+  requestAuthToken(): void {
+    this.pizzaService.getAuthToken(this.authRequest).subscribe({
       next: (res) => {
-        console.log("Access Token: " + res.access_token)
-        this.authToken = res.access_token;
-        //localStorage.setItem('access_token', res.access_token);
-        // Redirect or show success
+        this.authToken = res.body?.access_token ?? null;
       },
       error: (err) => {
-        this.errorMessage = 'Login failed. Please try again.';
-        console.error(err);
+        if (err.status === 400) {
+          this.toast.error(err.error.msg, "Error");
+        } else {
+          this.toast.error(err.error.msg, "Unauthorized");
+        }
       }
     });
   }

@@ -1,7 +1,7 @@
 <div class="login-form">
   <h2>Login</h2>
 
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="requestAuthToken()">
     <!-- Username Input -->
     <div class="form-group">
       <label for="username">Username</label>
@@ -9,7 +9,7 @@
         type="text"
         id="username"
         name="username"
-        [(ngModel)]="authDetails.username"
+        [(ngModel)]="authRequest.username"
         required
         placeholder="Enter your username"
       />
@@ -23,7 +23,7 @@
           [type]="showPassword ? 'text' : 'password'"
           id="password"
           name="password"
-          [(ngModel)]="authDetails.password"
+          [(ngModel)]="authRequest.password"
           required
           placeholder="Enter your password"
         />
