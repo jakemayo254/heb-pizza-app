@@ -17,14 +17,13 @@ import {fetchAuthTokenAgain} from '@src/app/utils/auth-token-fetcher';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  deleteOrderID = null;
   orders: Order[] = []
+  deleteOrderID: number | null = null;
   newOrderTableNo: number | null = null;
-  newOrderCrust = null;
-  newOrderFlavor = null;
-  newOrderSize = null;
-  searchText = null;
-  newOrder: Order | null = null;
+  newOrderCrust: string | null = null;
+  newOrderFlavor: string | null = null;
+  newOrderSize: string | null = null;
+  searchText: string | null = null;
 
   constructor(private pizzaService: PizzaService, private toast: ToastrService, protected authState: AuthStateService) {
     this.getOrders();
@@ -46,7 +45,6 @@ export class HomeComponent {
 
       this.pizzaService.createOrder(orderRequest, this.authState.authToken).subscribe({
         next: (res: HttpResponse<Order>) => {
-          this.newOrder = res.body;
           this.getOrders();
           this.toast.success("Order added successfully.", "Success");
 
@@ -78,8 +76,6 @@ export class HomeComponent {
   }
 
   deleteOrder(): void {
-    console.log("Trying to Delete!");
-
     if (this.deleteOrderID != null) {
       this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
         next: (result: HttpResponse<DeleteOrderResponse>) => {
@@ -94,6 +90,10 @@ export class HomeComponent {
         }
       })
     }
+  }
+
+  clearSearchText(): void {
+    this.searchText = null;
   }
 
   logOut(): void {

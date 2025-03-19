@@ -14,9 +14,7 @@ import {fetchAuthToken} from '@src/app/utils/auth-token-fetcher';
 export class LoginComponent {
   username = null;
   password = null;
-  authToken: string | null = null;
   showPassword = false;
-  errorMessage = '';
 
   constructor(private pizzaService: PizzaService, private toast: ToastrService, private authState: AuthStateService) {}
 

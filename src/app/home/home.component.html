@@ -1,26 +1,7 @@
 <div class="login-form">
   <h2>Home</h2>
   <h3>Hello, {{ authState.username }}</h3>
-  <button type="button" (click)="getOrders()">Refresh Orders</button>
-  <br>
-  <input
-    type="text"
-    id="searchOrders"
-    name="searchOrders"
-    [(ngModel)]="searchText"
-    placeholder="Search Orders..."
-  />
-  <br>
-  <ul>
-    <li *ngFor="let order of orders | orderFilter:searchText">
-      Order ID: {{ order.Order_ID }} |
-      Table NO: {{ order.Table_No }} |
-      Crust: {{ order.Crust }} |
-      Flavor: {{ order.Flavor }} |
-      Size: {{ order.Size }} |
-      TimeStamp: {{ order.Timestamp }}
-    </li>
-  </ul>
+  <button type="button" (click)="logOut()">Log Out</button>
   <br>
   <form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()">
     <input
@@ -75,5 +56,29 @@
     <button type="submit" [disabled]="newOrderForm.invalid">Submit Order</button>
   </form>
   <br>
-  <button type="button" (click)="logOut()">Log Out</button>
+  <form #searchForm="ngForm" (ngSubmit)="clearSearchText()">
+    <input
+      required
+      type="text"
+      id="searchOrders"
+      name="searchOrders"
+      [(ngModel)]="searchText"
+      placeholder="Search Orders..."
+    />
+    <br>
+    <button type="submit" [disabled]="searchForm.invalid">Clear Search</button>
+  </form>
+  <br>
+  <ul>
+    <li *ngFor="let order of orders | orderFilter:searchText">
+      Order ID: {{ order.Order_ID }} |
+      Table NO: {{ order.Table_No }} |
+      Crust: {{ order.Crust }} |
+      Flavor: {{ order.Flavor }} |
+      Size: {{ order.Size }} |
+      TimeStamp: {{ order.Timestamp }}
+    </li>
+  </ul>
+  <br>
+  <button type="button" (click)="getOrders()">Refresh Orders</button>
 </div>

@@ -19,6 +19,7 @@ export class AuthStateService {
   }
 
   isAuthenticated(): boolean {
+    // check to see if it exists and not falsy
     return !!this.authToken;
   }
 }
