@@ -6,11 +6,11 @@
       <label for="username">Username</label>
       <br>
       <input
+        required
         type="text"
         id="username"
         name="username"
         [(ngModel)]="username"
-        required
         placeholder="Enter your username"
       />
     </div>
@@ -18,11 +18,11 @@
       <label for="password">Password</label>
       <div class="password-wrapper">
         <input
+          required
           [type]="showPassword ? 'text' : 'password'"
           id="password"
           name="password"
           [(ngModel)]="password"
-          required
           placeholder="Enter your password"
         />
         <span class="toggle-password" (click)="togglePasswordVisibility()">

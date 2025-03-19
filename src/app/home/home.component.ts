@@ -9,6 +9,7 @@ import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
 import {OrderFilterPipe} from '@src/app/pipes/order-filter.pipe';
 import {AuthStateService} from '@src/app/services/auth-state.service';
+import {fetchAuthTokenAgain} from '@src/app/utils/auth-token-fetcher';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +31,12 @@ export class HomeComponent {
   }
 
   submitOrder(): void {
-    if (this.authState.authToken != null && this.newOrderTableNo != null
-      && this.newOrderFlavor != null && this.newOrderCrust != null && this.newOrderSize != null) {
+    if (this.authState.authToken !== null && this.authState.authToken !== '' &&
+      this.newOrderFlavor !== null && this.newOrderFlavor !== '' &&
+      this.newOrderCrust !== null && this.newOrderCrust !== '' &&
+      this.newOrderSize !== null && this.newOrderSize !== '' &&
+      this.newOrderTableNo !== null) {
+
       let orderRequest: OrderRequest = {
         Table_No: this.newOrderTableNo,
         Flavor: this.newOrderFlavor,
@@ -53,7 +58,12 @@ export class HomeComponent {
         error: (err: HttpErrorResponse) => {
           const errorBody: ErrorResponse = err.error;
           this.toast.error(errorBody.detail, errorBody.title);
-          this.deleteOrderID = null;
+
+          // Token expires after 15 minutes so getting a new token
+          if (errorBody.status === 401) {
+            fetchAuthTokenAgain(this.pizzaService, this.authState, this.toast);
+            this.toast.info("Auth Token Refreshed. Please try again.", "Success");
+          }
         }
       })
     }

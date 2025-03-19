@@ -39,8 +39,8 @@ export class PizzaService {
     });
   }
 
-  deleteOrder(id: number): Observable<HttpResponse<DeleteOrderResponse>> {
-    return this.http.delete<DeleteOrderResponse>(`${this.ORDERS_URL}/${id}`, {
+  deleteOrder(orderID: number): Observable<HttpResponse<DeleteOrderResponse>> {
+    return this.http.delete<DeleteOrderResponse>(`${this.ORDERS_URL}/${orderID}`, {
       observe: 'response'
     });
   }

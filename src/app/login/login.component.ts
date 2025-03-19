@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {AuthStateService} from '@src/app/services/auth-state.service';
-import {AuthRequest} from '@src/app/models/auth.model';
+import {fetchAuthToken} from '@src/app/utils/auth-token-fetcher';
 
 @Component({
   selector: 'app-login',
@@ -25,25 +25,6 @@ export class LoginComponent {
   }
 
   requestAuthToken(): void {
-    if (this.username != null && this.password != null) {
-      const authRequest: AuthRequest = {
-        username: this.username,
-        password: this.password,
-      }
-
-      this.pizzaService.getAuthToken(authRequest).subscribe({
-        next: (res) => {
-          this.authToken = res.body?.access_token ?? null;
-          this.authState.setAuth(this.username, this.password, res.body?.access_token ?? null);
-        },
-        error: (err) => {
-          if (err.status === 400) {
-            this.toast.error(err.error.msg, "Error");
-          } else {
-            this.toast.error(err.error.msg, "Unauthorized");
-          }
-        }
-      });
-    }
+    fetchAuthToken(this.pizzaService, this.authState, this.toast, this.username, this.password);
   }
 }
