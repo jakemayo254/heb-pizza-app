@@ -40,5 +40,68 @@
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
+    <br>
+    <button type="button" (click)="getOrders()">Get Orders</button>
+    <br>
+    <div *ngIf="orders.length > 0">
+      <h3>Orders:</h3>
+      <ul>
+        <li *ngFor="let order of orders">
+          Order ID: {{ order.Order_ID }} |
+          Table NO: {{ order.Table_No }} |
+          Crust: {{ order.Crust }} |
+          Flavor: {{ order.Flavor }} |
+          Size: {{ order.Size }} |
+          TimeStamp: {{ order.Timestamp }}
+        </li>
+      </ul>
+    </div>
+    <br>
+    <input
+      type="text"
+      id="deleteOrder"
+      name="deleteOrder"
+      [(ngModel)]="deleteOrderID"
+      placeholder="Enter Order ID To Delete"
+    />
+    <br>
+    <button type="button" (click)="deleteOrder()">Delete Order</button>
+    <br>
+    <input
+      type="number"
+      id="tableNumber"
+      name="tableNumber"
+      [(ngModel)]="newOrderTableNo"
+      placeholder="Table No"
+    />
+    <br>
+    <input
+      type="text"
+      id="size"
+      name="size"
+      [(ngModel)]="newOrderSize"
+      placeholder="Size"
+    />
+    <br>
+    <input
+      type="text"
+      id="crust"
+      name="crust"
+      [(ngModel)]="newOrderCrust"
+      placeholder="Crust"
+    />
+    <br>
+    <input
+      type="text"
+      id="flavor"
+      name="deleteOrder"
+      [(ngModel)]="newOrderFlavor"
+      placeholder="Flavor"
+    />
+    <br>
+    <button type="button" (click)="submitOrder()">Submit Order</button>
+    <br>
+    {{ newOrder?.Order_ID }}
+    {{ newOrder?.Timestamp }}
   </form>
 </div>
