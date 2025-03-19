@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Order } from '@src/app/models/order.model';
 import { environment } from '@src/environments/environment';
 import {AuthRequest, AuthResponse} from '../models/auth.model';
-import {DeleteOrderResponse} from '@src/app/models/deleteOrder.model';
+import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
 
 @Injectable({ providedIn: 'root' })
 export class PizzaService {

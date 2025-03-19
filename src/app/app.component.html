@@ -1,2 +1,2 @@
-<h1>Hello from AppComponent!</h1>
-<app-login></app-login>
+<app-login *ngIf="!authState.isAuthenticated()"></app-login>
+<app-home *ngIf="authState.isAuthenticated()"></app-home>
