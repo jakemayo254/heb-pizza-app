@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {Order} from '@src/app/models/order.model';
 import {ToastrService} from 'ngx-toastr';
+import {ErrorResponse} from '@src/app/models/errorResponse.model';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {DeleteOrderResponse} from '@src/app/models/deleteOrder.model';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +29,7 @@ export class LoginComponent {
   newOrderCrust = null;
   newOrderFlavor = null;
   newOrderSize = null;
+  searchOrderString = null;
 
   newOrder: Order | null = null;
 
@@ -44,10 +48,23 @@ export class LoginComponent {
         Size: this.newOrderSize
       }
 
-      this.pizzaService.createOrder(newOrder, this.authToken).subscribe(res => {
-        this.newOrder = res.body;
-        this.getOrders()
-        this.toast.success("Order added successfully.", "Success");
+      this.pizzaService.createOrder(newOrder, this.authToken).subscribe({
+        next: (res: HttpResponse<Order>) => {
+          console.log("Created Order");
+          this.newOrder = res.body;
+          this.getOrders();
+          this.toast.success("Order added successfully.", "Success");
+
+          this.newOrderTableNo = null;
+          this.newOrderCrust = null;
+          this.newOrderSize = null;
+          this.newOrderFlavor = null;
+        },
+        error: (err: HttpErrorResponse) => {
+          const errorBody: ErrorResponse = err.error;
+          this.toast.error(errorBody.detail, errorBody.title);
+          this.deleteOrderID = null;
+        }
       })
     }
   }
@@ -63,9 +80,15 @@ export class LoginComponent {
   deleteOrder(): void {
     if (this.deleteOrderID != null) {
       this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
-        next: result => {
+        next: (result: HttpResponse<DeleteOrderResponse>) => {
           this.getOrders();
-          this.toast.success("Order deleted successfully.", "Success");
+          this.toast.success(result.body?.message, "Success");
+          this.deleteOrderID = null;
+        },
+        error: (err: HttpErrorResponse) => {
+          const errorBody: ErrorResponse = err.error;
+          this.toast.error(errorBody.detail, errorBody.title);
+          this.deleteOrderID = null;
         }
       })
     }
