@@ -1,0 +1,78 @@
+<form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()">
+  <input
+    required
+    type="number"
+    id="deleteOrder"
+    name="deleteOrder"
+    [(ngModel)]="deleteOrderID"
+    placeholder="Enter Order ID To Delete"
+  />
+  <br>
+  <button type="submit" [disabled]="deleteOrderForm.invalid">Delete Order</button>
+</form>
+<br>
+<form #newOrderForm="ngForm" (ngSubmit)="submitOrder()">
+  <input
+    required
+    type="number"
+    id="tableNumber"
+    name="tableNumber"
+    [(ngModel)]="newOrderTableNo"
+    placeholder="Table No"
+  />
+  <br>
+  <input
+    required
+    type="text"
+    id="size"
+    name="size"
+    [(ngModel)]="newOrderSize"
+    placeholder="Size"
+  />
+  <br>
+  <input
+    required
+    type="text"
+    id="crust"
+    name="crust"
+    [(ngModel)]="newOrderCrust"
+    placeholder="Crust"
+  />
+  <br>
+  <input
+    required
+    type="text"
+    id="flavor"
+    name="deleteOrder"
+    [(ngModel)]="newOrderFlavor"
+    placeholder="Flavor"
+  />
+  <br>
+  <button type="submit" [disabled]="newOrderForm.invalid">Submit Order</button>
+</form>
+<br>
+<form #searchForm="ngForm" (ngSubmit)="clearSearchText()">
+  <input
+    required
+    type="text"
+    id="searchOrders"
+    name="searchOrders"
+    [(ngModel)]="searchText"
+    placeholder="Search Orders..."
+  />
+  <br>
+  <button type="submit" [disabled]="searchForm.invalid">Clear Search</button>
+</form>
+<br>
+<ul>
+  <li *ngFor="let order of orders | orderFilter:searchText">
+    Order ID: {{ order.Order_ID }} |
+    Table NO: {{ order.Table_No }} |
+    Crust: {{ order.Crust }} |
+    Flavor: {{ order.Flavor }} |
+    Size: {{ order.Size }} |
+    TimeStamp: {{ order.Timestamp }}
+  </li>
+</ul>
+<br>
+<button type="button" (click)="getOrders()">Refresh Orders</button>
