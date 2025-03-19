@@ -44,26 +44,36 @@
     <button type="button" (click)="getOrders()">Get Orders</button>
     <br>
     <input
-      type="number"
+      type="text"
       id="searchOrders"
       name="searchOrders"
-      [(ngModel)]="searchOrderString"
-      placeholder="Search Orders"
+      [(ngModel)]="searchText"
+      placeholder="Search Orders..."
     />
     <br>
-    <div *ngIf="orders.length > 0">
-      <h3>Orders:</h3>
-      <ul>
-        <li *ngFor="let order of orders">
-          Order ID: {{ order.Order_ID }} |
-          Table NO: {{ order.Table_No }} |
-          Crust: {{ order.Crust }} |
-          Flavor: {{ order.Flavor }} |
-          Size: {{ order.Size }} |
-          TimeStamp: {{ order.Timestamp }}
-        </li>
-      </ul>
-    </div>
+<!--    <div *ngIf="orders.length > 0">-->
+<!--      <h3>Orders:</h3>-->
+<!--      <ul>-->
+<!--        <li *ngFor="let order of orders">-->
+<!--          Order ID: {{ order.Order_ID }} |-->
+<!--          Table NO: {{ order.Table_No }} |-->
+<!--          Crust: {{ order.Crust }} |-->
+<!--          Flavor: {{ order.Flavor }} |-->
+<!--          Size: {{ order.Size }} |-->
+<!--          TimeStamp: {{ order.Timestamp }}-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+    <ul>
+      <li *ngFor="let order of orders | orderFilter:searchText">
+        Order ID: {{ order.Order_ID }} |
+        Table NO: {{ order.Table_No }} |
+        Crust: {{ order.Crust }} |
+        Flavor: {{ order.Flavor }} |
+        Size: {{ order.Size }} |
+        TimeStamp: {{ order.Timestamp }}
+      </li>
+    </ul>
     <br>
     <input
       type="number"

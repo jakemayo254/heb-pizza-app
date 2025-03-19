@@ -8,10 +8,11 @@ import {ToastrService} from 'ngx-toastr';
 import {ErrorResponse} from '@src/app/models/errorResponse.model';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {DeleteOrderResponse} from '@src/app/models/deleteOrder.model';
+import {OrderFilterPipe} from '@src/app/pipes/order-filter.pipe';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, OrderFilterPipe],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -29,7 +30,7 @@ export class LoginComponent {
   newOrderCrust = null;
   newOrderFlavor = null;
   newOrderSize = null;
-  searchOrderString = null;
+  searchText = null;
 
   newOrder: Order | null = null;
 
