@@ -1,0 +1,44 @@
+<div class="login-form">
+  <h2>Login</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <!-- Username Input -->
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="authDetails.username"
+        required
+        placeholder="Enter your username"
+      />
+    </div>
+
+    <!-- Password Input with Eye Toggle -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="password-wrapper">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          name="password"
+          [(ngModel)]="authDetails.password"
+          required
+          placeholder="Enter your password"
+        />
+        <span class="toggle-password" (click)="togglePasswordVisibility()">
+          {{ showPassword ? '👁️‍🗨️' : '👁️' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit">Login</button>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

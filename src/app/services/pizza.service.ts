@@ -20,6 +20,7 @@ export class PizzaService {
   }
 
   getAuthToken(authDetails: AuthDetails): Observable<{ access_token: string }> {
+    console.log("username: " + authDetails.username + " password: " + authDetails.password);
     return this.http.post<{ access_token: string }>(this.AUTH_URL, authDetails);
   }
 
