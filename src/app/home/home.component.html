@@ -22,7 +22,7 @@
     </li>
   </ul>
   <br>
-  <form (ngSubmit)="deleteOrder()">
+  <form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()">
     <input
       required
       type="number"
@@ -32,10 +32,10 @@
       placeholder="Enter Order ID To Delete"
     />
     <br>
-    <button type="submit">Delete Order</button>
+    <button type="submit" [disabled]="deleteOrderForm.invalid">Delete Order</button>
   </form>
   <br>
-  <form (ngSubmit)="submitOrder()">
+  <form #newOrderForm="ngForm" (ngSubmit)="submitOrder()">
     <input
       required
       type="number"
@@ -72,7 +72,7 @@
       placeholder="Flavor"
     />
     <br>
-    <button type="submit">Submit Order</button>
+    <button type="submit" [disabled]="newOrderForm.invalid">Submit Order</button>
   </form>
   <br>
   <button type="button" (click)="logOut()">Log Out</button>

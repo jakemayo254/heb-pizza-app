@@ -78,6 +78,8 @@ export class HomeComponent {
   }
 
   deleteOrder(): void {
+    console.log("Trying to Delete!");
+
     if (this.deleteOrderID != null) {
       this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
         next: (result: HttpResponse<DeleteOrderResponse>) => {
