@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Order } from '@src/app/models/order.model';
+import {Order, OrderRequest} from '@src/app/models/order.model';
 import { environment } from '@src/environments/environment';
 import {AuthRequest, AuthResponse} from '../models/auth.model';
 import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
@@ -32,7 +32,7 @@ export class PizzaService {
     });
   }
 
-  createOrder(order: Order, authToken: string): Observable<HttpResponse<Order>> {
+  createOrder(order: OrderRequest, authToken: string): Observable<HttpResponse<Order>> {
     return this.http.post<Order>(this.ORDERS_URL, order, {
       headers: this.getAuthHeader(authToken),
       observe: "response"

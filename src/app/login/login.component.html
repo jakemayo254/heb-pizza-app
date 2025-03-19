@@ -2,9 +2,9 @@
   <h2>Login</h2>
 
   <form (ngSubmit)="requestAuthToken()">
-    <!-- Username Input -->
     <div class="form-group">
       <label for="username">Username</label>
+      <br>
       <input
         type="text"
         id="username"
@@ -14,8 +14,6 @@
         placeholder="Enter your username"
       />
     </div>
-
-    <!-- Password Input with Eye Toggle -->
     <div class="form-group">
       <label for="password">Password</label>
       <div class="password-wrapper">
@@ -32,13 +30,7 @@
         </span>
       </div>
     </div>
-
-    <!-- Submit Button -->
+    <br>
     <button type="submit">Login</button>
-    {{ authToken }}
-    <!-- Error Message -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
   </form>
 </div>

@@ -1,8 +1,11 @@
-export interface Order {
-    Crust: string;
-    Flavor: string;
-    Order_ID?: number;
-    Size: string;
-    Table_No: number;
-    Timestamp?: Date;
-  }
+export interface OrderRequest {
+  Table_No: number;
+  Crust: string;
+  Flavor: string;
+  Size: string;
+}
+
+export interface Order extends OrderRequest {
+    Order_ID: number;
+    Timestamp: Date;
+}

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PizzaService } from '../services/pizza.service';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {Order} from '@src/app/models/order.model';
+import {Order, OrderRequest} from '@src/app/models/order.model';
 import {ToastrService} from 'ngx-toastr';
 import {ErrorResponse} from '@src/app/models/error-response.model';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
@@ -25,20 +25,22 @@ export class HomeComponent {
   searchText = null;
   newOrder: Order | null = null;
 
-  constructor(private pizzaService: PizzaService, private toast: ToastrService, private authState: AuthStateService) {}
+  constructor(private pizzaService: PizzaService, private toast: ToastrService, protected authState: AuthStateService) {
+    this.getOrders();
+  }
 
   submitOrder(): void {
-    if (this.authState.authToken != null && this.newOrderTableNo != null && this.newOrderFlavor != null && this.newOrderCrust != null && this.newOrderSize != null) {
-      let newOrder: Order = {
+    if (this.authState.authToken != null && this.newOrderTableNo != null
+      && this.newOrderFlavor != null && this.newOrderCrust != null && this.newOrderSize != null) {
+      let orderRequest: OrderRequest = {
         Table_No: this.newOrderTableNo,
         Flavor: this.newOrderFlavor,
         Crust: this.newOrderCrust,
         Size: this.newOrderSize
       }
 
-      this.pizzaService.createOrder(newOrder, this.authState.authToken).subscribe({
+      this.pizzaService.createOrder(orderRequest, this.authState.authToken).subscribe({
         next: (res: HttpResponse<Order>) => {
-          console.log("Created Order");
           this.newOrder = res.body;
           this.getOrders();
           this.toast.success("Order added successfully.", "Success");
