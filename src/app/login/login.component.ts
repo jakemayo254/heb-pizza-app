@@ -28,7 +28,7 @@ export class LoginComponent {
 
   newOrder: Order | null = null;
 
-  constructor(private authService: PizzaService) {}
+  constructor(private pizzaService: PizzaService) {}
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
@@ -43,32 +43,38 @@ export class LoginComponent {
         Size: this.newOrderSize
       }
 
-      this.authService.createOrder(newOrder, this.authToken).subscribe(res => {
+      this.pizzaService.createOrder(newOrder, this.authToken).subscribe(res => {
         console.log("New Order Details: " + JSON.stringify(res));
         this.newOrder = res;
+        this.getOrders()
       })
     }
   }
 
 
   getOrders(): void {
-    this.authService.getAllOrders().subscribe(orders => this.orders = orders);
+    this.pizzaService.getAllOrders().subscribe({
+      next: result => {
+        this.orders = result
+      }
+    });
   }
 
   deleteOrder(): void {
     if (this.deleteOrderID != null) {
-      this.authService.deleteOrder(this.deleteOrderID).subscribe({
+      this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
         next: result => {
           console.log("delete result: " + JSON.stringify(result));
+          this.getOrders()
         }
       })
 
-      this.getOrders()
+
     }
   }
 
   onSubmit(): void {
-    this.authService.getAuthToken(this.authDetails).subscribe({
+    this.pizzaService.getAuthToken(this.authDetails).subscribe({
       next: (res) => {
         console.log("Access Token: " + res.access_token)
         this.authToken = res.access_token;
