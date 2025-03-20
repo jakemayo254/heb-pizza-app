@@ -2,10 +2,14 @@
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const simpleImportSort = require("eslint-plugin-simple-import-sort"); // ✅ import the plugin
 
 module.exports = tseslint.config(
   {
     files: ["**/*.ts"],
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
@@ -15,6 +19,8 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       "object-curly-spacing": ['error', 'always'],
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
       "@angular-eslint/directive-selector": [
         "error",
         {

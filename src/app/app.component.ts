@@ -1,8 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HomeComponent } from '@src/app/components/home.component';
 import { LoginComponent } from '@src/app/components/login.component';
 import { AuthStateService } from '@src/app/services/auth-state.service';
-import { HomeComponent } from '@src/app/components/home.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',

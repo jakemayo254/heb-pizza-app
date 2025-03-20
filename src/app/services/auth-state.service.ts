@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { AuthRequest } from '@src/app/models/auth.model';
+import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
