@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PizzaService } from '../services/pizza.service';
+import { PizzaApiService } from '../services/pizza-api.service';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
@@ -15,7 +15,7 @@ export class LoginComponent {
   password = null;
   showPassword = false;
 
-  constructor(private pizzaService: PizzaService, private toast: ToastrService, private authState: AuthStateService) {}
+  constructor(private pizzaService: PizzaApiService, private toast: ToastrService, private authState: AuthStateService) {}
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;

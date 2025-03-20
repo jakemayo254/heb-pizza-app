@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PizzaService } from '../services/pizza.service';
+import { PizzaApiService } from '../services/pizza-api.service';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {Order, OrderRequest} from '@src/app/models/order.model';
@@ -20,7 +20,7 @@ export class OrderSubmitterComponent {
   newOrderFlavor: string | null = null;
   newOrderSize: string | null = null;
 
-  constructor(private pizzaService: PizzaService, private toast: ToastrService,
+  constructor(private pizzaService: PizzaApiService, private toast: ToastrService,
               protected authState: AuthStateService, protected ordersState: OrdersStateService) {
   }
 

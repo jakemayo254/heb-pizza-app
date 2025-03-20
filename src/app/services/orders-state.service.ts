@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Order } from '@src/app/models/order.model';
-import { PizzaService } from '@src/app/services/pizza.service';
+import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ export class OrdersStateService {
   private ordersSubject = new BehaviorSubject<Order[]>([]);
   public orders$: Observable<Order[]> = this.ordersSubject.asObservable();
 
-  constructor(private pizzaService: PizzaService, private toast: ToastrService) {}
+  constructor(private pizzaService: PizzaApiService, private toast: ToastrService) {}
 
   getOrdersFromApi(): void {
     this.pizzaService.getOrders().subscribe({

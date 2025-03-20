@@ -7,7 +7,7 @@ import {AuthRequest, AuthResponse} from '../models/auth.model';
 import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
 
 @Injectable({ providedIn: 'root' })
-export class PizzaService {
+export class PizzaApiService {
   private readonly BASE_URL = environment.pizzaAPIAppBaseURL;
   private readonly ORDERS_URL = this.BASE_URL + "/orders";
   private readonly AUTH_URL = this.BASE_URL + "/auth";

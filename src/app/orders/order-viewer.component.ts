@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PizzaService } from '../services/pizza.service';
+import { PizzaApiService } from '../services/pizza-api.service';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
@@ -21,7 +21,7 @@ export class OrderViewerComponent {
   deleteOrderID: number | null = null;
   orders$: Observable<Order[]>;
 
-  constructor(private pizzaService: PizzaService, private toast: ToastrService,
+  constructor(private pizzaService: PizzaApiService, private toast: ToastrService,
               protected ordersState: OrdersStateService) {
     this.orders$ = this.ordersState.orders$ ?? [];
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {PizzaService} from '@src/app/services/pizza.service';
+import {PizzaApiService} from '@src/app/services/pizza-api.service';
 import {AuthRequest} from '@src/app/models/auth.model';
 import {ToastrService} from 'ngx-toastr';
 
@@ -8,11 +8,11 @@ export class AuthStateService {
   authDetails: AuthRequest | null = null;
   authToken: string | null = null;
 
-  constructor(private pizzaService: PizzaService, private toast: ToastrService) {}
+  constructor(private pizzaAPIService: PizzaApiService, private toast: ToastrService) {}
 
   private getAuthToken(): void {
     if (this.authDetails != null) {
-      this.pizzaService.getAuthToken(this.authDetails).subscribe({
+      this.pizzaAPIService.getAuthToken(this.authDetails).subscribe({
         next: (res) => {
           this.authToken = res.body?.access_token ?? null;
         },
