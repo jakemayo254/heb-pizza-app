@@ -3,7 +3,7 @@ const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const prettier = require('eslint-plugin-prettier');
-const prettierConfig = require('eslint-config-prettier');
+const prettierConfig = require('./prettier.config.js');
 const simpleImportSort = require('eslint-plugin-simple-import-sort');
 
 module.exports = tseslint.config(
@@ -21,18 +21,7 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      ...prettierConfig.rules,
-      'prettier/prettier': [
-        'error',
-        {
-          printWidth: 120,
-          semi: true,
-          singleQuote: true,
-          trailingComma: 'es5',
-          bracketSpacing: true,
-          tabWidth: 2,
-        },
-      ],
+      'prettier/prettier': ['error', prettierConfig],
       // 'max-len': ['error', { code: 120 }],
       'object-curly-spacing': ['error', 'always'],
       'simple-import-sort/imports': 'error',
