@@ -16,10 +16,10 @@ export class OrdersStateService {
 
   getOrdersFromApi(): void {
     this.pizzaService.getOrders().subscribe({
-      next: (res) => {
+      next: (res): void  => {
         this.ordersSubject.next(res.body ?? []);
       },
-      error: (err) => {
+      error: (err): void => {
         this.toast.error(err.error?.message ?? 'Unexpected error', 'Error Getting Orders');
       },
     });

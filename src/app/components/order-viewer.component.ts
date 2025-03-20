@@ -82,12 +82,12 @@ export class OrderViewerComponent {
   deleteOrder(): void {
     if (this.deleteOrderID != null) {
       this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
-        next: (result: HttpResponse<DeleteOrderResponse>) => {
+        next: (result: HttpResponse<DeleteOrderResponse>): void => {
           this.ordersState.getOrdersFromApi();
           this.toast.success(result.body?.message, 'Success');
           this.deleteOrderID = null;
         },
-        error: (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse): void => {
           const errorBody: ErrorResponse = err.error;
           this.toast.error(errorBody.detail, errorBody.title);
           this.deleteOrderID = null;

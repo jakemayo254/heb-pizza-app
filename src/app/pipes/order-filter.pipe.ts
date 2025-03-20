@@ -13,7 +13,7 @@ export class OrderFilterPipe implements PipeTransform {
     searchText = searchText.toLowerCase();
 
     return orders.filter(
-      (order) =>
+      (order): boolean =>
         order.Flavor?.toLowerCase().includes(searchText) ||
         order.Size?.toLowerCase().includes(searchText) ||
         order.Crust?.toLowerCase().includes(searchText) ||

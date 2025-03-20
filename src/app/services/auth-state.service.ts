@@ -19,13 +19,13 @@ export class AuthStateService {
     this.authDetails = { username, password };
 
     return this.pizzaAPIService.getAuthToken(this.authDetails).pipe(
-      tap((res) => {
+      tap((res): void => {
         this.authToken = res.body?.access_token ?? null;
       }),
-      catchError((err) => {
+      catchError((err): Observable<never> => {
         const errorHeader = err.status === 400 ? 'Error' : 'Unauthorized';
         this.toast.error(err.error?.msg || 'Unknown error', errorHeader);
-        return throwError(() => err); // rethrow so the component can handle error state
+        return throwError((): any => err); // rethrow so the component can handle error state
       })
     );
   }
@@ -34,7 +34,7 @@ export class AuthStateService {
     if (this.authDetails) {
       return this.setAuthToken(this.authDetails.username, this.authDetails.password);
     }
-    return throwError(() => new Error('No auth details available'));
+    return throwError((): Error => new Error('No auth details available'));
   }
 
   clearAuth(): void {
