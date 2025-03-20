@@ -15,11 +15,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
   imports: [CommonModule, FormsModule],
   template: `
     <div id="order-submitter" data-testid="order-submitter" class="bg-heb-dark-red p-4">
-      <form
-        #newOrderForm="ngForm"
-        (ngSubmit)="submitOrder()"
-        class="flex flex-wrap gap-4 items-center"
-      >
+      <form #newOrderForm="ngForm" (ngSubmit)="submitOrder()" class="flex flex-wrap items-center gap-4">
         <input
           required
           type="number"
@@ -28,7 +24,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           [(ngModel)]="newOrderTableNo"
           placeholder="Table No"
           autocomplete="off"
-          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
+          class="min-w-[150px] flex-1 rounded border border-gray-300 bg-white px-3 py-2"
         />
         <input
           required
@@ -38,7 +34,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           [(ngModel)]="newOrderSize"
           placeholder="Size"
           autocomplete="off"
-          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
+          class="min-w-[150px] flex-1 rounded border border-gray-300 bg-white px-3 py-2"
         />
         <input
           required
@@ -48,7 +44,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           [(ngModel)]="newOrderCrust"
           placeholder="Crust"
           autocomplete="off"
-          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
+          class="min-w-[150px] flex-1 rounded border border-gray-300 bg-white px-3 py-2"
         />
         <input
           required
@@ -58,14 +54,14 @@ import { PizzaApiService } from '../services/pizza-api.service';
           [(ngModel)]="newOrderFlavor"
           placeholder="Flavor"
           autocomplete="off"
-          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
+          class="min-w-[150px] flex-1 rounded border border-gray-300 bg-white px-3 py-2"
         />
 
         <button
           type="submit"
           [disabled]="newOrderForm.invalid"
           [style.cursor]="newOrderForm.invalid ? 'not-allowed' : 'pointer'"
-          class="bg-white text-black font-semibold px-4 py-2 rounded border border-gray-300 hover:bg-gray-100 transition disabled:opacity-50"
+          class="rounded border border-gray-300 bg-white px-4 py-2 font-semibold text-black transition hover:bg-gray-100 disabled:opacity-50"
         >
           Submit Order
         </button>

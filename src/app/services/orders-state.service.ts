@@ -16,8 +16,9 @@ export class OrdersStateService {
 
   getOrdersFromApi(): void {
     this.pizzaService.getOrders().subscribe({
-      next: (res): void  => {
-        this.ordersSubject.next(res.body ?? []);
+      next: (res): void => {
+        const sortedOrdersByDate = res.body?.sort((a, b) => new Date(b.Timestamp).getTime() - new Date(a.Timestamp).getTime());
+        this.ordersSubject.next(sortedOrdersByDate ?? []);
       },
       error: (err): void => {
         this.toast.error(err.error?.message ?? 'Unexpected error', 'Error Getting Orders');

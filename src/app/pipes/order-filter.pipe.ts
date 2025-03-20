@@ -18,7 +18,9 @@ export class OrderFilterPipe implements PipeTransform {
         order.Size?.toLowerCase().includes(searchText) ||
         order.Crust?.toLowerCase().includes(searchText) ||
         order.Table_No?.toString().includes(searchText) ||
-        order.Order_ID?.toString().includes(searchText)
+        order.Order_ID?.toString().includes(searchText) ||
+        // may be useful IDK
+        order.Timestamp?.toString().includes(searchText)
     );
   }
 }

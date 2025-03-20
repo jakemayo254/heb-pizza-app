@@ -16,11 +16,11 @@ import { PizzaApiService } from '../services/pizza-api.service';
   selector: 'app-order-viewer',
   imports: [CommonModule, FormsModule, OrderFilterPipe],
   template: `
-    <div id="order-viewer" data-testid="order-viewer" class="p-4 bg-gray-100">
+    <div id="order-viewer" data-testid="order-viewer" class="bg-gray-100 p-4">
       <!-- Top flex container for delete + search -->
-      <div class="flex flex-wrap gap-4 mb-4 items-center">
+      <div class="mb-6 flex flex-wrap items-center gap-4">
         <!-- Delete Order Form -->
-        <form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()" class="flex gap-2 items-center flex-wrap">
+        <form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()" class="flex flex-wrap items-center gap-2">
           <input
             required
             type="number"
@@ -29,20 +29,20 @@ import { PizzaApiService } from '../services/pizza-api.service';
             [(ngModel)]="deleteOrderID"
             placeholder="Order ID"
             autocomplete="off"
-            class="bg-white border border-gray-300 rounded px-3 py-2 min-w-[180px]"
+            class="min-w-[180px] rounded border border-gray-300 bg-white px-3 py-2"
           />
           <button
             type="submit"
             [disabled]="deleteOrderForm.invalid"
             [style.cursor]="deleteOrderForm.invalid ? 'not-allowed' : 'pointer'"
-            class="bg-red-600 text-white px-4 py-2 rounded disabled:opacity-50"
+            class="rounded bg-red-600 px-4 py-2 text-white disabled:opacity-50"
           >
             Delete Order
           </button>
         </form>
 
         <!-- Search Form -->
-        <form #searchForm="ngForm" (ngSubmit)="clearSearchText()" class="flex gap-2 items-center flex-wrap">
+        <form #searchForm="ngForm" (ngSubmit)="clearSearchText()" class="flex flex-wrap items-center gap-2">
           <input
             required
             type="text"
@@ -51,13 +51,13 @@ import { PizzaApiService } from '../services/pizza-api.service';
             [(ngModel)]="searchText"
             placeholder="Search Orders..."
             autocomplete="off"
-            class="bg-white border border-gray-300 rounded px-3 py-2 min-w-[180px]"
+            class="min-w-[180px] rounded border border-gray-300 bg-white px-3 py-2"
           />
           <button
             type="submit"
             [disabled]="searchForm.invalid"
             [style.cursor]="searchForm.invalid ? 'not-allowed' : 'pointer'"
-            class="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+            class="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
           >
             Clear Search
           </button>
@@ -65,10 +65,22 @@ import { PizzaApiService } from '../services/pizza-api.service';
       </div>
 
       <!-- Orders List -->
-      <ul class="space-y-2">
-        <li *ngFor="let order of orders$ | async | orderFilter: searchText" class="bg-white p-3 rounded shadow">
-          Order ID: {{ order.Order_ID }} | Table No: {{ order.Table_No }} | Crust: {{ order.Crust }} | Flavor:
-          {{ order.Flavor }} | Size: {{ order.Size }} | Timestamp: {{ order.Timestamp }}
+      <ul class="space-y-3">
+        <li
+          *ngFor="let order of orders$ | async | orderFilter: searchText"
+          class="rounded-lg border border-gray-200 bg-white p-4 shadow"
+        >
+          <div class="grid gap-2 text-sm md:grid-cols-2">
+            <div><span class="font-semibold text-gray-700">Order ID:</span> {{ order.Order_ID }}</div>
+            <div><span class="font-semibold text-gray-700">Table No:</span> {{ order.Table_No }}</div>
+            <div><span class="font-semibold text-gray-700">Crust:</span> {{ order.Crust }}</div>
+            <div><span class="font-semibold text-gray-700">Flavor:</span> {{ order.Flavor }}</div>
+            <div><span class="font-semibold text-gray-700">Size:</span> {{ order.Size }}</div>
+            <div>
+              <span class="font-semibold text-gray-700">Order Time:</span>
+              {{ order.Timestamp | date: 'yyyy-MM-dd hh:mm:ss a' }}
+            </div>
+          </div>
         </li>
       </ul>
     </div>

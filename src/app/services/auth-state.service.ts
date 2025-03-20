@@ -25,7 +25,7 @@ export class AuthStateService {
       catchError((err): Observable<never> => {
         const errorHeader = err.status === 400 ? 'Error' : 'Unauthorized';
         this.toast.error(err.error?.msg || 'Unknown error', errorHeader);
-        return throwError((): any => err); // rethrow so the component can handle error state
+        return throwError((): Observable<never> => err);
       })
     );
   }
