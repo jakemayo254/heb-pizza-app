@@ -33,7 +33,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           <button
             type="submit"
             [disabled]="searchForm.invalid"
-            class="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50 hover:bg-blue-700"
+            class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
           >
             Clear Search
           </button>
@@ -41,10 +41,10 @@ import { PizzaApiService } from '../services/pizza-api.service';
       </div>
 
       <!-- Orders Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div
           *ngFor="let order of orders$ | async | orderFilter: searchText"
-          class="relative rounded-lg border border-gray-200 bg-white p-4 shadow-md hover:shadow-lg transition"
+          class="relative rounded-lg border border-gray-200 bg-white p-4 shadow-md transition hover:shadow-lg"
         >
           <!-- Trash Button -->
           <button
@@ -56,7 +56,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           </button>
 
           <!-- Order Info -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm">
+          <div class="grid grid-cols-1 gap-y-2 text-sm sm:grid-cols-2">
             <div><span class="font-semibold">Order ID:</span> {{ order.Order_ID }}</div>
             <div><span class="font-semibold">Table No:</span> {{ order.Table_No }}</div>
             <div><span class="font-semibold">Crust:</span> {{ order.Crust }}</div>
@@ -76,7 +76,7 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
   private readonly subscription: Subscription = new Subscription();
   searchText: string | null = null;
   orders$: Observable<Order[]>;
-  
+
   constructor(
     private readonly pizzaService: PizzaApiService,
     private readonly toast: ToastrService,
