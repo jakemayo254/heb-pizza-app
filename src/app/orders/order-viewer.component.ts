@@ -20,23 +20,15 @@ export class OrderViewerComponent {
   deleteOrderID: number | null = null;
 
   constructor(private pizzaService: PizzaService, private toast: ToastrService,
-              protected authState: AuthStateService, protected ordersState: OrdersStateService) {
-    this.getOrders();
-  }
-
-  getOrders(): void {
-    this.pizzaService.getAllOrders().subscribe({
-      next: result => {
-        this.ordersState.setOrders(result.body ?? [])
-      }
-    });
+              protected ordersState: OrdersStateService) {
+    ordersState.getOrdersFromApi();
   }
 
   deleteOrder(): void {
     if (this.deleteOrderID != null) {
       this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
         next: (result: HttpResponse<DeleteOrderResponse>) => {
-          this.getOrders();
+          this.ordersState.getOrdersFromApi();
           this.toast.success(result.body?.message, "Success");
           this.deleteOrderID = null;
         },

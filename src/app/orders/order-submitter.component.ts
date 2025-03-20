@@ -41,12 +41,7 @@ export class OrderSubmitterComponent {
 
       this.pizzaService.createOrder(orderRequest, this.authState.authToken).subscribe({
         next: (res: HttpResponse<Order>) => {
-          this.pizzaService.getAllOrders().subscribe({
-            next: result => {
-              this.ordersState.setOrders(result.body ?? [])
-            }
-          });
-
+          this.ordersState.getOrdersFromApi();
           this.toast.success("Order added successfully.", "Success");
 
           this.newOrderTableNo = null;
