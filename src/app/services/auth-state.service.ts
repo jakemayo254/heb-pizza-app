@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import {PizzaService} from '@src/app/services/pizza.service';
+import {AuthRequest} from '@src/app/models/auth.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
@@ -6,10 +9,49 @@ export class AuthStateService {
   password: string | null = null;
   authToken: string | null = null;
 
-  setAuth(username: string | null, password: string | null, authToken: string | null): void {
+  constructor(private pizzaService: PizzaService, private toast: ToastrService) {}
+
+  setAuthToken(username: string, password: string): void {
     this.username = username;
     this.password = password;
-    this.authToken = authToken;
+
+    const authRequest: AuthRequest = {
+      username,
+      password,
+    }
+
+    this.pizzaService.getAuthToken(authRequest).subscribe({
+      next: (res) => {
+        this.authToken = res.body?.access_token ?? null;
+      },
+      error: (err) => {
+        if (err.status === 400) {
+          this.toast.error(err.error.msg, "Error");
+        } else {
+          this.toast.error(err.error.msg, "Unauthorized");
+        }
+      }
+    });
+  }
+
+  resetAuthToken(): void {
+    const authRequest: AuthRequest = {
+      username: this.username ?? "",
+      password: this.password ?? "",
+    }
+
+    this.pizzaService.getAuthToken(authRequest).subscribe({
+      next: (res) => {
+        this.authToken = res.body?.access_token ?? null;
+      },
+      error: (err) => {
+        if (err.status === 400) {
+          this.toast.error(err.error.msg, "Error");
+        } else {
+          this.toast.error(err.error.msg, "Unauthorized");
+        }
+      }
+    });
   }
 
   clearAuth(): void {

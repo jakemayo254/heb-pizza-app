@@ -7,7 +7,6 @@ import {ToastrService} from 'ngx-toastr';
 import {ErrorResponse} from '@src/app/models/error-response.model';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {AuthStateService} from '@src/app/services/auth-state.service';
-import {fetchAuthTokenAgain} from '@src/app/utils/auth-token-fetcher';
 import {OrdersStateService} from '@src/app/services/orders-state.service';
 
 @Component({
@@ -55,7 +54,7 @@ export class OrderSubmitterComponent {
 
           // Token expires after 15 minutes so getting a new token
           if (errorBody.status === 401) {
-            fetchAuthTokenAgain(this.pizzaService, this.authState, this.toast);
+            this.authState.resetAuthToken();
             this.toast.info("Auth Token Refreshed. Please try again.", "Success");
           }
         }
