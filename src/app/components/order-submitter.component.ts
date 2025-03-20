@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { PizzaApiService } from '../services/pizza-api.service';
 import { FormsModule } from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {OrderRequest} from '@src/app/models/order.model';
-import {ToastrService} from 'ngx-toastr';
-import {ErrorResponse} from '@src/app/models/error-response.model';
-import {HttpErrorResponse} from '@angular/common/http';
-import {AuthStateService} from '@src/app/services/auth-state.service';
-import {OrdersStateService} from '@src/app/services/orders-state.service';
+import { CommonModule } from '@angular/common';
+import { OrderRequest } from '@src/app/models/order.model';
+import { ToastrService } from 'ngx-toastr';
+import { ErrorResponse } from '@src/app/models/error-response.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthStateService } from '@src/app/services/auth-state.service';
+import { OrdersStateService } from '@src/app/services/orders-state.service';
 
 @Component({
   selector: 'app-order-submitter',

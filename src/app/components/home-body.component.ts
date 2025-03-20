@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {OrderSubmitterComponent} from '@src/app/components/order-submitter.component';
-import {OrderViewerComponent} from '@src/app/components/order-viewer.component';
+import { OrderSubmitterComponent } from '@src/app/components/order-submitter.component';
+import { OrderViewerComponent } from '@src/app/components/order-viewer.component';
 
 @Component({
   selector: 'app-home-body',

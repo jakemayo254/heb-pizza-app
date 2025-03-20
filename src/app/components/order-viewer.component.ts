@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { PizzaApiService } from '../services/pizza-api.service';
 import { FormsModule } from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {ToastrService} from 'ngx-toastr';
-import {OrderFilterPipe} from '@src/app/pipes/order-filter.pipe';
-import {OrdersStateService} from '@src/app/services/orders-state.service';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
-import {ErrorResponse} from '@src/app/models/error-response.model';
-import {Observable} from 'rxjs';
-import {Order} from '@src/app/models/order.model';
+import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
+import { OrdersStateService } from '@src/app/services/orders-state.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
+import { ErrorResponse } from '@src/app/models/error-response.model';
+import { Observable } from 'rxjs';
+import { Order } from '@src/app/models/order.model';
 
 @Component({
   selector: 'app-order-viewer',

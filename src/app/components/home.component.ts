@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {HomeBodyComponent} from '@src/app/components/home-body.component';
-import {HomeHeaderComponent} from '@src/app/components/home-header.component';
-import {HomeFooterComponent} from '@src/app/components/home-footer.component';
-import {OrdersStateService} from '@src/app/services/orders-state.service';
+import { HomeBodyComponent } from '@src/app/components/home-body.component';
+import { HomeHeaderComponent } from '@src/app/components/home-header.component';
+import { HomeFooterComponent } from '@src/app/components/home-footer.component';
+import { OrdersStateService } from '@src/app/services/orders-state.service';
 
 @Component({
   selector: 'app-home',

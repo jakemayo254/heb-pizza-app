@@ -14,6 +14,7 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      "object-curly-spacing": ['error', 'always'],
       "@angular-eslint/directive-selector": [
         "error",
         {

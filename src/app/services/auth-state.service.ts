@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {PizzaApiService} from '@src/app/services/pizza-api.service';
-import {AuthRequest} from '@src/app/models/auth.model';
-import {ToastrService} from 'ngx-toastr';
+import { PizzaApiService } from '@src/app/services/pizza-api.service';
+import { AuthRequest } from '@src/app/models/auth.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
