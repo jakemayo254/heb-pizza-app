@@ -18,6 +18,7 @@ import { finalize } from 'rxjs';
               <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
               <input
                 required
+                data-testid="login-username-input"
                 type="text"
                 id="username"
                 name="username"
@@ -31,6 +32,7 @@ import { finalize } from 'rxjs';
               <div class="relative mt-1">
                 <input
                   required
+                  data-testid="login-password-input"
                   [type]="showPassword ? 'text' : 'password'"
                   id="password"
                   name="password"
@@ -39,6 +41,7 @@ import { finalize } from 'rxjs';
                   class="w-full border border-gray-300 rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <button
+                  data-testid="login-show-password-button"
                   type="button"
                   class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
                   (click)="togglePasswordVisibility()"
@@ -50,6 +53,7 @@ import { finalize } from 'rxjs';
             </div>
             <div>
               <button
+                data-testid="login-loading-button"
                 type="submit"
                 [disabled]="loginForm.invalid || loading"
                 [style.cursor]="loginForm.invalid || loading ? 'not-allowed' : 'pointer'"
