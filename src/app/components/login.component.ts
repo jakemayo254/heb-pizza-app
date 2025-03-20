@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthStateService } from '@src/app/services/auth-state.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -50,11 +51,12 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
             <div>
               <button
                 type="submit"
-                [disabled]="loginForm.invalid"
-                [style.cursor]="loginForm.invalid ? 'not-allowed' : 'pointer'"
+                [disabled]="loginForm.invalid || loading"
+                [style.cursor]="loginForm.invalid || loading ? 'not-allowed' : 'pointer'"
                 class="w-full bg-heb-gray-2 text-white font-semibold py-2 rounded hover:bg-blue-700 transition disabled:bg-gray-400"
               >
-                Login
+                <span *ngIf="loading">Loading...</span>
+                <span *ngIf="!loading">Login</span>
               </button>
             </div>
           </form>
@@ -67,6 +69,7 @@ export class LoginComponent {
   username = null;
   password = null;
   showPassword = false;
+  loading = false;
 
   constructor(private authState: AuthStateService) {}
 
@@ -75,6 +78,19 @@ export class LoginComponent {
   }
 
   requestAuthToken(): void {
-    if (this.username != null && this.password != null) this.authState.setAuthToken(this.username, this.password);
+    if (this.username && this.password) {
+      this.loading = true;
+
+      this.authState.setAuthToken(this.username, this.password)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe({
+          next: () => {
+            // success logic
+          },
+          error: () => {
+            // error toast
+          }
+        });
+    }
   }
 }

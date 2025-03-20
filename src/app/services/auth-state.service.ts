@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthRequest } from '@src/app/models/auth.model';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, tap, catchError, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
@@ -13,36 +14,26 @@ export class AuthStateService {
     private toast: ToastrService
   ) {}
 
-  private getAuthToken(): void {
-    if (this.authDetails != null) {
-      this.pizzaAPIService.getAuthToken(this.authDetails).subscribe({
-        next: (res) => {
-          this.authToken = res.body?.access_token ?? null;
-        },
-        error: (err) => {
-          let errorHeader = 'Unauthorized';
+  setAuthToken(username: string, password: string): Observable<any> {
+    this.authDetails = { username, password };
 
-          if (err.status === 400) {
-            errorHeader = 'Error';
-          }
+    return this.pizzaAPIService.getAuthToken(this.authDetails).pipe(
+      tap((res) => {
+        this.authToken = res.body?.access_token ?? null;
+      }),
+      catchError((err) => {
+        const errorHeader = err.status === 400 ? 'Error' : 'Unauthorized';
+        this.toast.error(err.error?.msg || 'Unknown error', errorHeader);
+        return throwError(() => err); // rethrow so the component can handle error state
+      })
+    );
+  }
 
-          this.toast.error(err.error.msg, errorHeader);
-        },
-      });
+  resetAuthToken(): Observable<any> {
+    if (this.authDetails) {
+      return this.setAuthToken(this.authDetails.username, this.authDetails.password);
     }
-  }
-
-  setAuthToken(username: string, password: string): void {
-    this.authDetails = {
-      username,
-      password,
-    };
-
-    this.getAuthToken();
-  }
-
-  resetAuthToken(): void {
-    this.getAuthToken();
+    return throwError(() => new Error('No auth details available'));
   }
 
   clearAuth(): void {
@@ -51,7 +42,6 @@ export class AuthStateService {
   }
 
   isAuthenticated(): boolean {
-    // check to see if it exists and not falsy
     return !!this.authToken;
   }
 }
