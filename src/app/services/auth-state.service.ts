@@ -5,58 +5,43 @@ import {ToastrService} from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
-  username: string | null = null;
-  password: string | null = null;
+  authDetails: AuthRequest | null = null;
   authToken: string | null = null;
 
   constructor(private pizzaService: PizzaService, private toast: ToastrService) {}
 
-  setAuthToken(username: string, password: string): void {
-    this.username = username;
-    this.password = password;
+  private getAuthToken(): void {
+    if (this.authDetails != null) {
+      this.pizzaService.getAuthToken(this.authDetails).subscribe({
+        next: (res) => {
+          this.authToken = res.body?.access_token ?? null;
+        },
+        error: (err) => {
+          if (err.status === 400) {
+            this.toast.error(err.error.msg, "Error");
+          } else {
+            this.toast.error(err.error.msg, "Unauthorized");
+          }
+        }
+      });
+    }
+  }
 
-    const authRequest: AuthRequest = {
+  setAuthToken(username: string, password: string): void {
+    this.authDetails = {
       username,
       password,
     }
 
-    this.pizzaService.getAuthToken(authRequest).subscribe({
-      next: (res) => {
-        this.authToken = res.body?.access_token ?? null;
-      },
-      error: (err) => {
-        if (err.status === 400) {
-          this.toast.error(err.error.msg, "Error");
-        } else {
-          this.toast.error(err.error.msg, "Unauthorized");
-        }
-      }
-    });
+    this.getAuthToken();
   }
 
   resetAuthToken(): void {
-    const authRequest: AuthRequest = {
-      username: this.username ?? "",
-      password: this.password ?? "",
-    }
-
-    this.pizzaService.getAuthToken(authRequest).subscribe({
-      next: (res) => {
-        this.authToken = res.body?.access_token ?? null;
-      },
-      error: (err) => {
-        if (err.status === 400) {
-          this.toast.error(err.error.msg, "Error");
-        } else {
-          this.toast.error(err.error.msg, "Unauthorized");
-        }
-      }
-    });
+    this.getAuthToken();
   }
 
   clearAuth(): void {
-    this.username = null;
-    this.password = null;
+    this.authDetails = null;
     this.authToken = null;
   }
 

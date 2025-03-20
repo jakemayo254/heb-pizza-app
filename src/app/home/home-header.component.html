@@ -1,6 +1,6 @@
-<div id="home-header">
+<div id="home-header" data-testid="home-header">
   <h2>Home</h2>
-  <h3>Hello, {{ authState.username }}</h3>
+  <h3>Hello, {{ authState.authDetails?.username }}</h3>
   <button type="button" (click)="logOut()">Log Out</button>
   <br>
 </div>
