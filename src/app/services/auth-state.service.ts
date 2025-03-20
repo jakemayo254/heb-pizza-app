@@ -1,8 +1,9 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthRequest } from '@src/app/models/auth.model';
+import { AuthRequest, AuthResponse } from '@src/app/models/auth.model';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, tap, catchError, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
@@ -14,7 +15,7 @@ export class AuthStateService {
     private toast: ToastrService
   ) {}
 
-  setAuthToken(username: string, password: string): Observable<any> {
+  setAuthToken(username: string, password: string): Observable<HttpResponse<AuthResponse>> {
     this.authDetails = { username, password };
 
     return this.pizzaAPIService.getAuthToken(this.authDetails).pipe(
@@ -29,7 +30,7 @@ export class AuthStateService {
     );
   }
 
-  resetAuthToken(): Observable<any> {
+  resetAuthToken(): Observable<HttpResponse<AuthResponse>> {
     if (this.authDetails) {
       return this.setAuthToken(this.authDetails.username, this.authDetails.password);
     }

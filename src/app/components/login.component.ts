@@ -81,15 +81,16 @@ export class LoginComponent {
     if (this.username && this.password) {
       this.loading = true;
 
-      this.authState.setAuthToken(this.username, this.password)
-        .pipe(finalize(() => this.loading = false))
+      this.authState
+        .setAuthToken(this.username, this.password)
+        .pipe(finalize(() => (this.loading = false)))
         .subscribe({
           next: () => {
             // success logic
           },
           error: () => {
             // error toast
-          }
+          },
         });
     }
   }
