@@ -1,44 +1,54 @@
-<div id="app-login" data-testid="app-login">
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  <h2>Login</h2>
-  <form #loginForm="ngForm" (ngSubmit)="requestAuthToken()">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <br>
-      <input
-        required
-        type="text"
-        id="username"
-        name="username"
-        [(ngModel)]="username"
-        placeholder="Enter your username"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <div class="password-wrapper">
+<div
+  id="app-login"
+  data-testid="app-login"
+  class="flex items-center justify-center min-h-screen bg-gray-100 px-4"
+>
+  <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl text-center mb-4">Login</h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="requestAuthToken()" class="space-y-4">
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
         <input
           required
-          [type]="showPassword ? 'text' : 'password'"
-          id="password"
-          name="password"
-          [(ngModel)]="password"
-          placeholder="Enter your password"
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Enter your username"
+          class="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <span class="toggle-password" style="cursor: pointer;" (click)="togglePasswordVisibility()">
-          {{ showPassword ? '👁️‍🗨️' : '👁️' }}
-        </span>
       </div>
-    </div>
-    <br>
-    <button
-      type="submit"
-      [disabled]="loginForm.invalid"
-      [style.cursor]="loginForm.invalid ? 'not-allowed' : 'pointer'"
-    >
-      Login
-    </button>
-  </form>
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <div class="relative mt-1">
+          <input
+            required
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Enter your password"
+            class="w-full border border-gray-300 rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <span
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
+            (click)="togglePasswordVisibility()"
+          >
+            {{ showPassword ? '👁️‍🗨️' : '👁️' }}
+          </span>
+        </div>
+      </div>
+      <div>
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          [style.cursor]="loginForm.invalid ? 'not-allowed' : 'pointer'"
+          class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition disabled:bg-gray-400"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

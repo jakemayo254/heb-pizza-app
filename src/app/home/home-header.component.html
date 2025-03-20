@@ -1,7 +1,36 @@
-<div id="home-header" data-testid="home-header">
-  <h2>Home</h2>
-  <h3>Hello, {{ authState.authDetails?.username }}</h3>
-  <button type="button" style="cursor: pointer;" (click)="logOut()">Log Out</button>
-  <br>
-</div>
+<header class="w-full bg-blue-600 text-white p-4">
+  <div class="flex items-center justify-between">
+    <!-- Left: Home Title -->
+    <div class="text-lg font-bold md:text-left text-center w-full md:w-auto">
+      Home
+    </div>
+
+    <!-- Desktop Right Section -->
+    <div class="hidden md:flex items-center gap-4 ml-auto">
+      <span>Welcome, {{ authState.authDetails?.username }}</span>
+      <button
+        type="button"
+        (click)="logOut()"
+        style="cursor: pointer;"
+        class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-200 transition"
+      >
+        Log Out
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div class="md:hidden ml-auto">
+      <details class="relative">
+        <summary class="cursor-pointer list-none flex items-center gap-2">
+          ☰
+        </summary>
+        <ul class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg w-40 z-10">
+          <li class="px-4 py-2 border-b border-gray-200">Welcome, {{ authState.authDetails?.username }}</li>
+          <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" style="cursor: pointer;" (click)="logOut()">Log Out</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</header>
+
 
