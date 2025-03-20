@@ -39,7 +39,7 @@ export class OrderSubmitterComponent {
         Size: this.newOrderSize
       }
 
-      this.pizzaService.createOrder(orderRequest, this.authState.authToken).subscribe({
+      this.pizzaService.postOrder(orderRequest, this.authState.authToken).subscribe({
         next: (res: HttpResponse<Order>) => {
           this.ordersState.getOrdersFromApi();
           this.toast.success("Order added successfully.", "Success");

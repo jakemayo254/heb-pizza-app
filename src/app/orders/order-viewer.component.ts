@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import {OrderFilterPipe} from '@src/app/pipes/order-filter.pipe';
-import {AuthStateService} from '@src/app/services/auth-state.service';
 import {OrdersStateService} from '@src/app/services/orders-state.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
@@ -21,7 +20,6 @@ export class OrderViewerComponent {
 
   constructor(private pizzaService: PizzaService, private toast: ToastrService,
               protected ordersState: OrdersStateService) {
-    ordersState.getOrdersFromApi();
   }
 
   deleteOrder(): void {

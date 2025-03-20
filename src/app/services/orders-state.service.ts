@@ -9,7 +9,7 @@ export class OrdersStateService {
   constructor(private pizzaService: PizzaService) {}
 
   getOrdersFromApi(): void {
-    this.pizzaService.getAllOrders().subscribe({
+    this.pizzaService.getOrders().subscribe({
       next: (res) => {
         this.orders = res.body ?? [];
       },

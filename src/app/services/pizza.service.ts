@@ -26,13 +26,13 @@ export class PizzaService {
     });
   }
 
-  getAllOrders(): Observable<HttpResponse<Order[]>> {
+  getOrders(): Observable<HttpResponse<Order[]>> {
     return this.http.get<Order[]>(this.ORDERS_URL, {
       observe: "response"
     });
   }
 
-  createOrder(order: OrderRequest, authToken: string): Observable<HttpResponse<Order>> {
+  postOrder(order: OrderRequest, authToken: string): Observable<HttpResponse<Order>> {
     return this.http.post<Order>(this.ORDERS_URL, order, {
       headers: this.getAuthHeader(authToken),
       observe: "response"
