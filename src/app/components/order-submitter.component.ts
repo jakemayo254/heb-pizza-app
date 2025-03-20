@@ -49,10 +49,10 @@ export class OrderSubmitterComponent {
   newOrderSize: string | null = null;
 
   constructor(
-    private pizzaService: PizzaApiService,
-    private toast: ToastrService,
-    protected authState: AuthStateService,
-    protected ordersState: OrdersStateService
+    private readonly pizzaService: PizzaApiService,
+    private readonly toast: ToastrService,
+    protected readonly authState: AuthStateService,
+    protected readonly ordersState: OrdersStateService
   ) {}
 
   submitOrder(): void {

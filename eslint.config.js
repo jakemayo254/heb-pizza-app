@@ -35,7 +35,7 @@ module.exports = tseslint.config(
       'check-file/filename-naming-convention': [
         'error',
         {
-          'src/**/*.{ts,html, css}': 'KEBAB_CASE',
+          'src/**/*.{ts,html,css}': 'KEBAB_CASE',
         },
         {
           ignoreMiddleExtensions: true,

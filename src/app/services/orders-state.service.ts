@@ -6,12 +6,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersStateService {
-  private ordersSubject = new BehaviorSubject<Order[]>([]);
+  private readonly ordersSubject = new BehaviorSubject<Order[]>([]);
   public orders$: Observable<Order[]> = this.ordersSubject.asObservable();
 
   constructor(
-    private pizzaService: PizzaApiService,
-    private toast: ToastrService
+    private readonly pizzaService: PizzaApiService,
+    private readonly toast: ToastrService
   ) {}
 
   getOrdersFromApi(): void {

@@ -16,7 +16,7 @@ import { OrdersStateService } from '@src/app/services/orders-state.service';
   `,
 })
 export class HomeComponent {
-  constructor(private ordersState: OrdersStateService) {
+  constructor(private readonly ordersState: OrdersStateService) {
     // need orders list right when the home page is loaded
     this.ordersState.getOrdersFromApi();
   }

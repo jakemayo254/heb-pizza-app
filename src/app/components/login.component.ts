@@ -79,7 +79,7 @@ export class LoginComponent {
   showPassword = false;
   loading = false;
 
-  constructor(private authState: AuthStateService) {}
+  constructor(private readonly authState: AuthStateService) {}
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;

@@ -13,7 +13,7 @@ export class PizzaApiService {
   private readonly ordersURL = this.baseURL + '/orders';
   private readonly authURL = this.baseURL + '/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   private getAuthHeader(authToken: string): HttpHeaders {
     return new HttpHeaders({

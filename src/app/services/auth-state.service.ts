@@ -11,8 +11,8 @@ export class AuthStateService {
   authToken: string | null = null;
 
   constructor(
-    private pizzaAPIService: PizzaApiService,
-    private toast: ToastrService
+    private readonly pizzaAPIService: PizzaApiService,
+    private readonly toast: ToastrService
   ) {}
 
   setAuthToken(username: string, password: string): Observable<HttpResponse<AuthResponse>> {

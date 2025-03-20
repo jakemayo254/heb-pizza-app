@@ -72,9 +72,9 @@ export class OrderViewerComponent {
   orders$: Observable<Order[]>;
 
   constructor(
-    private pizzaService: PizzaApiService,
-    private toast: ToastrService,
-    protected ordersState: OrdersStateService
+    private readonly pizzaService: PizzaApiService,
+    private readonly toast: ToastrService,
+    protected readonly ordersState: OrdersStateService
   ) {
     this.orders$ = this.ordersState.orders$ ?? [];
   }
