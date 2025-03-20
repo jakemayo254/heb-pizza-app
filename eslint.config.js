@@ -4,7 +4,7 @@ const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const prettier = require('eslint-plugin-prettier');
 const prettierConfig = require('eslint-config-prettier');
-const simpleImportSort = require('eslint-plugin-simple-import-sort'); // ✅ import the plugin
+const simpleImportSort = require('eslint-plugin-simple-import-sort');
 
 module.exports = tseslint.config(
   {
