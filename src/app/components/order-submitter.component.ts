@@ -24,34 +24,13 @@ import { PizzaApiService } from '../services/pizza-api.service';
           [(ngModel)]="newOrderTableNo"
           placeholder="Table No"
         />
-        <br>
-        <input
-          required
-          type="text"
-          id="size"
-          name="size"
-          [(ngModel)]="newOrderSize"
-          placeholder="Size"
-        />
-        <br>
-        <input
-          required
-          type="text"
-          id="crust"
-          name="crust"
-          [(ngModel)]="newOrderCrust"
-          placeholder="Crust"
-        />
-        <br>
-        <input
-          required
-          type="text"
-          id="flavor"
-          name="deleteOrder"
-          [(ngModel)]="newOrderFlavor"
-          placeholder="Flavor"
-        />
-        <br>
+        <br />
+        <input required type="text" id="size" name="size" [(ngModel)]="newOrderSize" placeholder="Size" />
+        <br />
+        <input required type="text" id="crust" name="crust" [(ngModel)]="newOrderCrust" placeholder="Crust" />
+        <br />
+        <input required type="text" id="flavor" name="deleteOrder" [(ngModel)]="newOrderFlavor" placeholder="Flavor" />
+        <br />
         <button
           type="submit"
           [disabled]="newOrderForm.invalid"
@@ -69,28 +48,36 @@ export class OrderSubmitterComponent {
   newOrderFlavor: string | null = null;
   newOrderSize: string | null = null;
 
-  constructor(private pizzaService: PizzaApiService, private toast: ToastrService,
-              protected authState: AuthStateService, protected ordersState: OrdersStateService) {
-  }
+  constructor(
+    private pizzaService: PizzaApiService,
+    private toast: ToastrService,
+    protected authState: AuthStateService,
+    protected ordersState: OrdersStateService
+  ) {}
 
   submitOrder(): void {
-    if (this.authState.authToken !== null && this.authState.authToken !== '' &&
-      this.newOrderFlavor !== null && this.newOrderFlavor !== '' &&
-      this.newOrderCrust !== null && this.newOrderCrust !== '' &&
-      this.newOrderSize !== null && this.newOrderSize !== '' &&
-      this.newOrderTableNo !== null) {
-
+    if (
+      this.authState.authToken !== null &&
+      this.authState.authToken !== '' &&
+      this.newOrderFlavor !== null &&
+      this.newOrderFlavor !== '' &&
+      this.newOrderCrust !== null &&
+      this.newOrderCrust !== '' &&
+      this.newOrderSize !== null &&
+      this.newOrderSize !== '' &&
+      this.newOrderTableNo !== null
+    ) {
       const orderRequest: OrderRequest = {
         Table_No: this.newOrderTableNo,
         Flavor: this.newOrderFlavor,
         Crust: this.newOrderCrust,
-        Size: this.newOrderSize
-      }
+        Size: this.newOrderSize,
+      };
 
       this.pizzaService.postOrder(orderRequest, this.authState.authToken).subscribe({
         next: (): void => {
           this.ordersState.getOrdersFromApi();
-          this.toast.success("Order added successfully.", "Success");
+          this.toast.success('Order added successfully.', 'Success');
 
           this.newOrderTableNo = null;
           this.newOrderCrust = null;
@@ -104,10 +91,10 @@ export class OrderSubmitterComponent {
           // Token expires after 15 minutes so getting a new token
           if (errorBody.status === 401) {
             this.authState.resetAuthToken();
-            this.toast.info("Auth Token Refreshed. Please try again.", "Success");
+            this.toast.info('Auth Token Refreshed. Please try again.', 'Success');
           }
-        }
-      })
+        },
+      });
     }
   }
 }

@@ -9,7 +9,10 @@ export class OrdersStateService {
   private ordersSubject = new BehaviorSubject<Order[]>([]);
   public orders$: Observable<Order[]> = this.ordersSubject.asObservable();
 
-  constructor(private pizzaService: PizzaApiService, private toast: ToastrService) {}
+  constructor(
+    private pizzaService: PizzaApiService,
+    private toast: ToastrService
+  ) {}
 
   getOrdersFromApi(): void {
     this.pizzaService.getOrders().subscribe({
@@ -18,7 +21,7 @@ export class OrdersStateService {
       },
       error: (err) => {
         this.toast.error(err.error?.message ?? 'Unexpected error', 'Error Getting Orders');
-      }
+      },
     });
   }
 }

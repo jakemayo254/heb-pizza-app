@@ -7,11 +7,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
   selector: 'app-login',
   imports: [CommonModule, FormsModule],
   template: `
-    <div
-      id="app-login"
-      data-testid="app-login"
-      class="flex items-center justify-center min-h-screen bg-heb-light-grey"
-    >
+    <div id="app-login" data-testid="app-login" class="flex items-center justify-center min-h-screen bg-heb-light-grey">
       <div class="flex flex-col items-center space-y-4">
         <img src="hebLogo.png" alt="H-E-B Logo" class="w-44 h-auto" />
         <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
@@ -79,7 +75,6 @@ export class LoginComponent {
   }
 
   requestAuthToken(): void {
-    if (this.username != null && this.password != null)
-      this.authState.setAuthToken(this.username, this.password);
+    if (this.username != null && this.password != null) this.authState.setAuthToken(this.username, this.password);
   }
 }

@@ -28,18 +28,11 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
         <!-- Mobile Dropdown Menu -->
         <div class="md:hidden ml-auto">
           <details class="relative">
-            <summary class="cursor-pointer list-none flex items-center gap-2 text-2xl">
-              ☰
-            </summary>
+            <summary class="cursor-pointer list-none flex items-center gap-2 text-2xl">☰</summary>
             <ul class="absolute right-0 mt-2 bg-white text-heb-text-gray rounded shadow-lg w-40 z-10">
               <li class="px-4 py-2 border-b border-gray-200">Welcome, {{ authState.authDetails?.username }}</li>
               <li class="px-4 py-2 hover:bg-gray-100">
-                <button
-                  (click)="logOut()"
-                  class="w-full text-left cursor-pointer"
-                >
-                  Log Out
-                </button>
+                <button (click)="logOut()" class="w-full text-left cursor-pointer">Log Out</button>
               </li>
             </ul>
           </details>
@@ -49,7 +42,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
   `,
 })
 export class HomeHeaderComponent {
-  constructor(protected authState: AuthStateService) { }
+  constructor(protected authState: AuthStateService) {}
 
   logOut(): void {
     this.authState.clearAuth();

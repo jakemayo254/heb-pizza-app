@@ -6,6 +6,6 @@ export interface OrderRequest {
 }
 
 export interface Order extends OrderRequest {
-    Order_ID: number;
-    Timestamp: Date;
+  Order_ID: number;
+  Timestamp: Date;
 }

@@ -12,5 +12,4 @@ import { OrderViewerComponent } from '@src/app/components/order-viewer.component
     </div>
   `,
 })
-export class HomeBodyComponent {
-}
+export class HomeBodyComponent {}

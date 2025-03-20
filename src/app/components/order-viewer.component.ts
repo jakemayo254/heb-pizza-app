@@ -26,7 +26,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           [(ngModel)]="deleteOrderID"
           placeholder="Enter Order ID To Delete"
         />
-        <br>
+        <br />
         <button
           type="submit"
           [disabled]="deleteOrderForm.invalid"
@@ -35,7 +35,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           Delete Order
         </button>
       </form>
-      <br>
+      <br />
       <form #searchForm="ngForm" (ngSubmit)="clearSearchText()">
         <input
           required
@@ -45,7 +45,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           [(ngModel)]="searchText"
           placeholder="Search Orders..."
         />
-        <br>
+        <br />
         <button
           type="submit"
           [disabled]="searchForm.invalid"
@@ -54,18 +54,14 @@ import { PizzaApiService } from '../services/pizza-api.service';
           Clear Search
         </button>
       </form>
-      <br>
+      <br />
       <ul>
         <li *ngFor="let order of orders$ | async | orderFilter: searchText">
-          Order ID: {{ order.Order_ID }} |
-          Table No: {{ order.Table_No }} |
-          Crust: {{ order.Crust }} |
-          Flavor: {{ order.Flavor }} |
-          Size: {{ order.Size }} |
-          Timestamp: {{ order.Timestamp }}
+          Order ID: {{ order.Order_ID }} | Table No: {{ order.Table_No }} | Crust: {{ order.Crust }} | Flavor:
+          {{ order.Flavor }} | Size: {{ order.Size }} | Timestamp: {{ order.Timestamp }}
         </li>
       </ul>
-      <br>
+      <br />
       <button type="button" style="cursor: pointer;" (click)="ordersState.getOrdersFromApi()">Refresh Orders</button>
     </div>
   `,
@@ -75,8 +71,11 @@ export class OrderViewerComponent {
   deleteOrderID: number | null = null;
   orders$: Observable<Order[]>;
 
-  constructor(private pizzaService: PizzaApiService, private toast: ToastrService,
-              protected ordersState: OrdersStateService) {
+  constructor(
+    private pizzaService: PizzaApiService,
+    private toast: ToastrService,
+    protected ordersState: OrdersStateService
+  ) {
     this.orders$ = this.ordersState.orders$ ?? [];
   }
 
@@ -85,15 +84,15 @@ export class OrderViewerComponent {
       this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
         next: (result: HttpResponse<DeleteOrderResponse>) => {
           this.ordersState.getOrdersFromApi();
-          this.toast.success(result.body?.message, "Success");
+          this.toast.success(result.body?.message, 'Success');
           this.deleteOrderID = null;
         },
         error: (err: HttpErrorResponse) => {
           const errorBody: ErrorResponse = err.error;
           this.toast.error(errorBody.detail, errorBody.title);
           this.deleteOrderID = null;
-        }
-      })
+        },
+      });
     }
   }
 

@@ -8,7 +8,10 @@ export class AuthStateService {
   authDetails: AuthRequest | null = null;
   authToken: string | null = null;
 
-  constructor(private pizzaAPIService: PizzaApiService, private toast: ToastrService) {}
+  constructor(
+    private pizzaAPIService: PizzaApiService,
+    private toast: ToastrService
+  ) {}
 
   private getAuthToken(): void {
     if (this.authDetails != null) {
@@ -17,12 +20,14 @@ export class AuthStateService {
           this.authToken = res.body?.access_token ?? null;
         },
         error: (err) => {
+          let errorHeader = 'Unauthorized';
+
           if (err.status === 400) {
-            this.toast.error(err.error.msg, "Error");
-          } else {
-            this.toast.error(err.error.msg, "Unauthorized");
+            errorHeader = 'Error';
           }
-        }
+
+          this.toast.error(err.error.msg, errorHeader);
+        },
       });
     }
   }
@@ -31,7 +36,7 @@ export class AuthStateService {
     this.authDetails = {
       username,
       password,
-    }
+    };
 
     this.getAuthToken();
   }

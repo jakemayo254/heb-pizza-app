@@ -13,5 +13,5 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
   `,
 })
 export class AppComponent {
-  constructor(protected authState: AuthStateService) { }
+  constructor(protected authState: AuthStateService) {}
 }
