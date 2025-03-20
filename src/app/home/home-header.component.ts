@@ -10,6 +10,6 @@ export class HomeHeaderComponent {
   constructor(protected authState: AuthStateService) { }
 
   logOut(): void {
-    this.authState.clearAuth()
+    this.authState.clearAuth();
   }
 }

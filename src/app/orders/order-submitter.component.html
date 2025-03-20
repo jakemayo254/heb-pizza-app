@@ -36,6 +36,12 @@
       placeholder="Flavor"
     />
     <br>
-    <button type="submit" [disabled]="newOrderForm.invalid">Submit Order</button>
+    <button
+      type="submit"
+      [disabled]="newOrderForm.invalid"
+      [style.cursor]="newOrderForm.invalid ? 'not-allowed' : 'pointer'"
+    >
+      Submit Order
+    </button>
   </form>
 </div>

@@ -24,12 +24,18 @@
           [(ngModel)]="password"
           placeholder="Enter your password"
         />
-        <span class="toggle-password" (click)="togglePasswordVisibility()">
+        <span class="toggle-password" style="cursor: pointer;" (click)="togglePasswordVisibility()">
           {{ showPassword ? '👁️‍🗨️' : '👁️' }}
         </span>
       </div>
     </div>
     <br>
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+      [style.cursor]="loginForm.invalid ? 'not-allowed' : 'pointer'"
+    >
+      Login
+    </button>
   </form>
 </div>

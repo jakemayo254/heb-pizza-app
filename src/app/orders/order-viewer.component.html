@@ -9,7 +9,13 @@
       placeholder="Enter Order ID To Delete"
     />
     <br>
-    <button type="submit" [disabled]="deleteOrderForm.invalid">Delete Order</button>
+    <button
+      type="submit"
+      [disabled]="deleteOrderForm.invalid"
+      [style.cursor]="deleteOrderForm.invalid ? 'not-allowed' : 'pointer'"
+    >
+      Delete Order
+    </button>
   </form>
   <br>
   <form #searchForm="ngForm" (ngSubmit)="clearSearchText()">
@@ -22,7 +28,13 @@
       placeholder="Search Orders..."
     />
     <br>
-    <button type="submit" [disabled]="searchForm.invalid">Clear Search</button>
+    <button
+      type="submit"
+      [disabled]="searchForm.invalid"
+      [style.cursor]="searchForm.invalid ? 'not-allowed' : 'pointer'"
+    >
+      Clear Search
+    </button>
   </form>
   <br>
   <ul>
@@ -36,5 +48,5 @@
     </li>
   </ul>
   <br>
-  <button type="button" (click)="ordersState.getOrdersFromApi()">Refresh Orders</button>
+  <button type="button" style="cursor: pointer;" (click)="ordersState.getOrdersFromApi()">Refresh Orders</button>
 </div>
