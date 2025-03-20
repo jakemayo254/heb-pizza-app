@@ -1,0 +1,55 @@
+import { Component } from '@angular/core';
+import { PizzaService } from '../services/pizza.service';
+import { FormsModule } from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
+import {OrderFilterPipe} from '@src/app/pipes/order-filter.pipe';
+import {AuthStateService} from '@src/app/services/auth-state.service';
+import {OrdersStateService} from '@src/app/services/orders-state.service';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
+import {ErrorResponse} from '@src/app/models/error-response.model';
+
+@Component({
+  selector: 'order-viewer',
+  imports: [CommonModule, FormsModule, OrderFilterPipe],
+  templateUrl: './order-viewer.component.html',
+})
+export class OrderViewerComponent {
+  searchText: string | null = null;
+  deleteOrderID: number | null = null;
+
+  constructor(private pizzaService: PizzaService, private toast: ToastrService,
+              protected authState: AuthStateService, protected ordersState: OrdersStateService) {
+    this.getOrders();
+  }
+
+  getOrders(): void {
+    this.pizzaService.getAllOrders().subscribe({
+      next: result => {
+        this.ordersState.setOrders(result.body ?? [])
+      }
+    });
+  }
+
+  deleteOrder(): void {
+    if (this.deleteOrderID != null) {
+      this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
+        next: (result: HttpResponse<DeleteOrderResponse>) => {
+          this.getOrders();
+          this.toast.success(result.body?.message, "Success");
+          this.deleteOrderID = null;
+        },
+        error: (err: HttpErrorResponse) => {
+          const errorBody: ErrorResponse = err.error;
+          this.toast.error(errorBody.detail, errorBody.title);
+          this.deleteOrderID = null;
+        }
+      })
+    }
+  }
+
+  clearSearchText(): void {
+    this.searchText = null;
+  }
+}
