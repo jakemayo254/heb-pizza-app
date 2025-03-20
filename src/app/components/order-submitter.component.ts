@@ -27,9 +27,9 @@ import { PizzaApiService } from '../services/pizza-api.service';
           name="tableNumber"
           [(ngModel)]="newOrderTableNo"
           placeholder="Table No"
+          autocomplete="off"
           class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
         />
-
         <input
           required
           type="text"
@@ -37,9 +37,9 @@ import { PizzaApiService } from '../services/pizza-api.service';
           name="size"
           [(ngModel)]="newOrderSize"
           placeholder="Size"
+          autocomplete="off"
           class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
         />
-
         <input
           required
           type="text"
@@ -47,9 +47,9 @@ import { PizzaApiService } from '../services/pizza-api.service';
           name="crust"
           [(ngModel)]="newOrderCrust"
           placeholder="Crust"
+          autocomplete="off"
           class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
         />
-
         <input
           required
           type="text"
@@ -57,6 +57,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           name="deleteOrder"
           [(ngModel)]="newOrderFlavor"
           placeholder="Flavor"
+          autocomplete="off"
           class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
         />
 

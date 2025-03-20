@@ -16,53 +16,61 @@ import { PizzaApiService } from '../services/pizza-api.service';
   selector: 'app-order-viewer',
   imports: [CommonModule, FormsModule, OrderFilterPipe],
   template: `
-    <div id="order-viewer" data-testid="order-viewer" class="">
-      <form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()">
-        <input
-          required
-          type="number"
-          id="deleteOrder"
-          name="deleteOrder"
-          [(ngModel)]="deleteOrderID"
-          placeholder="Enter Order ID To Delete"
-        />
-        <br />
-        <button
-          type="submit"
-          [disabled]="deleteOrderForm.invalid"
-          [style.cursor]="deleteOrderForm.invalid ? 'not-allowed' : 'pointer'"
-        >
-          Delete Order
-        </button>
-      </form>
-      <br />
-      <form #searchForm="ngForm" (ngSubmit)="clearSearchText()">
-        <input
-          required
-          type="text"
-          id="searchOrders"
-          name="searchOrders"
-          [(ngModel)]="searchText"
-          placeholder="Search Orders..."
-        />
-        <br />
-        <button
-          type="submit"
-          [disabled]="searchForm.invalid"
-          [style.cursor]="searchForm.invalid ? 'not-allowed' : 'pointer'"
-        >
-          Clear Search
-        </button>
-      </form>
-      <br />
-      <ul>
-        <li *ngFor="let order of orders$ | async | orderFilter: searchText">
+    <div id="order-viewer" data-testid="order-viewer" class="p-4 bg-gray-100">
+      <!-- Top flex container for delete + search -->
+      <div class="flex flex-wrap gap-4 mb-4 items-center">
+        <!-- Delete Order Form -->
+        <form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()" class="flex gap-2 items-center flex-wrap">
+          <input
+            required
+            type="number"
+            id="deleteOrder"
+            name="deleteOrder"
+            [(ngModel)]="deleteOrderID"
+            placeholder="Order ID"
+            autocomplete="off"
+            class="bg-white border border-gray-300 rounded px-3 py-2 min-w-[180px]"
+          />
+          <button
+            type="submit"
+            [disabled]="deleteOrderForm.invalid"
+            [style.cursor]="deleteOrderForm.invalid ? 'not-allowed' : 'pointer'"
+            class="bg-red-600 text-white px-4 py-2 rounded disabled:opacity-50"
+          >
+            Delete Order
+          </button>
+        </form>
+
+        <!-- Search Form -->
+        <form #searchForm="ngForm" (ngSubmit)="clearSearchText()" class="flex gap-2 items-center flex-wrap">
+          <input
+            required
+            type="text"
+            id="searchOrders"
+            name="searchOrders"
+            [(ngModel)]="searchText"
+            placeholder="Search Orders..."
+            autocomplete="off"
+            class="bg-white border border-gray-300 rounded px-3 py-2 min-w-[180px]"
+          />
+          <button
+            type="submit"
+            [disabled]="searchForm.invalid"
+            [style.cursor]="searchForm.invalid ? 'not-allowed' : 'pointer'"
+            class="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+          >
+            Clear Search
+          </button>
+        </form>
+      </div>
+
+      <!-- Orders List -->
+      <ul class="space-y-2">
+        <li *ngFor="let order of orders$ | async | orderFilter: searchText" class="bg-white p-3 rounded shadow">
           Order ID: {{ order.Order_ID }} | Table No: {{ order.Table_No }} | Crust: {{ order.Crust }} | Flavor:
           {{ order.Flavor }} | Size: {{ order.Size }} | Timestamp: {{ order.Timestamp }}
         </li>
       </ul>
-      <br />
-      <button type="button" style="cursor: pointer;" (click)="ordersState.getOrdersFromApi()">Refresh Orders</button>
     </div>
   `,
 })
