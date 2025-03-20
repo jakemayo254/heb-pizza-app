@@ -8,7 +8,7 @@ import { OrdersStateService } from '@src/app/services/orders-state.service';
   selector: 'app-home',
   imports: [HomeHeaderComponent, HomeBodyComponent, HomeFooterComponent],
   template: `
-    <div id="home" data-testid="home" class="flex flex-col min-h-screen">
+    <div id="home" data-testid="home" class="flex min-h-screen flex-col">
       <app-home-header></app-home-header>
       <app-home-body class="flex-grow"></app-home-body>
       <app-home-footer></app-home-footer>

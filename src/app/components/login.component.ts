@@ -8,11 +8,15 @@ import { finalize } from 'rxjs';
   selector: 'app-login',
   imports: [CommonModule, FormsModule],
   template: `
-    <div id="app-login" data-testid="app-login" class="flex items-center justify-center min-h-screen bg-heb-light-grey">
+    <div
+      id="app-login"
+      data-testid="app-login"
+      class="bg-heb-light-grey flex min-h-screen items-center justify-center p-4"
+    >
       <div class="flex flex-col items-center space-y-4">
-        <img src="hebLogo.png" alt="H-E-B Logo" class="w-44 h-auto" />
-        <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-          <h2 class="text-xl text-center mb-4">Pizza App Login</h2>
+        <img src="hebLogo.png" alt="H-E-B Logo" class="h-auto w-44" />
+        <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-md">
+          <h2 class="mb-4 text-center text-xl">Pizza App Login</h2>
           <form #loginForm="ngForm" (ngSubmit)="requestAuthToken()" class="space-y-4">
             <div>
               <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
@@ -24,7 +28,7 @@ import { finalize } from 'rxjs';
                 name="username"
                 [(ngModel)]="username"
                 placeholder="Enter your username"
-                class="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
             <div>
@@ -38,12 +42,12 @@ import { finalize } from 'rxjs';
                   name="password"
                   [(ngModel)]="password"
                   placeholder="Enter your password"
-                  class="w-full border border-gray-300 rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  class="w-full rounded border border-gray-300 px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
                 <button
                   data-testid="login-show-password-button"
                   type="button"
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
+                  class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
                   (click)="togglePasswordVisibility()"
                   aria-label="Toggle password visibility"
                 >
@@ -57,7 +61,7 @@ import { finalize } from 'rxjs';
                 type="submit"
                 [disabled]="loginForm.invalid || loading"
                 [style.cursor]="loginForm.invalid || loading ? 'not-allowed' : 'pointer'"
-                class="w-full bg-heb-gray-2 text-white font-semibold py-2 rounded hover:bg-blue-700 transition disabled:bg-gray-400"
+                class="bg-heb-gray-2 w-full rounded py-2 font-semibold text-white transition hover:bg-blue-700 disabled:bg-gray-400"
               >
                 <span *ngIf="loading">Loading...</span>
                 <span *ngIf="!loading">Login</span>

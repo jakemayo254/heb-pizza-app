@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-home-footer',
   imports: [],
   template: `
-    <div id="home-footer" data-testid="home-footer" class="bg-heb-gray text-white text-center">
+    <div id="home-footer" data-testid="home-footer" class="bg-heb-gray text-center text-white">
       <h3>Made By Jake Mayo 2025</h3>
     </div>
   `,

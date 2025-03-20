@@ -6,7 +6,7 @@ import { OrderViewerComponent } from '@src/app/components/order-viewer.component
   selector: 'app-home-body',
   imports: [OrderSubmitterComponent, OrderViewerComponent],
   template: `
-    <div id="home-body" data-testid="home-body" class="bg-white flex-grow">
+    <div id="home-body" data-testid="home-body" class="flex-grow bg-white">
       <app-order-submitter></app-order-submitter>
       <app-order-viewer></app-order-viewer>
     </div>
