@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
 import { ErrorResponse } from '@src/app/models/error-response.model';
@@ -8,7 +8,7 @@ import { Order } from '@src/app/models/order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { PizzaApiService } from '../services/pizza-api.service';
 
@@ -72,16 +72,29 @@ import { PizzaApiService } from '../services/pizza-api.service';
     </div>
   `,
 })
-export class OrderViewerComponent {
+export class OrderViewerComponent implements OnInit, OnDestroy {
+  private readonly subscription: Subscription = new Subscription();
   searchText: string | null = null;
   orders$: Observable<Order[]>;
-
+  
   constructor(
     private readonly pizzaService: PizzaApiService,
     private readonly toast: ToastrService,
     protected readonly ordersState: OrdersStateService
   ) {
-    this.orders$ = this.ordersState.orders$ ?? [];
+    this.orders$ = this.ordersState.orders$;
+  }
+
+  ngOnInit(): void {
+    this.subscription.add(
+      this.orders$.subscribe(() => {
+        this.searchText = null;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   deleteOrder(orderId: number) {
