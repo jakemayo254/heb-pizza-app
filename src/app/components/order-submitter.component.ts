@@ -68,10 +68,10 @@ export class OrderSubmitterComponent {
       this.newOrderTableNo !== null
     ) {
       const orderRequest: OrderRequest = {
-        Table_No: this.newOrderTableNo,
-        Flavor: this.newOrderFlavor,
-        Crust: this.newOrderCrust,
-        Size: this.newOrderSize,
+        Table_No: this.newOrderTableNo, // eslint-disable-line @typescript-eslint/naming-convention
+        Flavor: this.newOrderFlavor, // eslint-disable-line @typescript-eslint/naming-convention
+        Crust: this.newOrderCrust, // eslint-disable-line @typescript-eslint/naming-convention
+        Size: this.newOrderSize, // eslint-disable-line @typescript-eslint/naming-convention
       };
 
       this.pizzaService.postOrder(orderRequest, this.authState.authToken).subscribe({

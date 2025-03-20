@@ -8,7 +8,7 @@ import { Order } from '@src/app/models/order.model';
 export class OrderFilterPipe implements PipeTransform {
   transform(orders: Order[] | null, searchText: string | null): Order[] {
     if (!orders) return [];
-    if (!orders || !searchText) return orders;
+    if (!searchText) return orders;
 
     searchText = searchText.toLowerCase();
 

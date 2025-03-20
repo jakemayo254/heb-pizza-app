@@ -9,39 +9,39 @@ import { AuthRequest, AuthResponse } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class PizzaApiService {
-  private readonly BASE_URL = environment.pizzaAPIAppBaseURL;
-  private readonly ORDERS_URL = this.BASE_URL + '/orders';
-  private readonly AUTH_URL = this.BASE_URL + '/auth';
+  private readonly baseURL = environment.pizzaAPIAppBaseURL;
+  private readonly ordersURL = this.baseURL + '/orders';
+  private readonly authURL = this.baseURL + '/auth';
 
   constructor(private http: HttpClient) {}
 
   private getAuthHeader(authToken: string): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${authToken}`,
+      authorization: `Bearer ${authToken}`,
     });
   }
 
   getAuthToken(authRequest: AuthRequest): Observable<HttpResponse<AuthResponse>> {
-    return this.http.post<AuthResponse>(this.AUTH_URL, authRequest, {
+    return this.http.post<AuthResponse>(this.authURL, authRequest, {
       observe: 'response',
     });
   }
 
   getOrders(): Observable<HttpResponse<Order[]>> {
-    return this.http.get<Order[]>(this.ORDERS_URL, {
+    return this.http.get<Order[]>(this.ordersURL, {
       observe: 'response',
     });
   }
 
   postOrder(order: OrderRequest, authToken: string): Observable<HttpResponse<Order>> {
-    return this.http.post<Order>(this.ORDERS_URL, order, {
+    return this.http.post<Order>(this.ordersURL, order, {
       headers: this.getAuthHeader(authToken),
       observe: 'response',
     });
   }
 
   deleteOrder(orderID: number): Observable<HttpResponse<DeleteOrderResponse>> {
-    return this.http.delete<DeleteOrderResponse>(`${this.ORDERS_URL}/${orderID}`, {
+    return this.http.delete<DeleteOrderResponse>(`${this.ordersURL}/${orderID}`, {
       observe: 'response',
     });
   }
