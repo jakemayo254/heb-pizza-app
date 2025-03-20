@@ -12,7 +12,55 @@ import {OrdersStateService} from '@src/app/services/orders-state.service';
 @Component({
   selector: 'order-submitter',
   imports: [CommonModule, FormsModule],
-  templateUrl: './order-submitter.component.html',
+  template: `
+    <div id="order-submitter" data-testid="order-submitter" class="bg-heb-dark-red">
+      <form #newOrderForm="ngForm" (ngSubmit)="submitOrder()">
+        <input
+          required
+          type="number"
+          id="tableNumber"
+          name="tableNumber"
+          [(ngModel)]="newOrderTableNo"
+          placeholder="Table No"
+        />
+        <br>
+        <input
+          required
+          type="text"
+          id="size"
+          name="size"
+          [(ngModel)]="newOrderSize"
+          placeholder="Size"
+        />
+        <br>
+        <input
+          required
+          type="text"
+          id="crust"
+          name="crust"
+          [(ngModel)]="newOrderCrust"
+          placeholder="Crust"
+        />
+        <br>
+        <input
+          required
+          type="text"
+          id="flavor"
+          name="deleteOrder"
+          [(ngModel)]="newOrderFlavor"
+          placeholder="Flavor"
+        />
+        <br>
+        <button
+          type="submit"
+          [disabled]="newOrderForm.invalid"
+          [style.cursor]="newOrderForm.invalid ? 'not-allowed' : 'pointer'"
+        >
+          Submit Order
+        </button>
+      </form>
+    </div>
+  `,
 })
 export class OrderSubmitterComponent {
   newOrderTableNo: number | null = null;
