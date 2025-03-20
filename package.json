@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "ng build",
-    "lint": "ng lint",
+    "lint": "npm run prettier && ng lint",
     "lint:fix": "npx eslint . --ext .ts,.html --fix",
     "ng": "ng",
     "prettier": "prettier --write \"src/**/*.{ts,js,html,css,scss}\" package.json",

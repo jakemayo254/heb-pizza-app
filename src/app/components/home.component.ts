@@ -9,9 +9,9 @@ import { OrdersStateService } from '@src/app/services/orders-state.service';
   imports: [HomeHeaderComponent, HomeBodyComponent, HomeFooterComponent],
   template: `
     <div id="home" data-testid="home" class="flex min-h-screen flex-col">
-      <app-home-header></app-home-header>
-      <app-home-body class="flex-grow"></app-home-body>
-      <app-home-footer></app-home-footer>
+      <app-home-header />
+      <app-home-body class="flex-grow" />
+      <app-home-footer />
     </div>
   `,
 })
