@@ -1,39 +1,41 @@
-<form #newOrderForm="ngForm" (ngSubmit)="submitOrder()">
-  <input
-    required
-    type="number"
-    id="tableNumber"
-    name="tableNumber"
-    [(ngModel)]="newOrderTableNo"
-    placeholder="Table No"
-  />
-  <br>
-  <input
-    required
-    type="text"
-    id="size"
-    name="size"
-    [(ngModel)]="newOrderSize"
-    placeholder="Size"
-  />
-  <br>
-  <input
-    required
-    type="text"
-    id="crust"
-    name="crust"
-    [(ngModel)]="newOrderCrust"
-    placeholder="Crust"
-  />
-  <br>
-  <input
-    required
-    type="text"
-    id="flavor"
-    name="deleteOrder"
-    [(ngModel)]="newOrderFlavor"
-    placeholder="Flavor"
-  />
-  <br>
-  <button type="submit" [disabled]="newOrderForm.invalid">Submit Order</button>
-</form>
+<div id="order-submitter">
+  <form #newOrderForm="ngForm" (ngSubmit)="submitOrder()">
+    <input
+      required
+      type="number"
+      id="tableNumber"
+      name="tableNumber"
+      [(ngModel)]="newOrderTableNo"
+      placeholder="Table No"
+    />
+    <br>
+    <input
+      required
+      type="text"
+      id="size"
+      name="size"
+      [(ngModel)]="newOrderSize"
+      placeholder="Size"
+    />
+    <br>
+    <input
+      required
+      type="text"
+      id="crust"
+      name="crust"
+      [(ngModel)]="newOrderCrust"
+      placeholder="Crust"
+    />
+    <br>
+    <input
+      required
+      type="text"
+      id="flavor"
+      name="deleteOrder"
+      [(ngModel)]="newOrderFlavor"
+      placeholder="Flavor"
+    />
+    <br>
+    <button type="submit" [disabled]="newOrderForm.invalid">Submit Order</button>
+  </form>
+</div>

@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
   templateUrl: './home-footer.component.html',
 })
 export class HomeFooterComponent {
-  constructor() {
-  }
+  constructor() { }
 }

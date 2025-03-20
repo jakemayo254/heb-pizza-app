@@ -8,6 +8,8 @@ import {OrdersStateService} from '@src/app/services/orders-state.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {DeleteOrderResponse} from '@src/app/models/delete-order.model';
 import {ErrorResponse} from '@src/app/models/error-response.model';
+import {Observable} from 'rxjs';
+import {Order} from '@src/app/models/order.model';
 
 @Component({
   selector: 'order-viewer',
@@ -17,9 +19,11 @@ import {ErrorResponse} from '@src/app/models/error-response.model';
 export class OrderViewerComponent {
   searchText: string | null = null;
   deleteOrderID: number | null = null;
+  orders$: Observable<Order[]>;
 
   constructor(private pizzaService: PizzaService, private toast: ToastrService,
               protected ordersState: OrdersStateService) {
+    this.orders$ = this.ordersState.orders$ ?? [];
   }
 
   deleteOrder(): void {

@@ -8,4 +8,8 @@ import {AuthStateService} from '@src/app/services/auth-state.service';
 })
 export class HomeHeaderComponent {
   constructor(protected authState: AuthStateService) { }
+
+  logOut(): void {
+    this.authState.clearAuth()
+  }
 }

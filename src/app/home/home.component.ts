@@ -11,6 +11,6 @@ import {OrdersStateService} from '@src/app/services/orders-state.service';
 })
 export class HomeComponent {
   constructor(private ordersState: OrdersStateService) {
-    ordersState.getOrdersFromApi();
+    this.ordersState.getOrdersFromApi();
   }
 }
