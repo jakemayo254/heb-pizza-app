@@ -33,7 +33,14 @@ import {AuthStateService} from '@src/app/services/auth-state.service';
             </summary>
             <ul class="absolute right-0 mt-2 bg-white text-heb-text-gray rounded shadow-lg w-40 z-10">
               <li class="px-4 py-2 border-b border-gray-200">Welcome, {{ authState.authDetails?.username }}</li>
-              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" style="cursor: pointer;" (click)="logOut()">Log Out</li>
+              <li class="px-4 py-2 hover:bg-gray-100">
+                <button
+                  (click)="logOut()"
+                  class="w-full text-left cursor-pointer"
+                >
+                  Log Out
+                </button>
+              </li>
             </ul>
           </details>
         </div>

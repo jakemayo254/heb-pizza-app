@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
 import {Order} from '@src/app/models/order.model';
 
 @Component({
-  selector: 'order-viewer',
+  selector: 'app-order-viewer',
   imports: [CommonModule, FormsModule, OrderFilterPipe],
   template: `
     <div id="order-viewer" data-testid="order-viewer" class="">

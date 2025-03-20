@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { PizzaApiService } from '../services/pizza-api.service';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {Order, OrderRequest} from '@src/app/models/order.model';
+import {OrderRequest} from '@src/app/models/order.model';
 import {ToastrService} from 'ngx-toastr';
 import {ErrorResponse} from '@src/app/models/error-response.model';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse} from '@angular/common/http';
 import {AuthStateService} from '@src/app/services/auth-state.service';
 import {OrdersStateService} from '@src/app/services/orders-state.service';
 
 @Component({
-  selector: 'order-submitter',
+  selector: 'app-order-submitter',
   imports: [CommonModule, FormsModule],
   template: `
     <div id="order-submitter" data-testid="order-submitter" class="bg-heb-dark-red">
@@ -79,7 +79,7 @@ export class OrderSubmitterComponent {
       this.newOrderSize !== null && this.newOrderSize !== '' &&
       this.newOrderTableNo !== null) {
 
-      let orderRequest: OrderRequest = {
+      const orderRequest: OrderRequest = {
         Table_No: this.newOrderTableNo,
         Flavor: this.newOrderFlavor,
         Crust: this.newOrderCrust,
@@ -87,7 +87,7 @@ export class OrderSubmitterComponent {
       }
 
       this.pizzaService.postOrder(orderRequest, this.authState.authToken).subscribe({
-        next: (res: HttpResponse<Order>) => {
+        next: (): void => {
           this.ordersState.getOrdersFromApi();
           this.toast.success("Order added successfully.", "Success");
 

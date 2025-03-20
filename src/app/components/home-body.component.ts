@@ -7,11 +7,10 @@ import {OrderViewerComponent} from '@src/app/components/order-viewer.component';
   imports: [OrderSubmitterComponent, OrderViewerComponent],
   template: `
     <div id="home-body" data-testid="home-body" class="bg-white flex-grow">
-      <order-submitter></order-submitter>
-      <order-viewer></order-viewer>
+      <app-order-submitter></app-order-submitter>
+      <app-order-viewer></app-order-viewer>
     </div>
   `,
 })
 export class HomeBodyComponent {
-  constructor() { }
 }
