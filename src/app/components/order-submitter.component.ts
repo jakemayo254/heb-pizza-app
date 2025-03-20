@@ -112,11 +112,14 @@ export class OrderSubmitterComponent {
           this.newOrderFlavor = null;
         },
         error: (err: HttpErrorResponse) => {
+          // re fetch list just in case there is a mismatch
+          this.ordersState.getOrdersFromApi();
           const errorBody: ErrorResponse = err.error;
           this.toast.error(errorBody.detail, errorBody.title);
 
           // Token expires after 15 minutes so getting a new token
           if (errorBody.status === 401) {
+            console.log("Token has expired");
             this.authState.resetAuthToken();
             this.toast.info('Auth Token Refreshed. Please try again.', 'Success');
           }

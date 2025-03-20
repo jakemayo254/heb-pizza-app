@@ -105,6 +105,8 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
           this.toast.success(result.body?.message, 'Success');
         },
         error: (err: HttpErrorResponse): void => {
+          // going to re fetch order list because maybe one of them went away so need the latest
+          this.ordersState.getOrdersFromApi();
           const errorBody: ErrorResponse = err.error;
           this.toast.error(errorBody.detail, errorBody.title);
         },
