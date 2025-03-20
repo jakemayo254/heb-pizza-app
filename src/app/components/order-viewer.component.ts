@@ -17,31 +17,8 @@ import { PizzaApiService } from '../services/pizza-api.service';
   imports: [CommonModule, FormsModule, OrderFilterPipe],
   template: `
     <div id="order-viewer" data-testid="order-viewer" class="bg-gray-100 p-4">
-      <!-- Top flex container for delete + search -->
-      <div class="mb-6 flex flex-wrap items-center gap-4">
-        <!-- Delete Order Form -->
-        <form #deleteOrderForm="ngForm" (ngSubmit)="deleteOrder()" class="flex flex-wrap items-center gap-2">
-          <input
-            required
-            type="number"
-            id="deleteOrder"
-            name="deleteOrder"
-            [(ngModel)]="deleteOrderID"
-            placeholder="Order ID"
-            autocomplete="off"
-            class="min-w-[180px] rounded border border-gray-300 bg-white px-3 py-2"
-          />
-          <button
-            type="submit"
-            [disabled]="deleteOrderForm.invalid"
-            [style.cursor]="deleteOrderForm.invalid ? 'not-allowed' : 'pointer'"
-            class="rounded bg-red-600 px-4 py-2 text-white disabled:opacity-50"
-          >
-            Delete Order
-          </button>
-        </form>
-
-        <!-- Search Form -->
+      <!-- Search -->
+      <div class="mb-4 flex flex-wrap items-center gap-2">
         <form #searchForm="ngForm" (ngSubmit)="clearSearchText()" class="flex flex-wrap items-center gap-2">
           <input
             required
@@ -51,44 +28,52 @@ import { PizzaApiService } from '../services/pizza-api.service';
             [(ngModel)]="searchText"
             placeholder="Search Orders..."
             autocomplete="off"
-            class="min-w-[180px] rounded border border-gray-300 bg-white px-3 py-2"
+            class="min-w-[200px] rounded border border-gray-300 bg-white px-3 py-2"
           />
           <button
             type="submit"
             [disabled]="searchForm.invalid"
-            [style.cursor]="searchForm.invalid ? 'not-allowed' : 'pointer'"
-            class="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
+            class="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50 hover:bg-blue-700"
           >
             Clear Search
           </button>
         </form>
       </div>
 
-      <!-- Orders List -->
-      <ul class="space-y-3">
-        <li
+      <!-- Orders Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div
           *ngFor="let order of orders$ | async | orderFilter: searchText"
-          class="rounded-lg border border-gray-200 bg-white p-4 shadow"
+          class="relative rounded-lg border border-gray-200 bg-white p-4 shadow-md hover:shadow-lg transition"
         >
-          <div class="grid gap-2 text-sm md:grid-cols-2">
-            <div><span class="font-semibold text-gray-700">Order ID:</span> {{ order.Order_ID }}</div>
-            <div><span class="font-semibold text-gray-700">Table No:</span> {{ order.Table_No }}</div>
-            <div><span class="font-semibold text-gray-700">Crust:</span> {{ order.Crust }}</div>
-            <div><span class="font-semibold text-gray-700">Flavor:</span> {{ order.Flavor }}</div>
-            <div><span class="font-semibold text-gray-700">Size:</span> {{ order.Size }}</div>
+          <!-- Trash Button -->
+          <button
+            (click)="deleteOrder(order.Order_ID)"
+            class="absolute top-2 right-2 text-red-600 hover:text-red-800"
+            title="Delete Order"
+          >
+            🗑️
+          </button>
+
+          <!-- Order Info -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm">
+            <div><span class="font-semibold">Order ID:</span> {{ order.Order_ID }}</div>
+            <div><span class="font-semibold">Table No:</span> {{ order.Table_No }}</div>
+            <div><span class="font-semibold">Crust:</span> {{ order.Crust }}</div>
+            <div><span class="font-semibold">Flavor:</span> {{ order.Flavor }}</div>
+            <div><span class="font-semibold">Size:</span> {{ order.Size }}</div>
             <div>
-              <span class="font-semibold text-gray-700">Order Time:</span>
+              <span class="font-semibold">Order Time:</span>
               {{ order.Timestamp | date: 'yyyy-MM-dd hh:mm:ss a' }}
             </div>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   `,
 })
 export class OrderViewerComponent {
   searchText: string | null = null;
-  deleteOrderID: number | null = null;
   orders$: Observable<Order[]>;
 
   constructor(
@@ -99,18 +84,16 @@ export class OrderViewerComponent {
     this.orders$ = this.ordersState.orders$ ?? [];
   }
 
-  deleteOrder(): void {
-    if (this.deleteOrderID != null) {
-      this.pizzaService.deleteOrder(this.deleteOrderID).subscribe({
+  deleteOrder(orderId: number) {
+    if (confirm(`Are you sure you want to delete Order ID: ${orderId}?`)) {
+      this.pizzaService.deleteOrder(orderId).subscribe({
         next: (result: HttpResponse<DeleteOrderResponse>): void => {
           this.ordersState.getOrdersFromApi();
           this.toast.success(result.body?.message, 'Success');
-          this.deleteOrderID = null;
         },
         error: (err: HttpErrorResponse): void => {
           const errorBody: ErrorResponse = err.error;
           this.toast.error(errorBody.detail, errorBody.title);
-          this.deleteOrderID = null;
         },
       });
     }
