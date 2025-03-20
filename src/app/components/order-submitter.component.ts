@@ -14,8 +14,12 @@ import { PizzaApiService } from '../services/pizza-api.service';
   selector: 'app-order-submitter',
   imports: [CommonModule, FormsModule],
   template: `
-    <div id="order-submitter" data-testid="order-submitter" class="bg-heb-dark-red">
-      <form #newOrderForm="ngForm" (ngSubmit)="submitOrder()">
+    <div id="order-submitter" data-testid="order-submitter" class="bg-heb-dark-red p-4">
+      <form
+        #newOrderForm="ngForm"
+        (ngSubmit)="submitOrder()"
+        class="flex flex-wrap gap-4 items-center"
+      >
         <input
           required
           type="number"
@@ -23,18 +27,44 @@ import { PizzaApiService } from '../services/pizza-api.service';
           name="tableNumber"
           [(ngModel)]="newOrderTableNo"
           placeholder="Table No"
+          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
         />
-        <br />
-        <input required type="text" id="size" name="size" [(ngModel)]="newOrderSize" placeholder="Size" />
-        <br />
-        <input required type="text" id="crust" name="crust" [(ngModel)]="newOrderCrust" placeholder="Crust" />
-        <br />
-        <input required type="text" id="flavor" name="deleteOrder" [(ngModel)]="newOrderFlavor" placeholder="Flavor" />
-        <br />
+
+        <input
+          required
+          type="text"
+          id="size"
+          name="size"
+          [(ngModel)]="newOrderSize"
+          placeholder="Size"
+          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
+        />
+
+        <input
+          required
+          type="text"
+          id="crust"
+          name="crust"
+          [(ngModel)]="newOrderCrust"
+          placeholder="Crust"
+          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
+        />
+
+        <input
+          required
+          type="text"
+          id="flavor"
+          name="deleteOrder"
+          [(ngModel)]="newOrderFlavor"
+          placeholder="Flavor"
+          class="bg-white border border-gray-300 rounded px-3 py-2 flex-1 min-w-[150px]"
+        />
+
         <button
           type="submit"
           [disabled]="newOrderForm.invalid"
           [style.cursor]="newOrderForm.invalid ? 'not-allowed' : 'pointer'"
+          class="bg-white text-black font-semibold px-4 py-2 rounded border border-gray-300 hover:bg-gray-100 transition disabled:opacity-50"
         >
           Submit Order
         </button>
