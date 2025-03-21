@@ -6,7 +6,7 @@ export default class BasePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.baseUrl = process.env.HEB_PIZZA_APP_URL ?? '';
+    this.baseUrl = process.env['HEB_PIZZA_APP_URL'] ?? '';
     console.log('Jake');
   }
 
