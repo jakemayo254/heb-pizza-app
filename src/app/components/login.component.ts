@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { dataTestID } from '@src/app/models/data-test-id';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 import { finalize } from 'rxjs';
 
@@ -10,7 +11,7 @@ import { finalize } from 'rxjs';
   template: `
     <div
       id="app-login"
-      data-testid="app-login"
+      [attr.data-testid]="dataTestID.appLogin"
       class="bg-heb-light-grey flex min-h-screen items-center justify-center p-4"
     >
       <div class="flex flex-col items-center space-y-4">
@@ -21,12 +22,12 @@ import { finalize } from 'rxjs';
             <div>
               <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
               <input
-                required
-                data-testid="login-username-input"
-                type="text"
                 id="username"
                 name="username"
+                type="text"
+                [attr.data-testid]="dataTestID.loginUserName"
                 [(ngModel)]="username"
+                required
                 placeholder="Enter your username"
                 class="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
@@ -35,21 +36,21 @@ import { finalize } from 'rxjs';
               <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
               <div class="relative mt-1">
                 <input
-                  required
-                  data-testid="login-password-input"
-                  [type]="showPassword ? 'text' : 'password'"
                   id="password"
                   name="password"
+                  [attr.data-testid]="dataTestID.loginPassword"
+                  [type]="showPassword ? 'text' : 'password'"
                   [(ngModel)]="password"
+                  required
                   placeholder="Enter your password"
                   class="w-full rounded border border-gray-300 px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
                 <button
-                  data-testid="login-show-password-button"
                   type="button"
-                  class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
+                  [attr.data-testid]="dataTestID.loginShowPassword"
                   (click)="togglePasswordVisibility()"
                   aria-label="Toggle password visibility"
+                  class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
                 >
                   {{ showPassword ? '👁️‍🗨️' : '👁️' }}
                 </button>
@@ -57,8 +58,8 @@ import { finalize } from 'rxjs';
             </div>
             <div>
               <button
-                data-testid="login-loading-button"
                 type="submit"
+                [attr.data-testid]="dataTestID.loginButton"
                 [disabled]="loginForm.invalid || loading"
                 [style.cursor]="loginForm.invalid || loading ? 'not-allowed' : 'pointer'"
                 class="bg-heb-gray-2 w-full rounded py-2 font-semibold text-white transition hover:bg-blue-700 disabled:bg-gray-400"
@@ -74,6 +75,7 @@ import { finalize } from 'rxjs';
   `,
 })
 export class LoginComponent {
+  protected readonly dataTestID = dataTestID;
   username = null;
   password = null;
   showPassword = false;

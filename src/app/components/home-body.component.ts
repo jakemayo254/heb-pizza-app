@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { OrderSubmitterComponent } from '@src/app/components/order-submitter.component';
 import { OrderViewerComponent } from '@src/app/components/order-viewer.component';
+import { dataTestID } from '@src/app/models/data-test-id';
 
 @Component({
   selector: 'app-home-body',
   imports: [OrderSubmitterComponent, OrderViewerComponent],
   template: `
-    <div id="home-body" data-testid="home-body" class="flex flex-grow flex-col bg-gray-100">
+    <div [attr.data-testid]="dataTestID.appHomeBody" class="flex flex-grow flex-col bg-gray-100">
       <app-order-submitter />
       <app-order-viewer />
     </div>
   `,
 })
-export class HomeBodyComponent {}
+export class HomeBodyComponent {
+  protected readonly dataTestID = dataTestID;
+}
