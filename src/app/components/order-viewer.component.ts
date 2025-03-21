@@ -95,7 +95,7 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(
-      this.orders$.subscribe(() => {
+      this.orders$.subscribe((): void => {
         this.searchText = null;
       })
     );
@@ -105,7 +105,7 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  deleteOrder(orderId: number) {
+  deleteOrder(orderId: number): void {
     if (confirm(`Are you sure you want to delete Order ID: ${orderId}?`)) {
       this.pizzaService.deleteOrder(orderId).subscribe({
         next: (result: HttpResponse<DeleteOrderResponse>): void => {

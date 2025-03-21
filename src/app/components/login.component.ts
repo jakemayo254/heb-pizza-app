@@ -93,13 +93,13 @@ export class LoginComponent {
 
       this.authState
         .setAuthToken(this.username, this.password)
-        .pipe(finalize(() => (this.loading = false)))
+        .pipe(finalize((): boolean => (this.loading = false)))
         .subscribe({
-          next: () => {
-            // success logic
+          next: (): void => {
+            console.log('login success');
           },
-          error: () => {
-            // error toast
+          error: (): void => {
+            console.error('failed login success');
           },
         });
     }

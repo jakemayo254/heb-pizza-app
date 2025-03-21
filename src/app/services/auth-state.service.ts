@@ -30,6 +30,7 @@ export class AuthStateService {
     );
   }
 
+  // TODO: this may be broken
   resetAuthToken(): Observable<HttpResponse<AuthResponse>> {
     if (this.authDetails) {
       return this.setAuthToken(this.authDetails.username, this.authDetails.password);
