@@ -1,4 +1,5 @@
 export const dataTestID = {
+  // main components
   appLogin: 'app-login',
   appHome: 'app-home',
   appHomeHeader: 'app-home-header',

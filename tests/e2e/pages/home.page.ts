@@ -36,7 +36,7 @@ export default class HomePage extends BasePage {
     this.mobileLogoutButton = this.appHomeHeader.getByTestId(dataTestID.mobileLogoutButton);
 
     // Home Body
-    this.appHomeBody = this.appHome.getByTestId(dataTestID.appLogin);
+    this.appHomeBody = this.appHome.getByTestId(dataTestID.appHomeBody);
     this.appOrderSubmitter = this.appHomeBody.getByTestId(dataTestID.appOrderSubmitter);
     this.newTableNoInput = this.appOrderSubmitter.getByTestId(dataTestID.newTableNoInput);
     this.newSizeInput = this.appOrderSubmitter.getByTestId(dataTestID.newSizeInput);
@@ -50,6 +50,6 @@ export default class HomePage extends BasePage {
     this.deleteOrder = this.appHomeBody.getByTestId(dataTestID.deleteOrder + testOrderID);
 
     // Home Footer
-    this.appHomeFooter = this.appHome.getByTestId(dataTestID.appLogin);
+    this.appHomeFooter = this.appHome.getByTestId(dataTestID.appHomeFooter);
   }
 }
