@@ -7,22 +7,21 @@ export default class BasePage {
   constructor(page: Page) {
     this.page = page;
     this.baseUrl = process.env['HEB_PIZZA_APP_URL'] ?? '';
-    console.log('Jake');
   }
 
   async navigateTo(path: string): Promise<void> {
     await this.page.goto(this.baseUrl + path);
   }
 
-  async navigateToBase() {
+  async navigateToBase(): Promise<void> {
     await this.page.goto(this.baseUrl);
   }
 
-  async toMobileView() {
+  async toMobileView(): Promise<void> {
     await this.page.setViewportSize({ width: 1020, height: 1020 });
   }
 
-  async toDesktopView() {
+  async toDesktopView(): Promise<void> {
     await this.page.setViewportSize({ width: 2400, height: 1100 });
   }
 
