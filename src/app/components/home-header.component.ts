@@ -16,6 +16,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
         <div class="ml-auto hidden items-center gap-4 md:flex">
           <span>Welcome, {{ authState.authDetails?.username }}</span>
           <button
+            data-testid="logout-button"
             type="button"
             (click)="logOut()"
             style="cursor: pointer;"
@@ -32,7 +33,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
             <ul class="text-heb-text-gray absolute right-0 z-10 mt-2 w-40 rounded bg-white shadow-lg">
               <li class="border-b border-gray-200 px-4 py-2">Welcome, {{ authState.authDetails?.username }}</li>
               <li class="px-4 py-2 hover:bg-gray-100">
-                <button (click)="logOut()" class="w-full cursor-pointer text-left">Log Out</button>
+                <button data-testid="mobile-logout-button" (click)="logOut()" class="w-full cursor-pointer text-left">Log Out</button>
               </li>
             </ul>
           </details>

@@ -16,7 +16,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
   selector: 'app-order-viewer',
   imports: [CommonModule, FormsModule, OrderFilterPipe],
   template: `
-    <div id="order-viewer" data-testid="order-viewer" class="bg-gray-100 p-4">
+    <div id="order-viewer" data-testid="order-viewer" class="bg-heb-light-grey p-4">
       <!-- Search -->
       <div class="mb-4 flex flex-wrap items-center gap-2">
         <form #searchForm="ngForm" (ngSubmit)="clearSearchText()" class="flex flex-wrap items-center gap-2">
@@ -24,6 +24,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
             required
             type="text"
             id="searchOrders"
+            data-testid="search-orders"
             name="searchOrders"
             [(ngModel)]="searchText"
             placeholder="Search Orders..."
@@ -31,6 +32,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
             class="min-w-[200px] rounded border border-gray-300 bg-white px-3 py-2"
           />
           <button
+            data-testid="clear-search-button"
             type="submit"
             [disabled]="searchForm.invalid"
             class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
@@ -39,7 +41,6 @@ import { PizzaApiService } from '../services/pizza-api.service';
           </button>
         </form>
       </div>
-
       <!-- Orders Grid -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div
@@ -54,7 +55,6 @@ import { PizzaApiService } from '../services/pizza-api.service';
           >
             🗑️
           </button>
-
           <!-- Order Info -->
           <div class="grid grid-cols-1 gap-y-2 text-sm sm:grid-cols-2">
             <div><span class="font-semibold">Order ID:</span> {{ order.Order_ID }}</div>

@@ -20,6 +20,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           required
           type="number"
           id="tableNumber"
+          data-testid="order-input-table-number"
           name="tableNumber"
           [(ngModel)]="newOrderTableNo"
           placeholder="Table No"
@@ -30,6 +31,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           required
           type="text"
           id="size"
+          data-testid="order-input-size"
           name="size"
           [(ngModel)]="newOrderSize"
           placeholder="Size"
@@ -40,6 +42,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           required
           type="text"
           id="crust"
+          data-testid="order-crust"
           name="crust"
           [(ngModel)]="newOrderCrust"
           placeholder="Crust"
@@ -50,15 +53,16 @@ import { PizzaApiService } from '../services/pizza-api.service';
           required
           type="text"
           id="flavor"
-          name="deleteOrder"
+          data-testid="order-flavor"
+          name="flavor"
           [(ngModel)]="newOrderFlavor"
           placeholder="Flavor"
           autocomplete="off"
           class="min-w-[150px] flex-1 rounded border border-gray-300 bg-white px-3 py-2"
         />
-
         <button
           type="submit"
+          data-testid="order-submit-button"
           [disabled]="newOrderForm.invalid"
           [style.cursor]="newOrderForm.invalid ? 'not-allowed' : 'pointer'"
           class="rounded border border-gray-300 bg-white px-4 py-2 font-semibold text-black transition hover:bg-gray-100 disabled:opacity-50"
@@ -117,9 +121,12 @@ export class OrderSubmitterComponent {
           const errorBody: ErrorResponse = err.error;
           this.toast.error(errorBody.detail, errorBody.title);
 
+          console.log('errorStatus: ' + err.error.status);
+
+          // TODO: This is broken. need to fix
           // Token expires after 15 minutes so getting a new token
           if (errorBody.status === 401) {
-            console.log("Token has expired");
+            console.log('Token has expired');
             this.authState.resetAuthToken();
             this.toast.info('Auth Token Refreshed. Please try again.', 'Success');
           }

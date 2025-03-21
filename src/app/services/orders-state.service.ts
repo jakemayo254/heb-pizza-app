@@ -18,7 +18,7 @@ export class OrdersStateService {
     this.pizzaService.getOrders().subscribe({
       next: (res): void => {
         const sortedOrdersByDate = res.body?.sort(
-          (a, b) => new Date(b.Timestamp).getTime() - new Date(a.Timestamp).getTime()
+          (a, b): number => new Date(b.Timestamp).getTime() - new Date(a.Timestamp).getTime()
         );
         this.ordersSubject.next(sortedOrdersByDate ?? []);
       },
