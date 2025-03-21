@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HomeBodyComponent } from '@src/app/components/home-body.component';
 import { HomeFooterComponent } from '@src/app/components/home-footer.component';
 import { HomeHeaderComponent } from '@src/app/components/home-header.component';
-import { dataTestID } from '@src/app/models/data-test-id';
+import { dataTestID } from '@src/app/constants/data-test-id';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 
 @Component({

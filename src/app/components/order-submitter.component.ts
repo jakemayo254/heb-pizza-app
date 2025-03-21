@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { dataTestID } from '@src/app/models/data-test-id';
+import { dataTestID } from '@src/app/constants/data-test-id';
 import { ErrorResponse } from '@src/app/models/error-response.model';
 import { OrderRequest } from '@src/app/models/order.model';
 import { AuthStateService } from '@src/app/services/auth-state.service';

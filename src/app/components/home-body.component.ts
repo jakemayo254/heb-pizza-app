@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OrderSubmitterComponent } from '@src/app/components/order-submitter.component';
 import { OrderViewerComponent } from '@src/app/components/order-viewer.component';
-import { dataTestID } from '@src/app/models/data-test-id';
+import { dataTestID } from '@src/app/constants/data-test-id';
 
 @Component({
   selector: 'app-home-body',

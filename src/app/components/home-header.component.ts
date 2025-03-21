@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { dataTestID } from '@src/app/models/data-test-id';
+import { dataTestID } from '@src/app/constants/data-test-id';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { dataTestID } from '@src/app/models/data-test-id';
+import { dataTestID } from '@src/app/constants/data-test-id';
 import BasePage from '@tests/e2e/pages/base.page';
 
 export default class LoginPage extends BasePage {

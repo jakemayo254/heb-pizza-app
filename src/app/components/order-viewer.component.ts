@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { dataTestID } from '@src/app/models/data-test-id';
+import { dataTestID } from '@src/app/constants/data-test-id';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
 import { ErrorResponse } from '@src/app/models/error-response.model';
 import { Order } from '@src/app/models/order.model';
