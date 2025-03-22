@@ -45,7 +45,7 @@ export class AuthStateService {
   resetAuthToken(): Observable<HttpResponse<AuthResponse>> {
     if (!this.authDetails) {
       this.toast.warning('No saved auth details to refresh token.', 'Warning');
-      return throwError(() => new Error('No auth details available'));
+      return throwError((): Error => new Error('No auth details available'));
     }
     return this.setAuthToken(this.authDetails.username, this.authDetails.password);
   }

@@ -97,10 +97,10 @@ export class LoginComponent {
       // subscribe = triggers the observable
       // next = runs when the observable emits a value successfully
       // error = runs if the observable fails
-      // finalize = is ran when the observable is complete
+      // finalize = is run when the observable is complete
       this.authState
         .setAuthToken(this.username, this.password)
-        .pipe(finalize((): boolean => (this.loading = false)))
+        .pipe(finalize(() => (this.loading = false)))
         .subscribe({
           next: (): void => {
             console.log('login success');
