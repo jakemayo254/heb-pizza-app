@@ -76,10 +76,10 @@ import { PizzaApiService } from '../services/pizza-api.service';
 })
 export class OrderSubmitterComponent {
   protected readonly dataTestID = dataTestID;
-  newOrderTableNo: number | null = null;
-  newOrderCrust: string | null = null;
-  newOrderFlavor: string | null = null;
-  newOrderSize: string | null = null;
+  protected newOrderTableNo: number | null = null;
+  protected newOrderCrust: string | null = null;
+  protected newOrderFlavor: string | null = null;
+  protected newOrderSize: string | null = null;
 
   constructor(
     private readonly pizzaService: PizzaApiService,

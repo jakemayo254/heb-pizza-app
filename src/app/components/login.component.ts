@@ -76,10 +76,10 @@ import { finalize } from 'rxjs';
 })
 export class LoginComponent {
   protected readonly dataTestID = dataTestID;
-  username = null;
-  password = null;
-  showPassword = false;
-  loading = false;
+  protected username = null;
+  protected password = null;
+  protected showPassword = false;
+  protected loading = false;
 
   constructor(private readonly authState: AuthStateService) {}
 

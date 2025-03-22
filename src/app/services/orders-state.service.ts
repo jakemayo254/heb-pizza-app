@@ -12,7 +12,10 @@ export class OrdersStateService {
   constructor(
     private readonly pizzaService: PizzaApiService,
     private readonly toast: ToastrService
-  ) {}
+  ) {
+    // need orders list right when the home page is loaded
+    this.getOrdersFromApi();
+  }
 
   getOrdersFromApi(): void {
     this.pizzaService.getOrders().subscribe({

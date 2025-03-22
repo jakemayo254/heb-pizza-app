@@ -80,10 +80,10 @@ import { PizzaApiService } from '../services/pizza-api.service';
   `,
 })
 export class OrderViewerComponent implements OnInit, OnDestroy {
-  protected readonly dataTestID = dataTestID;
   private readonly subscription: Subscription = new Subscription();
-  searchText: string | null = null;
-  orders$: Observable<Order[]>;
+  protected readonly dataTestID = dataTestID;
+  protected searchText: string | null = null;
+  protected orders$: Observable<Order[]>;
 
   constructor(
     private readonly pizzaService: PizzaApiService,

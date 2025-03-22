@@ -7,8 +7,8 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
-  authDetails: AuthRequest | null = null;
-  authToken: string | null = null;
+  public authDetails: AuthRequest | null = null;
+  public authToken: string | null = null;
 
   constructor(
     private readonly pizzaAPIService: PizzaApiService,
