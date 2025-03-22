@@ -99,7 +99,7 @@ export class LoginComponent {
             console.log('login success');
           },
           error: (): void => {
-            console.error('failed login success');
+            console.error('failed login');
           },
         });
     }

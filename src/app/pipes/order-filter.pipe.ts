@@ -6,6 +6,7 @@ import { Order } from '@src/app/models/order.model';
   standalone: true,
 })
 export class OrderFilterPipe implements PipeTransform {
+  // required method of PipeTransform
   transform(orders: Order[] | null, searchText: string | null): Order[] {
     if (!orders) return [];
     if (!searchText) return orders;
