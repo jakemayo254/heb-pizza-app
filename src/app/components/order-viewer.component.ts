@@ -93,6 +93,8 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
     this.orders$ = this.ordersState.orders$;
   }
 
+  // gets called once when the component is first created
+  // every time this stream emits a new value, reset searchText
   ngOnInit(): void {
     this.subscription.add(
       this.orders$.subscribe((): void => {
@@ -101,6 +103,8 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
     );
   }
 
+  // this is run when the component is destroyed
+  // we want to remove the subscription
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

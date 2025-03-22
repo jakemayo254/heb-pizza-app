@@ -23,6 +23,8 @@ export class AuthStateService {
 
     this.authDetails = { username, password };
 
+    // tap = is for performing side effects inside the observable stream without triggering it
+    // subscribe = used to trigger the observable and handle its results
     return this.pizzaAPIService.getAuthToken(this.authDetails).pipe(
       tap((res): void => {
         const token = res.body?.access_token;
