@@ -7,28 +7,16 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
-  public username: string | null = null;
-
   constructor(
     private readonly pizzaAPIService: PizzaApiService,
     private readonly toast: ToastrService
-  ) {
-    // Restore username from localStorage (optional)
-    const storedUsername = localStorage.getItem('authUsername');
-    const token = localStorage.getItem('authToken');
-
-    if (token && token !== 'null' && token !== '') {
-      this.username = storedUsername;
-    }
-  }
+  ) { }
 
   setAuthToken(username: string, password: string): Observable<HttpResponse<AuthResponse>> {
     if (!username || !password) {
       this.toast.error('Username and password are required', 'Error');
       return throwError(() => new Error('Missing credentials'));
     }
-
-    this.username = username;
 
     return this.pizzaAPIService.getAuthToken(username, password).pipe(
       tap((res): void => {
@@ -49,16 +37,15 @@ export class AuthStateService {
     );
   }
 
+  getUserName(): string | null {
+    return localStorage.getItem('authUsername');
+  }
+
   getAuthToken(): string | null {
     return localStorage.getItem('authToken');
   }
 
-  getUsername(): string | null {
-    return localStorage.getItem('authUsername');
-  }
-
   clearAuth(): void {
-    this.username = null;
     localStorage.removeItem('authToken');
     localStorage.removeItem('authUsername');
   }
