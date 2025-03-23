@@ -6,10 +6,10 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
   selector: 'app-home-header',
   imports: [],
   template: `
-    <header [attr.data-testid]="dataTestID.appHomeHeader" class="bg-heb-red w-full p-4 text-white">
+    <header [attr.data-testid]="dataTestID.appHomeHeader" class="bg-heb-red w-full py-6 px-4 text-white">
       <div class="flex items-center justify-between">
         <!-- HEB Logo -->
-        <div class="flex w-full justify-center md:w-auto md:justify-start">
+        <div class="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 md:left-0">
           <img src="hebLogo.png" alt="H-E-B Logo" class="h-auto w-44" />
         </div>
 
