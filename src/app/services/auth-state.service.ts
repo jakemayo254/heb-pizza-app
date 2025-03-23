@@ -26,10 +26,10 @@ export class AuthStateService {
         const token = res.body?.access_token;
         if (!token) {
           console.warn('Auth token missing in response body');
+        } else {
+          localStorage.setItem(this.authKey, token ?? '');
+          localStorage.setItem(this.userKey, username);
         }
-
-        localStorage.setItem(this.authKey, token ?? '');
-        localStorage.setItem(this.userKey, username);
       }),
       catchError((err): Observable<never> => {
         const errorHeader = err.status === 400 ? 'Error' : 'Unauthorized';

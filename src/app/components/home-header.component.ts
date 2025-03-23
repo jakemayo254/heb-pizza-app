@@ -8,7 +8,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
   template: `
     <header [attr.data-testid]="dataTestID.appHomeHeader" class="bg-heb-red w-full p-4 text-white">
       <div class="flex items-center justify-between">
-        <!-- Left: Home Title -->
+        <!-- HEB Logo -->
         <div class="flex w-full justify-center md:w-auto md:justify-start">
           <img src="hebLogo.png" alt="H-E-B Logo" class="h-auto w-44" />
         </div>

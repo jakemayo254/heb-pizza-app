@@ -20,10 +20,10 @@ export class OrdersStateService {
   getOrdersFromApi(): void {
     this.pizzaService.getOrders().subscribe({
       next: (res): void => {
-        const sortedOrdersByDate = res.body?.sort(
+        const sortedOrdersByDateDescending = res.body?.sort(
           (a, b): number => new Date(b.Timestamp).getTime() - new Date(a.Timestamp).getTime()
         );
-        this.ordersSubject.next(sortedOrdersByDate ?? []);
+        this.ordersSubject.next(sortedOrdersByDateDescending ?? []);
       },
       error: (err): void => {
         this.toast.error(err.error?.message ?? 'Unexpected error', 'Error Getting Orders');
