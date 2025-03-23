@@ -115,7 +115,7 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
       this.pizzaService
         .deleteOrder(orderId)
         .pipe(
-          finalize(() => {
+          finalize((): void => {
             this.ordersState.getOrdersFromApi();
           })
         )
@@ -135,3 +135,8 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
     this.searchText = null;
   }
 }
+
+// grid = turns the container into a grid layout
+// grid-cols-1 = 1 column layout by default (mobile-first)
+// gap-4 = add space between grid items
+// md:grid-cols-2 = on medium or higher change to 2 columns

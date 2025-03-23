@@ -112,3 +112,13 @@ export class LoginComponent {
     }
   }
 }
+
+// justify-center = it centers flex items horizontally (along the main axis) inside a flex container
+// space-y-4 = adds vertical spacing between child elements. no spacing on top of first child
+// or below the last child
+// h-auto = the height will be set by child element
+// w-44 = fixed width
+// max-w-md = sets the maximum width of an element to 448px
+// shadow-md = applies a medium-level box shadow for elevation and visual depth
+// block = sets the elements display mode to block. the element will take up the full width of its
+// parents container
