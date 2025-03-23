@@ -7,6 +7,9 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
+  private readonly authKey = 'authToken';
+  private readonly userKey = 'authUsername';
+
   constructor(
     private readonly pizzaAPIService: PizzaApiService,
     private readonly toast: ToastrService
@@ -15,7 +18,7 @@ export class AuthStateService {
   setAuthToken(username: string, password: string): Observable<HttpResponse<AuthResponse>> {
     if (!username || !password) {
       this.toast.error('Username and password are required', 'Error');
-      return throwError(() => new Error('Missing credentials'));
+      return throwError((): Error => new Error('Missing credentials'));
     }
 
     return this.pizzaAPIService.getAuthToken(username, password).pipe(
@@ -25,8 +28,8 @@ export class AuthStateService {
           console.warn('Auth token missing in response body');
         }
 
-        localStorage.setItem('authToken', token ?? '');
-        localStorage.setItem('authUsername', username);
+        localStorage.setItem(this.authKey, token ?? '');
+        localStorage.setItem(this.userKey, username);
       }),
       catchError((err): Observable<never> => {
         const errorHeader = err.status === 400 ? 'Error' : 'Unauthorized';
@@ -38,20 +41,20 @@ export class AuthStateService {
   }
 
   getUserName(): string | null {
-    return localStorage.getItem('authUsername');
+    return localStorage.getItem(this.userKey);
   }
 
   getAuthToken(): string | null {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem(this.authKey);
   }
 
   clearAuth(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('authUsername');
+    localStorage.removeItem(this.authKey);
+    localStorage.removeItem(this.userKey);
   }
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem(this.authKey);
     return !!token && token !== 'null' && token !== '';
   }
 }

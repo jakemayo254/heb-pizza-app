@@ -54,6 +54,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
             [attr.data-testid]="dataTestID.deleteOrder + order.Order_ID"
             (click)="deleteOrder(order.Order_ID)"
             title="Delete Order"
+            style="cursor: pointer;"
             class="absolute top-2 right-2 text-red-600 hover:text-red-800"
           >
             🗑️
