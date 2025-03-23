@@ -1,6 +1,6 @@
 # H-E-B Pizza App 🍕
 
-An Angular-based web application built as a coding challenge. This project demonstrates a modern frontend stack with Dockerized deployment, Tailwind CSS styling, ESLint + Prettier for code quality, and Playwright for end-to-end testing.
+An Angular-based web application built for a senior software engineer interview coding challenge. This project demonstrates a modern frontend stack with Dockerized deployment, Tailwind CSS styling, ESLint + Prettier for code quality, and Playwright for end-to-end testing.
 
 ---
 
@@ -17,7 +17,7 @@ docker build -t heb-pizza-app .
 docker run -p 8080:80 heb-pizza-app
 ```
 
-Then, open your browser and navigate to: [http://localhost:8080](http://localhost:8080)
+Open your browser and navigate to: [http://localhost:8080](http://localhost:8080)
 
 ---
 
@@ -38,12 +38,14 @@ Then, open your browser and navigate to: [http://localhost:8080](http://localhos
    npm start
    ```
 
-5. **Linting & Formatting:**
+Open your browser and navigate to: [http://localhost:4200](http://localhost:4200)
+
+**Linting & Formatting:**
    - Lint: `npm run lint`
    - Fix Lint: `npm run lint:fix`
    - Prettier format: `npm run prettier`
 
-6. **Run Unit Tests:**
+**Run Unit Tests:**
    ```bash
    npm test
    ```
@@ -92,6 +94,7 @@ Keeping test code (`tests/`) outside of the main source code (`src/`) helps crea
 | **Prettier**   | Code formatting tool to maintain style consistency |
 | **PostCSS**    | CSS transformation tool used under the hood with Tailwind |
 | **Playwright** | End-to-end testing framework for browser automation |
+| **Toast (ngx-toastr)** | Lightweight notification system for user feedback via toast popups |
 
 ---
 
