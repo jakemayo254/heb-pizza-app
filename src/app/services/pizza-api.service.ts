@@ -5,7 +5,7 @@ import { Order, OrderRequest } from '@src/app/models/order.model';
 import { environment } from '@src/environments/environment';
 import { Observable } from 'rxjs';
 
-import { AuthRequest, AuthResponse } from '../models/auth.model';
+import { AuthResponse } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class PizzaApiService {
@@ -21,10 +21,14 @@ export class PizzaApiService {
     });
   }
 
-  getAuthToken(authRequest: AuthRequest): Observable<HttpResponse<AuthResponse>> {
-    return this.http.post<AuthResponse>(this.authURL, authRequest, {
-      observe: 'response',
-    });
+  getAuthToken(username: string, password: string): Observable<HttpResponse<AuthResponse>> {
+    return this.http.post<AuthResponse>(
+      this.authURL,
+      { username, password },
+      {
+        observe: 'response',
+      }
+    );
   }
 
   getOrders(): Observable<HttpResponse<Order[]>> {

@@ -1,19 +1,26 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthRequest, AuthResponse } from '@src/app/models/auth.model';
+import { AuthResponse } from '@src/app/models/auth.model';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
-  public authDetails: AuthRequest | null = null;
-  public authToken: string | null = null;
+  public username: string | null = null;
 
   constructor(
     private readonly pizzaAPIService: PizzaApiService,
     private readonly toast: ToastrService
-  ) {}
+  ) {
+    // Restore username from localStorage (optional)
+    const storedUsername = localStorage.getItem('authUsername');
+    const token = localStorage.getItem('authToken');
+
+    if (token && token !== 'null' && token !== '') {
+      this.username = storedUsername;
+    }
+  }
 
   setAuthToken(username: string, password: string): Observable<HttpResponse<AuthResponse>> {
     if (!username || !password) {
@@ -21,17 +28,17 @@ export class AuthStateService {
       return throwError(() => new Error('Missing credentials'));
     }
 
-    this.authDetails = { username, password };
+    this.username = username;
 
-    // tap = is for performing side effects inside the observable stream without triggering it
-    // subscribe = used to trigger the observable and handle its results
-    return this.pizzaAPIService.getAuthToken(this.authDetails).pipe(
+    return this.pizzaAPIService.getAuthToken(username, password).pipe(
       tap((res): void => {
         const token = res.body?.access_token;
         if (!token) {
           console.warn('Auth token missing in response body');
         }
-        this.authToken = token ?? null;
+
+        localStorage.setItem('authToken', token ?? '');
+        localStorage.setItem('authUsername', username);
       }),
       catchError((err): Observable<never> => {
         const errorHeader = err.status === 400 ? 'Error' : 'Unauthorized';
@@ -42,20 +49,22 @@ export class AuthStateService {
     );
   }
 
-  resetAuthToken(): Observable<HttpResponse<AuthResponse>> {
-    if (!this.authDetails) {
-      this.toast.warning('No saved auth details to refresh token.', 'Warning');
-      return throwError((): Error => new Error('No auth details available'));
-    }
-    return this.setAuthToken(this.authDetails.username, this.authDetails.password);
+  getAuthToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('authUsername');
   }
 
   clearAuth(): void {
-    this.authDetails = null;
-    this.authToken = null;
+    this.username = null;
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('authUsername');
   }
 
   isAuthenticated(): boolean {
-    return !!this.authToken;
+    const token = localStorage.getItem('authToken');
+    return !!token && token !== 'null' && token !== '';
   }
 }

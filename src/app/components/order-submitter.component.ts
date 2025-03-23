@@ -90,8 +90,6 @@ export class OrderSubmitterComponent {
 
   submitOrder(): void {
     if (
-      this.authState.authToken !== null &&
-      this.authState.authToken !== '' &&
       this.newOrderFlavor !== null &&
       this.newOrderFlavor !== '' &&
       this.newOrderCrust !== null &&
@@ -107,7 +105,7 @@ export class OrderSubmitterComponent {
         Size: this.newOrderSize, // eslint-disable-line @typescript-eslint/naming-convention
       };
 
-      this.pizzaService.postOrder(orderRequest, this.authState.authToken).subscribe({
+      this.pizzaService.postOrder(orderRequest, this.authState.getAuthToken() ?? '').subscribe({
         next: (): void => {
           this.ordersState.getOrdersFromApi();
           this.toast.success('Order added successfully.', 'Success');
@@ -125,12 +123,10 @@ export class OrderSubmitterComponent {
 
           console.log('errorStatus: ' + err.error.status);
 
-          // TODO: This is broken. need to fix
-          // Token expires after 15 minutes so getting a new token
           if (errorBody.status === 401) {
             console.log('Token has expired');
-            this.authState.resetAuthToken();
-            this.toast.info('Auth Token Refreshed. Please try again.', 'Success');
+            this.authState.clearAuth();
+            this.toast.error('Auth Token Expired. Please log back in.', 'Error');
           }
         },
       });
