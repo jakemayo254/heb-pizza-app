@@ -27,7 +27,7 @@ export class AuthStateService {
         if (!token) {
           console.warn('Auth token missing in response body');
         } else {
-          localStorage.setItem(this.authKey, token ?? '');
+          localStorage.setItem(this.authKey, token);
           localStorage.setItem(this.userKey, username);
         }
       }),

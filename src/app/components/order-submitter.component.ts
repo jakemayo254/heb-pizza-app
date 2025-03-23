@@ -7,6 +7,7 @@ import { OrderRequest } from '@src/app/models/order.model';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 import { PizzaApiService } from '../services/pizza-api.service';
 
@@ -111,28 +112,31 @@ export class OrderSubmitterComponent {
         Size: this.newOrderSize, // eslint-disable-line @typescript-eslint/naming-convention
       };
 
-      this.pizzaService.postOrder(orderRequest, authToken).subscribe({
-        next: (): void => {
-          this.ordersState.getOrdersFromApi();
-          this.toast.success('Order added successfully.', 'Success');
-          this.newOrderTableNo = null;
-          this.newOrderCrust = null;
-          this.newOrderSize = null;
-          this.newOrderFlavor = null;
-          this.submitting = false;
-        },
-        error: (err: HttpErrorResponse) => {
-          this.ordersState.getOrdersFromApi();
-          this.submitting = false;
-
-          if (err.status === 401) {
-            this.authState.clearAuth();
-            this.toast.error('Auth Token Expired. Please log back in.', 'Error');
-          } else {
-            this.toast.error(err.error.msg, 'Error Sending Order');
-          }
-        },
-      });
+      this.pizzaService
+        .postOrder(orderRequest, authToken)
+        .pipe(
+          finalize(() => {
+            this.ordersState.getOrdersFromApi();
+            this.submitting = false;
+          })
+        )
+        .subscribe({
+          next: (): void => {
+            this.toast.success('Order added successfully.', 'Success');
+            this.newOrderTableNo = null;
+            this.newOrderCrust = null;
+            this.newOrderSize = null;
+            this.newOrderFlavor = null;
+          },
+          error: (err: HttpErrorResponse) => {
+            if (err.status === 401) {
+              this.authState.clearAuth();
+              this.toast.error('Auth Token Expired. Please log back in.', 'Error');
+            } else {
+              this.toast.error(err.error.msg, 'Error Sending Order');
+            }
+          },
+        });
     }
   }
 }

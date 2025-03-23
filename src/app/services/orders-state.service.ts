@@ -6,7 +6,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersStateService {
+  // BehaviorSubject = a RxJS type that holds a current value and lets you emit new values over time
   private readonly ordersSubject = new BehaviorSubject<Order[]>([]);
+  // $ = naming convention letting use know that it is an observable variable
+  // asObservable() = hides the ability to call .next() on it
+  // on this class can push updates.  anything outside the class can only react to the updates
   public orders$: Observable<Order[]> = this.ordersSubject.asObservable();
 
   constructor(
@@ -23,6 +27,7 @@ export class OrdersStateService {
         const sortedOrdersByDateDescending = res.body?.sort(
           (a, b): number => new Date(b.Timestamp).getTime() - new Date(a.Timestamp).getTime()
         );
+        // replacing the older order list
         this.ordersSubject.next(sortedOrdersByDateDescending ?? []);
       },
       error: (err): void => {

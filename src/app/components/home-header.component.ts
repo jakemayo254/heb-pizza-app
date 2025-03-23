@@ -65,11 +65,15 @@ export class HomeHeaderComponent implements AfterViewInit {
     this.authState.clearAuth();
   }
 
+  // If the dropdown is visible during mobile view and the user goes to desktop view
+  // it will reset it to not be open so when the user goes back to mobile it will be
+  // hidden and the user will have to click the hamburger again
   ngAfterViewInit(): void {
     // Optional: Initially ensure dropdown is closed
     this.mobileDropdownRef?.nativeElement.removeAttribute('open');
   }
 
+  // listens to DOM events within the header component
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     const width = (event.target as Window).innerWidth;

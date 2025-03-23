@@ -7,6 +7,7 @@ import { Order } from '@src/app/models/order.model';
 })
 export class OrderFilterPipe implements PipeTransform {
   // required method of PipeTransform
+  // creates a new array after transforming it. does not modify the original array
   transform(orders: Order[] | null, searchText: string | null): Order[] {
     if (!orders) return [];
     if (!searchText) return orders;
