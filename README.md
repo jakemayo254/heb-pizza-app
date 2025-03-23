@@ -39,9 +39,9 @@ Then, open your browser and navigate to: [http://localhost:8080](http://localhos
    ```
 
 5. **Linting & Formatting:**
-    - Lint: `npm run lint`
-    - Fix Lint: `npm run lint:fix`
-    - Prettier format: `npm run prettier`
+   - Lint: `npm run lint`
+   - Fix Lint: `npm run lint:fix`
+   - Prettier format: `npm run prettier`
 
 6. **Run Unit Tests:**
    ```bash
@@ -50,25 +50,33 @@ Then, open your browser and navigate to: [http://localhost:8080](http://localhos
 
 ---
 
-## 🗂️ Folder Structure
+## 🗂️ Project Folder Structure
 
 ```
-src/
-├─ index.html              → Main HTML entry point
-├─ main.ts                 → Angular bootstrap entry point
-├─ styles.css              → Global styles (includes Tailwind)
-├─ environments/
-│  └─ environment.ts       → Environment configuration
-└─ app/
-   ├─ app.component.ts     → Root component
-   ├─ app.routes.ts        → Routing setup
-   ├─ app.config.ts        → App-level config
-   ├─ constants/           → App constants
-   ├─ models/              → TypeScript models
-   ├─ pipes/               → Custom Angular pipes
-   ├─ components/          → UI components (login, header, footer, home, etc.)
-   └─ services/            → Angular services (API interaction, state management)
+heb-pizza-app/
+├─ files/                        → Supplemental files
+├─ public/                       → Static assets (e.g., images)
+├─ src/                          → Main Angular application code
+│  ├─ index.html                 → Main HTML entry point
+│  ├─ main.ts                    → Angular bootstrap entry point
+│  ├─ styles.css                 → Global styles (includes Tailwind)
+│  ├─ environments/              → Environment configuration
+│  └─ app/
+│     ├─ app.component.ts        → Root component
+│     ├─ app.routes.ts           → Routing setup
+│     ├─ app.config.ts           → App-level config
+│     ├─ constants/              → App constants
+│     ├─ models/                 → TypeScript models
+│     ├─ pipes/                  → Custom Angular pipes
+│     ├─ components/             → UI components (login, header, footer, home, etc.)
+│     └─ services/               → Angular services (API interaction, state management)
+└─ tests/                        → Testing code (separated by design)
+   ├─ unit/                      → Unit tests
+   └─ e2e/                       → End-to-end tests (Playwright)
 ```
+
+> ✨ **Why Separate `src/` and `tests/`?**
+Keeping test code (`tests/`) outside of the main source code (`src/`) helps create a clear boundary between production and testing logic. This separation improves pull request clarity—making it easy to review production-related changes without test noise. It’s a commonly adopted practice in scalable software projects.
 
 ---
 
@@ -89,7 +97,7 @@ src/
 
 ## 📏 Linting Configuration
 
-Your ESLint setup includes:
+ESLint setup includes:
 - Prettier formatting integration
 - TypeScript & Angular ESLint rules
 - Simple Import Sort for organizing imports
@@ -107,6 +115,7 @@ See `eslint.config.js` for full configuration.
 - **Clean, maintainable code with strict linting rules**
 - **Beautiful UI styling with minimal CSS using Tailwind**
 - **Future-proof testing setup with Playwright**
+- **Clear distinction between production and test code for maintainability**
 
 ---
 
