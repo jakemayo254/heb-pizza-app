@@ -63,11 +63,11 @@ import { PizzaApiService } from '../services/pizza-api.service';
         <button
           type="submit"
           [attr.data-testid]="dataTestID.submitOrder"
-          [disabled]="newOrderForm.invalid"
-          [style.cursor]="newOrderForm.invalid ? 'not-allowed' : 'pointer'"
-          class="rounded border border-gray-300 bg-white px-4 py-2 font-semibold text-black transition hover:bg-gray-100 disabled:opacity-50"
+          [disabled]="newOrderForm.invalid || submitting"
+          [style.cursor]="newOrderForm.invalid || submitting ? 'not-allowed' : 'pointer'"
+          class="w-36 rounded border border-gray-300 bg-white px-4 py-2 font-semibold text-black transition hover:bg-gray-100 disabled:opacity-50"
         >
-          Submit Order
+          {{ submitting ? 'Submitting...' : 'Submit Order' }}
         </button>
       </form>
     </div>
@@ -79,6 +79,7 @@ export class OrderSubmitterComponent {
   protected newOrderCrust: string | null = null;
   protected newOrderFlavor: string | null = null;
   protected newOrderSize: string | null = null;
+  protected submitting = false;
 
   constructor(
     private readonly pizzaService: PizzaApiService,
@@ -101,6 +102,8 @@ export class OrderSubmitterComponent {
       this.newOrderSize !== '' &&
       this.newOrderTableNo !== null
     ) {
+      this.submitting = true;
+
       const orderRequest: OrderRequest = {
         Table_No: this.newOrderTableNo, // eslint-disable-line @typescript-eslint/naming-convention
         Flavor: this.newOrderFlavor, // eslint-disable-line @typescript-eslint/naming-convention
@@ -112,15 +115,15 @@ export class OrderSubmitterComponent {
         next: (): void => {
           this.ordersState.getOrdersFromApi();
           this.toast.success('Order added successfully.', 'Success');
-
           this.newOrderTableNo = null;
           this.newOrderCrust = null;
           this.newOrderSize = null;
           this.newOrderFlavor = null;
+          this.submitting = false;
         },
         error: (err: HttpErrorResponse) => {
-          // re fetch list just in case there is a mismatch
           this.ordersState.getOrdersFromApi();
+          this.submitting = false;
 
           if (err.status === 401) {
             this.authState.clearAuth();
