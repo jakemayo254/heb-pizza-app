@@ -18,3 +18,7 @@ import { dataTestID } from '@src/app/constants/data-test-id';
 export class HomeComponent {
   protected readonly dataTestID = dataTestID;
 }
+
+// flex-col = allows the components to stack on top of each other
+// flex-grow = take up as much space as possible
+// min-h-screen = make sure this entire layout is at least as tall as the screen

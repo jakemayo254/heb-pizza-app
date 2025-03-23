@@ -115,7 +115,7 @@ export class OrderSubmitterComponent {
       this.pizzaService
         .postOrder(orderRequest, authToken)
         .pipe(
-          finalize(() => {
+          finalize((): void => {
             this.ordersState.getOrdersFromApi();
             this.submitting = false;
           })
@@ -140,3 +140,7 @@ export class OrderSubmitterComponent {
     }
   }
 }
+
+// flex-wrap = allows flex items to wrap onto multiple lines if there isn't enough space on one line
+// flex-1 = will grow to fill available space. it can shrink if needed. grow and shrink
+// transition = enables CSS transition for a smooth effect when properities change.

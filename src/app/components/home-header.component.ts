@@ -83,3 +83,21 @@ export class HomeHeaderComponent implements AfterViewInit {
     }
   }
 }
+
+// w-full = element will stretch to fill the entire width of its parent container
+// px-4 = padding left and right of
+// py-6 = padding top and bottom
+// padding = space inside an element
+// margin = space outside an element
+// justify-between = put end items at end and even spacing between them
+// absolute = position the element absolutely relative to its nearest positioned ancestor
+// left-1/2 = move the elements left edge to the center of the parent container 50%
+// -translate-x-1/2 = shift the element left by 50% of its own width. perfectly centers it
+// md: = medium break
+// static = back to normal document flow
+// border-b = border-bottom-width. adds a 1-pixel bottom border
+// right-0 = positions the element flush to the right edge of its parent container
+// z-10 = ensures it appears above other elements. so the dropdown isn't hidden
+// ml-auto = adds left margin: auto, which pushes the element to the far right of its container
+// hidden = hides the element by default
+// gap-4 = adds a gap between children
