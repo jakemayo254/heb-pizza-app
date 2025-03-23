@@ -13,20 +13,20 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
           <img src="hebLogo.png" alt="H-E-B Logo" class="h-auto w-44" />
         </div>
 
-        <!-- Desktop Right Section -->
+        <!-- Desktop View Right Section -->
         <div class="ml-auto hidden items-center gap-4 md:flex">
           <span>Welcome, {{ authState.getUserName() }}</span>
           <button
             type="button"
             [attr.data-testid]="dataTestID.logoutButton"
             (click)="logOut()"
-            class="text-heb-text-gray rounded bg-white px-3 py-1 transition hover:bg-gray-200"
+            class="text-heb-text-gray cursor-pointer rounded bg-white px-3 py-1 transition hover:bg-gray-200"
           >
             Log Out
           </button>
         </div>
 
-        <!-- Mobile Dropdown Menu -->
+        <!-- Mobile View Dropdown Menu -->
         <div class="ml-auto md:hidden">
           <details class="relative" #mobileDropdown>
             <summary

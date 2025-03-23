@@ -36,7 +36,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
             type="submit"
             [attr.data-testid]="dataTestID.clearSearchOrder"
             [disabled]="searchForm.invalid"
-            class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+            class="cursor-pointer rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Clear Search
           </button>
