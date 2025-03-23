@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  HostListener
+} from '@angular/core';
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 
@@ -20,7 +26,6 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
             type="button"
             [attr.data-testid]="dataTestID.logoutButton"
             (click)="logOut()"
-            style="cursor: pointer;"
             class="text-heb-text-gray rounded bg-white px-3 py-1 transition hover:bg-gray-200"
           >
             Log Out
@@ -29,7 +34,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
 
         <!-- Mobile Dropdown Menu -->
         <div class="ml-auto md:hidden">
-          <details class="relative">
+          <details class="relative" #mobileDropdown>
             <summary
               [attr.data-testid]="dataTestID.mobileHamburger"
               class="flex cursor-pointer list-none items-center gap-2 text-2xl"
@@ -53,14 +58,30 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
         </div>
       </div>
     </header>
-  `,
+  `
 })
-export class HomeHeaderComponent {
+export class HomeHeaderComponent implements AfterViewInit {
   protected readonly dataTestID = dataTestID;
+
+  @ViewChild('mobileDropdown') mobileDropdownRef!: ElementRef<HTMLDetailsElement>;
 
   constructor(protected authState: AuthStateService) {}
 
   logOut(): void {
     this.authState.clearAuth();
+  }
+
+  ngAfterViewInit(): void {
+    // Optional: Initially ensure dropdown is closed
+    this.mobileDropdownRef?.nativeElement.removeAttribute('open');
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    const width = (event.target as Window).innerWidth;
+    if (width >= 768) {
+      // If resizing to desktop view, close mobile dropdown if open
+      this.mobileDropdownRef?.nativeElement.removeAttribute('open');
+    }
   }
 }
