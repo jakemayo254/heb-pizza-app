@@ -1,0 +1,9 @@
+node_modules
+dist
+tests
+files
+.git
+.dockerignore
+Dockerfile
+README.md
+README_ANGULAR.md

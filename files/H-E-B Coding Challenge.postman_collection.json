@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "0a881cd5-f6ec-461b-970b-38e4cb601edc",
+		"name": "H-E-B Coding Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43214228"
+	},
+	"item": [
+		{
+			"name": "Auth Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"test\",\n    \"username\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://pizza-api-app.herokuapp.com/api/auth",
+					"protocol": "https",
+					"host": [
+						"pizza-api-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://pizza-api-app.herokuapp.com/api/orders",
+					"protocol": "https",
+					"host": [
+						"pizza-api-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders - Add/Edit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjMzNzk3MywianRpIjoiYjM3N2RiZWYtYTcyOC00ZjcxLWFmZDEtNjUzMmE3NmZlMzcyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3QiLCJuYmYiOjE3NDIzMzc5NzMsImV4cCI6MTc0MjMzODg3M30.lNCOoVl4esg5p_5ue9e0tPFB54S30QOoLJnc2Ryea0A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Crust\": \"Deep Dish Pizza\",\n    \"Flavor\": \"Pepperoni Fresh Cheesy\",\n    \"Size\": \"L\",\n    \"Table_No\": 1,\n    \"Order_ID\": 9\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://pizza-api-app.herokuapp.com/api/orders",
+					"protocol": "https",
+					"host": [
+						"pizza-api-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://pizza-api-app.herokuapp.com/api/orders/1",
+					"protocol": "https",
+					"host": [
+						"pizza-api-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
