@@ -9,7 +9,7 @@ import { Order } from '@src/app/models/order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subscription } from 'rxjs';
+import { finalize, Observable, Subscription } from 'rxjs';
 
 import { PizzaApiService } from '../services/pizza-api.service';
 
@@ -112,18 +112,22 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
 
   deleteOrder(orderId: number): void {
     if (confirm(`Are you sure you want to delete Order ID: ${orderId}?`)) {
-      this.pizzaService.deleteOrder(orderId).subscribe({
-        next: (result: HttpResponse<DeleteOrderResponse>): void => {
-          this.ordersState.getOrdersFromApi();
-          this.toast.success(result.body?.message, 'Success');
-        },
-        error: (err: HttpErrorResponse): void => {
-          // going to re fetch order list because maybe one of them went away so need the latest
-          this.ordersState.getOrdersFromApi();
-          const errorBody: ErrorResponse = err.error;
-          this.toast.error(errorBody.detail, errorBody.title);
-        },
-      });
+      this.pizzaService
+        .deleteOrder(orderId)
+        .pipe(
+          finalize(() => {
+            this.ordersState.getOrdersFromApi();
+          })
+        )
+        .subscribe({
+          next: (result: HttpResponse<DeleteOrderResponse>): void => {
+            this.toast.success(result.body?.message, 'Success');
+          },
+          error: (err: HttpErrorResponse): void => {
+            const errorBody: ErrorResponse = err.error;
+            this.toast.error(errorBody.detail, errorBody.title);
+          },
+        });
     }
   }
 
