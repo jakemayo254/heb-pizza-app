@@ -88,7 +88,11 @@ export class OrderSubmitterComponent {
   ) {}
 
   submitOrder(): void {
+    const authToken = this.authState.getAuthToken();
+
     if (
+      authToken !== null &&
+      authToken !== '' &&
       this.newOrderFlavor !== null &&
       this.newOrderFlavor !== '' &&
       this.newOrderCrust !== null &&
@@ -104,7 +108,7 @@ export class OrderSubmitterComponent {
         Size: this.newOrderSize, // eslint-disable-line @typescript-eslint/naming-convention
       };
 
-      this.pizzaService.postOrder(orderRequest, this.authState.getAuthToken() ?? '').subscribe({
+      this.pizzaService.postOrder(orderRequest, authToken).subscribe({
         next: (): void => {
           this.ordersState.getOrdersFromApi();
           this.toast.success('Order added successfully.', 'Success');
@@ -119,7 +123,6 @@ export class OrderSubmitterComponent {
           this.ordersState.getOrdersFromApi();
 
           if (err.status === 401) {
-            console.log('Token has expired');
             this.authState.clearAuth();
             this.toast.error('Auth Token Expired. Please log back in.', 'Error');
           } else {

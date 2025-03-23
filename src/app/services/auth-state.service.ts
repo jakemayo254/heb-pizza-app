@@ -13,7 +13,7 @@ export class AuthStateService {
   constructor(
     private readonly pizzaAPIService: PizzaApiService,
     private readonly toast: ToastrService
-  ) { }
+  ) {}
 
   setAuthToken(username: string, password: string): Observable<HttpResponse<AuthResponse>> {
     if (!username || !password) {
