@@ -3,7 +3,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { dataTestID } from '@src/app/constants/data-test-id';
-import { ErrorResponse } from '@src/app/models/error-response.model';
 import { OrderRequest } from '@src/app/models/order.model';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
@@ -118,15 +117,13 @@ export class OrderSubmitterComponent {
         error: (err: HttpErrorResponse) => {
           // re fetch list just in case there is a mismatch
           this.ordersState.getOrdersFromApi();
-          const errorBody: ErrorResponse = err.error;
-          this.toast.error(errorBody.detail, errorBody.title);
 
-          console.log('errorStatus: ' + err.error.status);
-
-          if (errorBody.status === 401) {
+          if (err.status === 401) {
             console.log('Token has expired');
             this.authState.clearAuth();
             this.toast.error('Auth Token Expired. Please log back in.', 'Error');
+          } else {
+            this.toast.error(err.error.msg, 'Error Sending Order');
           }
         },
       });
