@@ -78,11 +78,6 @@ heb-pizza-app/
 
 ```
 
-> ✨ **Why Separate `src/` and `tests/`?**
-Keeping test code (`tests/`) outside of the main source code (`src/`) helps create a clear boundary between production and testing logic. This separation improves pull request clarity—making it easy to review production-related changes without test noise. It’s a commonly adopted practice in scalable software projects.
-
----
-
 ## 🧩 Technologies & Benefits
 
 | Technology     | Description |
