@@ -1,6 +1,7 @@
 # H-E-B Pizza App 🍕
 
-An Angular-based web application built for a senior software engineer interview coding challenge. This project demonstrates a modern frontend stack with Dockerized deployment, Tailwind CSS styling, ESLint + Prettier for code quality, and Playwright for end-to-end testing.
+An Angular-based web application built for a senior software engineer interview coding challenge. This project demonstrates a modern frontend stack with Dockerized deployment, Tailwind CSS styling, ESLint + Prettier for code quality, and Playwright for end-to-end testing. Brainstorming Miro https://miro.com/app/board/uXjVIO0dWwA=/
+
 
 ---
 
