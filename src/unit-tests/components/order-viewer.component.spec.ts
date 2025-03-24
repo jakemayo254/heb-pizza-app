@@ -12,7 +12,7 @@ import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subject, throwError } from 'rxjs';
 
-describe('OrderViewerComponent', () => {
+describe('OrderViewerComponent', (): void => {
   let fixture: ComponentFixture<OrderViewerComponent>;
   let component: OrderViewerComponent;
   let pizzaServiceSpy: jasmine.SpyObj<PizzaApiService>;
@@ -39,7 +39,7 @@ describe('OrderViewerComponent', () => {
     },
   ];
 
-  beforeEach(async () => {
+  beforeEach(async (): Promise<void> => {
     pizzaServiceSpy = jasmine.createSpyObj('PizzaApiService', ['deleteOrder']);
     ordersStateSpy = jasmine.createSpyObj('OrdersStateService', ['getOrdersFromApi'], {
       orders$: of(mockOrders),
@@ -60,18 +60,18 @@ describe('OrderViewerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create component and render order viewer', () => {
+  it('should create component and render order viewer', (): void => {
     expect(component).toBeTruthy();
     const container = fixture.nativeElement.querySelector(`[data-testid="${dataTestID.appOrderViewer}"]`);
     expect(container).toBeTruthy();
   });
 
-  it('should display list of orders', () => {
+  it('should display list of orders', (): void => {
     const orderCards = fixture.nativeElement.querySelectorAll(`[data-testid^="${dataTestID.orderCard}"]`);
     expect(orderCards.length).toBe(mockOrders.length);
   });
 
-  it('should clear searchText on clearSearchText()', () => {
+  it('should clear searchText on clearSearchText()', (): void => {
     const input = fixture.nativeElement.querySelector(`[data-testid="${dataTestID.searchOrder}"]`);
     input.value = 'Test';
     input.dispatchEvent(new Event('input'));
@@ -83,7 +83,7 @@ describe('OrderViewerComponent', () => {
     expect(component['searchText']).toBeNull();
   });
 
-  it('should call deleteOrder and show success toast', () => {
+  it('should call deleteOrder and show success toast', (): void => {
     spyOn(window, 'confirm').and.returnValue(true);
     const mockResponse = new HttpResponse<DeleteOrderResponse>({
       body: { message: 'Order deleted successfully' },
@@ -99,7 +99,7 @@ describe('OrderViewerComponent', () => {
     expect(ordersStateSpy.getOrdersFromApi).toHaveBeenCalled();
   });
 
-  it('should handle deleteOrder error and show toast', () => {
+  it('should handle deleteOrder error and show toast', (): void => {
     spyOn(window, 'confirm').and.returnValue(true);
     const errorResponse: HttpErrorResponse = new HttpErrorResponse({
       status: 400,
@@ -114,13 +114,13 @@ describe('OrderViewerComponent', () => {
     expect(ordersStateSpy.getOrdersFromApi).toHaveBeenCalled();
   });
 
-  it('should unsubscribe on destroy', () => {
+  it('should unsubscribe on destroy', (): void => {
     const unsubscribeSpy = spyOn(component['subscription'], 'unsubscribe');
     component.ngOnDestroy();
     expect(unsubscribeSpy).toHaveBeenCalled();
   });
 
-  it('should reset searchText on order stream emit (ngOnInit)', () => {
+  it('should reset searchText on order stream emit (ngOnInit)', (): void => {
     const ordersSubject = new Subject<Order[]>();
     ordersStateSpy.orders$ = ordersSubject.asObservable();
     fixture = TestBed.createComponent(OrderViewerComponent);

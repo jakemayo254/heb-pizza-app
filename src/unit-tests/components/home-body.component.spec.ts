@@ -8,11 +8,11 @@ import { OrderViewerComponent } from '@src/app/components/order-viewer.component
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { ToastrService } from 'ngx-toastr';
 
-describe('HomeBodyComponent', () => {
+describe('HomeBodyComponent', (): void => {
   let component: HomeBodyComponent;
   let fixture: ComponentFixture<HomeBodyComponent>;
 
-  beforeEach(async () => {
+  beforeEach(async (): Promise<void> => {
     await TestBed.configureTestingModule({
       imports: [HomeBodyComponent, OrderSubmitterComponent, OrderViewerComponent],
       providers: [
@@ -30,21 +30,21 @@ describe('HomeBodyComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create the component', (): void => {
     expect(component).toBeTruthy();
   });
 
-  it('should render container with correct data-testid', () => {
+  it('should render container with correct data-testid', (): void => {
     const container = fixture.debugElement.query(By.css(`[data-testid="${dataTestID.appHomeBody}"]`));
     expect(container).toBeTruthy();
   });
 
-  it('should render OrderSubmitterComponent', () => {
+  it('should render OrderSubmitterComponent', (): void => {
     const submitter = fixture.debugElement.query(By.css('app-order-submitter'));
     expect(submitter).toBeTruthy();
   });
 
-  it('should render OrderViewerComponent', () => {
+  it('should render OrderViewerComponent', (): void => {
     const viewer = fixture.debugElement.query(By.css('app-order-viewer'));
     expect(viewer).toBeTruthy();
   });

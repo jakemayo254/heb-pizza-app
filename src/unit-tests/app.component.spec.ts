@@ -9,7 +9,7 @@ import { LoginComponent } from '@src/app/components/login.component';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 import { ToastrService } from 'ngx-toastr';
 
-describe('AppComponent', () => {
+describe('AppComponent', (): void => {
   let fixture: ComponentFixture<AppComponent>;
   let authStateServiceSpy = jasmine.createSpyObj('AuthStateService', [
     'isAuthenticated',
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
   ]);
   let toastSpy: jasmine.SpyObj<ToastrService>;
 
-  beforeEach(async () => {
+  beforeEach(async (): Promise<void> => {
     authStateServiceSpy = jasmine.createSpyObj('AuthStateService', [
       'isAuthenticated',
       'getUserName',
@@ -43,12 +43,12 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
   });
 
-  it('should create the component', () => {
+  it('should create the component', (): void => {
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
-  it('should show login component when not authenticated', () => {
+  it('should show login component when not authenticated', (): void => {
     authStateServiceSpy.isAuthenticated.and.returnValue(false);
     fixture.detectChanges();
 
@@ -59,7 +59,7 @@ describe('AppComponent', () => {
     expect(homeComponent).toBeFalsy();
   });
 
-  it('should show home component when authenticated', () => {
+  it('should show home component when authenticated', (): void => {
     authStateServiceSpy.getUserName.and.returnValue('TestUser');
     authStateServiceSpy.isAuthenticated.and.returnValue(true);
     fixture.detectChanges();

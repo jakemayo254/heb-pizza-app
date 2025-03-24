@@ -7,7 +7,7 @@ import { Order, OrderRequest } from '@src/app/models/order.model';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { environment } from '@src/environments/environment';
 
-describe('PizzaApiService', () => {
+describe('PizzaApiService', (): void => {
   let service: PizzaApiService;
   let httpMock: HttpTestingController;
 
@@ -24,22 +24,22 @@ describe('PizzaApiService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => {
+  afterEach((): void => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it('should be created', (): void => {
     expect(service).toBeTruthy();
   });
 
-  describe('getAuthToken', () => {
-    it('should POST to authURL and return AuthResponse', () => {
+  describe('getAuthToken', (): void => {
+    it('should POST to authURL and return AuthResponse', (): void => {
       /* eslint-disable @typescript-eslint/naming-convention */
       const mockResponse: AuthResponse = { access_token: 'fake-token', msg: '' };
       const username = 'testuser';
       const password = 'testpass';
 
-      service.getAuthToken(username, password).subscribe((res) => {
+      service.getAuthToken(username, password).subscribe((res): void => {
         expect(res.body).toEqual(mockResponse);
       });
 
@@ -50,8 +50,8 @@ describe('PizzaApiService', () => {
     });
   });
 
-  describe('getOrders', () => {
-    it('should GET orders from ordersURL', () => {
+  describe('getOrders', (): void => {
+    it('should GET orders from ordersURL', (): void => {
       /* eslint-disable @typescript-eslint/naming-convention */
       const mockOrders: Order[] = [
         {
@@ -72,7 +72,7 @@ describe('PizzaApiService', () => {
         },
       ];
 
-      service.getOrders().subscribe((res) => {
+      service.getOrders().subscribe((res): void => {
         expect(res.body).toEqual(mockOrders);
       });
 
@@ -82,8 +82,8 @@ describe('PizzaApiService', () => {
     });
   });
 
-  describe('postOrder', () => {
-    it('should POST order to ordersURL with auth header', () => {
+  describe('postOrder', (): void => {
+    it('should POST order to ordersURL with auth header', (): void => {
       const orderRequest: OrderRequest = {
         Table_No: 7,
         Crust: 'Stuffed',
@@ -99,7 +99,7 @@ describe('PizzaApiService', () => {
 
       const token = 'test-token';
 
-      service.postOrder(orderRequest, token).subscribe((res) => {
+      service.postOrder(orderRequest, token).subscribe((res): void => {
         expect(res.body).toEqual(mockOrder);
       });
 
@@ -111,12 +111,12 @@ describe('PizzaApiService', () => {
     });
   });
 
-  describe('deleteOrder', () => {
-    it('should DELETE order by ID from ordersURL', () => {
+  describe('deleteOrder', (): void => {
+    it('should DELETE order by ID from ordersURL', (): void => {
       const orderID = 456;
       const mockResponse: DeleteOrderResponse = { message: 'Order deleted successfully' };
 
-      service.deleteOrder(orderID).subscribe((res) => {
+      service.deleteOrder(orderID).subscribe((res): void => {
         expect(res.body).toEqual(mockResponse);
       });
 

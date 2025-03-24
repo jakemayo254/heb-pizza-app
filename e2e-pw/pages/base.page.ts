@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+
 import { EnvTag } from '../enums/env-tag';
 
 export default class BasePage {

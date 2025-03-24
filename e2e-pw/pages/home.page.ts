@@ -1,8 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 import { dataTestID } from '@src/app/constants/data-test-id';
 
-import BasePage from './base.page';
 import { EnvTag } from '../enums/env-tag';
+import BasePage from './base.page';
 
 export default class HomePage extends BasePage {
   readonly appHome: Locator;

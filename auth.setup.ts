@@ -1,5 +1,6 @@
 import { chromium } from '@playwright/test';
 import { dataTestID } from '@src/app/constants/data-test-id';
+
 import { EnvTag } from './e2e-pw/enums/env-tag';
 
 async function globalSetup(): Promise<void> {

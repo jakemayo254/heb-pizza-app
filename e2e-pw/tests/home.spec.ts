@@ -2,8 +2,8 @@ import { expect, request, test } from '@playwright/test';
 import { Order } from '@src/app/models/order.model';
 import LoginPage from 'e2e-pw/pages/login.page';
 
-import HomePage from '../pages/home.page';
 import { EnvTag } from '../enums/env-tag';
+import HomePage from '../pages/home.page';
 
 const pizzaAPIURL = process.env[EnvTag.pizzaAPIBaseURL] ?? '';
 const username = process.env[EnvTag.userName] ?? '';
