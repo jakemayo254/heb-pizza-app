@@ -15,9 +15,11 @@ dotenv.config(); // Load .env before anything else
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './unit-tests',
+  testDir: './e2e-pw/tests',
+  testMatch: '**/*.spec.ts',
+  testIgnore: ['src/unit-tests/**/*.spec.ts'],
   /* Run unit-tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env['CI'],
   /* Retry on CI only */
