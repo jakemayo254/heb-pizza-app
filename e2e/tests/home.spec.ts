@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
-import HomePage from '@tests/e2e/pages/home.page';
+
+import HomePage from '../pages/home.page';
 
 test.describe('Home Page', (): void => {
   test('Test Home Page', async ({ page }): Promise<void> => {
