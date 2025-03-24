@@ -56,25 +56,26 @@ Open your browser and navigate to: [http://localhost:4200](http://localhost:4200
 
 ```
 heb-pizza-app/
+├─ e2e/                          → End-to-end tests (Playwright)
 ├─ files/                        → Supplemental files
 ├─ public/                       → Static assets (e.g., images)
-├─ src/                          → Main Angular application code
-│  ├─ index.html                 → Main HTML entry point
-│  ├─ main.ts                    → Angular bootstrap entry point
-│  ├─ styles.css                 → Global styles (includes Tailwind)
-│  ├─ environments/              → Environment configuration
-│  └─ app/
-│     ├─ app.component.ts        → Root component
-│     ├─ app.routes.ts           → Routing setup
-│     ├─ app.config.ts           → App-level config
-│     ├─ constants/              → App constants
-│     ├─ models/                 → TypeScript models
-│     ├─ pipes/                  → Custom Angular pipes
-│     ├─ components/             → UI components (login, header, footer, home, etc.)
-│     └─ services/               → Angular services (API interaction, state management)
-└─ tests/                        → Testing code (separated by design)
-   ├─ unit/                      → Unit tests
-   └─ e2e/                       → End-to-end tests (Playwright)
+└─ src/                          → Main Angular application code
+   ├─ index.html                 → Main HTML entry point
+   ├─ main.ts                    → Angular bootstrap entry point
+   ├─ styles.css                 → Global styles (includes Tailwind)
+   ├─ environments/              → Environment configuration
+   ├─ unit-tests/                → Unit tests
+   └─ app/
+      ├─ app.component.ts        → Root component
+      ├─ app.routes.ts           → Routing setup
+      ├─ app.config.ts           → App-level config
+      ├─ constants/              → App constants
+      ├─ models/                 → TypeScript models
+      ├─ pipes/                  → Custom Angular pipes
+      ├─ components/             → UI components (login, header, footer, home, etc.)
+      └─ services/               → Angular services (API interaction, state management)
+   
+
 ```
 
 > ✨ **Why Separate `src/` and `tests/`?**

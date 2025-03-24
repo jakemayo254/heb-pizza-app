@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
-import LoginPage from '@tests/e2e/pages/login.page';
+
+import LoginPage from '../pages/login.page';
 
 test.describe('Login', () => {
   test('Test Login', async ({ page }): Promise<void> => {
