@@ -24,14 +24,14 @@ export default class HomePage extends BasePage {
   readonly submitOrder: Locator;
 
   constructor(page: Page) {
-    const testOrderID = process.env['TEST_ORDER_ID'];
+    const testOrderID = process.env['TEST_TABLE_ID'];
 
     super(page);
 
     this.appHome = page.getByTestId(dataTestID.appHome);
 
     // Home Header
-    this.appHomeHeader = this.appHome.getByTestId(dataTestID.appLogin);
+    this.appHomeHeader = this.appHome.getByTestId(dataTestID.appHomeHeader);
     this.logoutButton = this.appHomeHeader.getByTestId(dataTestID.logoutButton);
     this.mobileHamburger = this.appHomeHeader.getByTestId(dataTestID.mobileHamburger);
     this.mobileLogoutButton = this.appHomeHeader.getByTestId(dataTestID.mobileLogoutButton);

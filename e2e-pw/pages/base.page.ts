@@ -9,16 +9,12 @@ export default class BasePage {
     this.baseUrl = process.env['HEB_PIZZA_APP_URL'] ?? '';
   }
 
-  async navigateTo(path: string): Promise<void> {
-    await this.page.goto(this.baseUrl + path);
-  }
-
-  async navigateToBase(): Promise<void> {
+  public async navigateToBase(): Promise<void> {
     await this.page.goto(this.baseUrl);
   }
 
   async toMobileView(): Promise<void> {
-    await this.page.setViewportSize({ width: 1020, height: 1020 });
+    await this.page.setViewportSize({ width: 375, height: 667 });
   }
 
   async toDesktopView(): Promise<void> {

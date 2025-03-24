@@ -51,7 +51,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           <!-- Trash Button -->
           <button
             type="button"
-            [attr.data-testid]="dataTestID.deleteOrder + order.Order_ID"
+            [attr.data-testid]="dataTestID.deleteOrder + order.Table_No"
             (click)="deleteOrder(order.Order_ID)"
             title="Delete Order"
             style="cursor: pointer;"
@@ -62,7 +62,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
 
           <!-- Order Info -->
           <div
-            [attr.data-testid]="dataTestID.orderCard + order.Order_ID"
+            [attr.data-testid]="dataTestID.orderCard + order.Table_No"
             class="grid grid-cols-1 gap-y-2 text-sm sm:grid-cols-2"
           >
             <div><span class="font-semibold">Order ID:</span> {{ order.Order_ID }}</div>
