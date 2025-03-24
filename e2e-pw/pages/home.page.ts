@@ -2,6 +2,7 @@ import { Locator, Page } from '@playwright/test';
 import { dataTestID } from '@src/app/constants/data-test-id';
 
 import BasePage from './base.page';
+import { EnvTag } from '../enums/env-tag';
 
 export default class HomePage extends BasePage {
   readonly appHome: Locator;
@@ -24,7 +25,7 @@ export default class HomePage extends BasePage {
   readonly submitOrder: Locator;
 
   constructor(page: Page) {
-    const testOrderID = process.env['TEST_TABLE_ID'];
+    const testOrderID = process.env[EnvTag.testTableID];
 
     super(page);
 

@@ -3,12 +3,12 @@ import { Order } from '@src/app/models/order.model';
 import LoginPage from 'e2e-pw/pages/login.page';
 
 import HomePage from '../pages/home.page';
+import { EnvTag } from '../enums/env-tag';
 
-const pizzaAPIURL = process.env['PIZZA_API_BASE_URL'] ?? '';
-const username = process.env['USER_NAME'] ?? '';
-const password = process.env['USER_PASSWORD'] ?? '';
-const testTableID = process.env['TEST_TABLE_ID'] ?? 0;
-const testUser = { username, password };
+const pizzaAPIURL = process.env[EnvTag.pizzaAPIBaseURL] ?? '';
+const username = process.env[EnvTag.userName] ?? '';
+const password = process.env[EnvTag.userPassword] ?? '';
+const testTableID = process.env[EnvTag.testTableID] ?? 0;
 
 test.beforeEach(async ({ page }): Promise<void> => {
   const loginPage = new LoginPage(page);
@@ -17,8 +17,8 @@ test.beforeEach(async ({ page }): Promise<void> => {
   await homePage.navigateToBase();
 
   if (await loginPage.appLogin.isVisible()) {
-    await loginPage.loginUser.fill(testUser.username);
-    await loginPage.loginPassword.fill(testUser.password);
+    await loginPage.loginUser.fill(username);
+    await loginPage.loginPassword.fill(password);
     await loginPage.loginButton.click();
   }
 
@@ -29,7 +29,7 @@ test.describe('Home Header Component', (): void => {
   test('renders header correctly with username', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
     await expect(homePage.appHomeHeader).toBeVisible();
-    await expect(homePage.appHomeHeader).toContainText(`Welcome, ${testUser.username}`);
+    await expect(homePage.appHomeHeader).toContainText(`Welcome, ${username}`);
   });
 
   test('logs out successfully on desktop', async ({ page }): Promise<void> => {
