@@ -13,7 +13,7 @@ export default class BasePage {
     await this.page.goto(this.baseUrl + path);
   }
 
-  async navigateToBase(): Promise<void> {
+  public async navigateToBase(): Promise<void> {
     await this.page.goto(this.baseUrl);
   }
 

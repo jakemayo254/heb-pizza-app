@@ -3,6 +3,8 @@ import { expect, test } from '@playwright/test';
 import LoginPage from '../pages/login.page';
 
 test.describe('Login Page', () => {
+  test.use({ storageState: { cookies: [], origins: [] } }); // <-- Override to empty auth state for this test suite
+
   test('should render login page', async ({ page }) => {
     const login = new LoginPage(page);
     await login.navigateToBase();
