@@ -6,12 +6,12 @@ import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { of, take, throwError } from 'rxjs';
 
-describe('OrdersStateService', () => {
+describe('OrdersStateService', (): void => {
   let service: OrdersStateService;
   let pizzaApiServiceSpy: jasmine.SpyObj<PizzaApiService>;
   let toastrServiceSpy: jasmine.SpyObj<ToastrService>;
 
-  beforeEach(() => {
+  beforeEach((): void => {
     const pizzaSpy = jasmine.createSpyObj('PizzaApiService', ['getOrders']);
     const toastSpy = jasmine.createSpyObj('ToastrService', ['error']);
 
@@ -30,12 +30,12 @@ describe('OrdersStateService', () => {
     toastrServiceSpy = TestBed.inject(ToastrService) as jasmine.SpyObj<ToastrService>;
   });
 
-  it('should be created', () => {
+  it('should be created', (): void => {
     expect(service).toBeTruthy();
   });
 
-  describe('getOrdersFromApi', () => {
-    it('should call pizzaService.getOrders() and emit sorted orders by descending Timestamp', (done) => {
+  describe('getOrdersFromApi', (): void => {
+    it('should call pizzaService.getOrders() and emit sorted orders by descending Timestamp', (done): void => {
       /* eslint-disable @typescript-eslint/naming-convention */
       const mockOrders: Order[] = [
         {
@@ -61,7 +61,7 @@ describe('OrdersStateService', () => {
       pizzaApiServiceSpy.getOrders.and.returnValue(of(new HttpResponse({ body: mockOrders, status: 200 })));
 
       // ✅ Wait for second emission (after getOrdersFromApi emits sorted orders)
-      service.orders$.pipe(take(2)).subscribe((orders) => {
+      service.orders$.pipe(take(2)).subscribe((orders): void => {
         // Ignore first emission [] from BehaviorSubject, assert second one
         if (orders.length > 0) {
           expect(orders).toEqual(expectedSorted);
@@ -84,7 +84,7 @@ describe('OrdersStateService', () => {
     //   service.getOrdersFromApi();
     // });
 
-    it('should show toast error on API failure', () => {
+    it('should show toast error on API failure', (): void => {
       const errorResponse = {
         status: 500,
         error: { message: 'Server error' },
@@ -97,7 +97,7 @@ describe('OrdersStateService', () => {
       expect(toastrServiceSpy.error).toHaveBeenCalledWith('Server error', 'Error Getting Orders');
     });
 
-    it('should show default error message if error response has no message', () => {
+    it('should show default error message if error response has no message', (): void => {
       const errorResponse = {
         status: 500,
         error: {},

@@ -9,11 +9,11 @@ import { HomeHeaderComponent } from '@src/app/components/home-header.component';
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { ToastrService } from 'ngx-toastr';
 
-describe('HomeComponent', () => {
+describe('HomeComponent', (): void => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(async () => {
+  beforeEach(async (): Promise<void> => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent, HomeHeaderComponent, HomeBodyComponent, HomeFooterComponent],
       providers: [
@@ -31,26 +31,26 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create the component', (): void => {
     expect(component).toBeTruthy();
   });
 
-  it('should render container with correct data-testid', () => {
+  it('should render container with correct data-testid', (): void => {
     const container = fixture.debugElement.query(By.css(`[data-testid="${dataTestID.appHome}"]`));
     expect(container).toBeTruthy();
   });
 
-  it('should render HomeHeaderComponent', () => {
+  it('should render HomeHeaderComponent', (): void => {
     const header = fixture.debugElement.query(By.css('app-home-header'));
     expect(header).toBeTruthy();
   });
 
-  it('should render HomeBodyComponent', () => {
+  it('should render HomeBodyComponent', (): void => {
     const body = fixture.debugElement.query(By.css('app-home-body'));
     expect(body).toBeTruthy();
   });
 
-  it('should render HomeFooterComponent', () => {
+  it('should render HomeFooterComponent', (): void => {
     const footer = fixture.debugElement.query(By.css('app-home-footer'));
     expect(footer).toBeTruthy();
   });

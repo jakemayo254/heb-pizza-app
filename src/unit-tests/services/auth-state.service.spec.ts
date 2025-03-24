@@ -6,12 +6,12 @@ import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 
-describe('AuthStateService', () => {
+describe('AuthStateService', (): void => {
   let service: AuthStateService;
   let pizzaApiServiceSpy: jasmine.SpyObj<PizzaApiService>;
   let toastrServiceSpy: jasmine.SpyObj<ToastrService>;
 
-  beforeEach(() => {
+  beforeEach((): void => {
     const pizzaApiSpy = jasmine.createSpyObj('PizzaApiService', ['getAuthToken']);
     const toastSpy = jasmine.createSpyObj('ToastrService', ['error']);
 
@@ -30,14 +30,14 @@ describe('AuthStateService', () => {
     localStorage.clear();
   });
 
-  afterEach(() => {
+  afterEach((): void => {
     localStorage.clear();
   });
 
-  describe('setAuthToken', () => {
-    it('should show toast and throw error if username or password is missing', (done) => {
+  describe('setAuthToken', (): void => {
+    it('should show toast and throw error if username or password is missing', (done): void => {
       service.setAuthToken('', '').subscribe({
-        error: (err) => {
+        error: (err): void => {
           expect(toastrServiceSpy.error).toHaveBeenCalledWith('Username and password are required', 'Error');
           expect(err.message).toBe('Missing credentials');
           done();
@@ -45,7 +45,7 @@ describe('AuthStateService', () => {
       });
     });
 
-    it('should store token and username in localStorage on success', (done) => {
+    it('should store token and username in localStorage on success', (done): void => {
       /* eslint-disable @typescript-eslint/naming-convention */
       const mockResponse = new HttpResponse<AuthResponse>({
         body: { access_token: 'test-token', msg: 'Success' },
@@ -54,14 +54,14 @@ describe('AuthStateService', () => {
 
       pizzaApiServiceSpy.getAuthToken.and.returnValue(of(mockResponse));
 
-      service.setAuthToken('testuser', 'testpass').subscribe(() => {
+      service.setAuthToken('testuser', 'testpass').subscribe((): void => {
         expect(localStorage.getItem('authToken')).toBe('test-token');
         expect(localStorage.getItem('authUsername')).toBe('testuser');
         done();
       });
     });
 
-    it('should log warning if access_token is missing', (done) => {
+    it('should log warning if access_token is missing', (done): void => {
       spyOn(console, 'warn');
       const mockResponse = new HttpResponse<AuthResponse>({
         body: { access_token: '', msg: 'Success' },
@@ -70,13 +70,13 @@ describe('AuthStateService', () => {
 
       pizzaApiServiceSpy.getAuthToken.and.returnValue(of(mockResponse));
 
-      service.setAuthToken('testuser', 'testpass').subscribe(() => {
+      service.setAuthToken('testuser', 'testpass').subscribe((): void => {
         expect(console.warn).toHaveBeenCalledWith('Auth token missing in response body');
         done();
       });
     });
 
-    it('should show toast and rethrow error on API failure', (done) => {
+    it('should show toast and rethrow error on API failure', (done): void => {
       const apiError = {
         status: 401,
         error: { msg: 'Invalid credentials' },
@@ -95,7 +95,7 @@ describe('AuthStateService', () => {
       });
     });
 
-    it('should show toast with default message if error has no msg', (done) => {
+    it('should show toast with default message if error has no msg', (done): void => {
       const apiError = {
         status: 400,
         error: {},
@@ -104,7 +104,7 @@ describe('AuthStateService', () => {
       pizzaApiServiceSpy.getAuthToken.and.returnValue(throwError(() => apiError));
 
       service.setAuthToken('testuser', 'wrongpass').subscribe({
-        error: () => {
+        error: (): void => {
           expect(toastrServiceSpy.error).toHaveBeenCalledWith('Unknown error', 'Error');
           done();
         },
@@ -112,22 +112,22 @@ describe('AuthStateService', () => {
     });
   });
 
-  describe('getUserName', () => {
-    it('should return the username from localStorage', () => {
+  describe('getUserName', (): void => {
+    it('should return the username from localStorage', (): void => {
       localStorage.setItem('authUsername', 'testuser');
       expect(service.getUserName()).toBe('testuser');
     });
   });
 
-  describe('getAuthToken', () => {
-    it('should return the token from localStorage', () => {
+  describe('getAuthToken', (): void => {
+    it('should return the token from localStorage', (): void => {
       localStorage.setItem('authToken', 'test-token');
       expect(service.getAuthToken()).toBe('test-token');
     });
   });
 
-  describe('clearAuth', () => {
-    it('should remove auth data from localStorage', () => {
+  describe('clearAuth', (): void => {
+    it('should remove auth data from localStorage', (): void => {
       localStorage.setItem('authToken', 'abc');
       localStorage.setItem('authUsername', 'user');
       service.clearAuth();
@@ -136,13 +136,13 @@ describe('AuthStateService', () => {
     });
   });
 
-  describe('isAuthenticated', () => {
-    it('should return true if token is valid', () => {
+  describe('isAuthenticated', (): void => {
+    it('should return true if token is valid', (): void => {
       localStorage.setItem('authToken', 'valid');
       expect(service.isAuthenticated()).toBeTrue();
     });
 
-    it('should return false if token is null/empty/invalid', () => {
+    it('should return false if token is null/empty/invalid', (): void => {
       localStorage.setItem('authToken', '');
       expect(service.isAuthenticated()).toBeFalse();
 

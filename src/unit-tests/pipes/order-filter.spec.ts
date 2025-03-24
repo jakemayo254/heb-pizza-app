@@ -1,7 +1,7 @@
 import { Order } from '@src/app/models/order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 
-describe('OrderFilterPipe', () => {
+describe('OrderFilterPipe', (): void => {
   let pipe: OrderFilterPipe;
 
   /* eslint-disable @typescript-eslint/naming-convention */
@@ -32,62 +32,62 @@ describe('OrderFilterPipe', () => {
     },
   ];
 
-  beforeEach(() => {
+  beforeEach((): void => {
     pipe = new OrderFilterPipe();
   });
 
-  it('should return all orders if searchText is null', () => {
+  it('should return all orders if searchText is null', (): void => {
     const result = pipe.transform(mockOrders, null);
     expect(result.length).toBe(3);
   });
 
-  it('should return all orders if searchText is empty', () => {
+  it('should return all orders if searchText is empty', (): void => {
     const result = pipe.transform(mockOrders, '');
     expect(result.length).toBe(3);
   });
 
-  it('should return empty array if orders is null', () => {
+  it('should return empty array if orders is null', (): void => {
     const result = pipe.transform(null, 'pepperoni');
     expect(result).toEqual([]);
   });
 
-  it('should filter orders by Flavor', () => {
+  it('should filter orders by Flavor', (): void => {
     const result = pipe.transform(mockOrders, 'pepperoni');
     expect(result.length).toBe(1);
     expect(result[0].Flavor).toBe('Pepperoni');
   });
 
-  it('should filter orders by Size', () => {
+  it('should filter orders by Size', (): void => {
     const result = pipe.transform(mockOrders, 'medium');
     expect(result.length).toBe(1);
     expect(result[0].Size).toBe('Medium');
   });
 
-  it('should filter orders by Crust', () => {
+  it('should filter orders by Crust', (): void => {
     const result = pipe.transform(mockOrders, 'stuffed');
     expect(result.length).toBe(1);
     expect(result[0].Crust).toBe('Stuffed');
   });
 
-  it('should filter orders by Table_No', () => {
+  it('should filter orders by Table_No', (): void => {
     const result = pipe.transform(mockOrders, '5');
     expect(result.length).toBe(1);
     expect(result[0].Table_No).toBe(5);
   });
 
-  it('should filter orders by Order_ID', () => {
+  it('should filter orders by Order_ID', (): void => {
     const result = pipe.transform(mockOrders, '103');
     expect(result.length).toBe(1);
     expect(result[0].Order_ID).toBe(103);
   });
 
-  it('should be case insensitive', () => {
+  it('should be case insensitive', (): void => {
     const result = pipe.transform(mockOrders, 'PEPPERONI');
     expect(result.length).toBe(1);
     expect(result[0].Flavor).toBe('Pepperoni');
   });
 
-  it('should return empty array if no match found', () => {
+  it('should return empty array if no match found', (): void => {
     const result = pipe.transform(mockOrders, 'notfound');
     expect(result).toEqual([]);
   });

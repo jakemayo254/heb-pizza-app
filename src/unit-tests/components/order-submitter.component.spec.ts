@@ -11,14 +11,14 @@ import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 
-describe('OrderSubmitterComponent', () => {
+describe('OrderSubmitterComponent', (): void => {
   let fixture: ComponentFixture<OrderSubmitterComponent>;
   let pizzaServiceSpy: jasmine.SpyObj<PizzaApiService>;
   let authStateSpy: jasmine.SpyObj<AuthStateService>;
   let toastSpy: jasmine.SpyObj<ToastrService>;
   let ordersStateSpy: jasmine.SpyObj<OrdersStateService>;
 
-  beforeEach(async () => {
+  beforeEach(async (): Promise<void> => {
     pizzaServiceSpy = jasmine.createSpyObj('PizzaApiService', ['postOrder']);
     authStateSpy = jasmine.createSpyObj('AuthStateService', ['getAuthToken', 'clearAuth']);
     toastSpy = jasmine.createSpyObj('ToastrService', ['success', 'error']);
@@ -38,12 +38,12 @@ describe('OrderSubmitterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create the component', (): void => {
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
-  it('should render all input fields and submit button', () => {
+  it('should render all input fields and submit button', (): void => {
     expect(fixture.nativeElement.querySelector(`[data-testid="${dataTestID.newTableNoInput}"]`)).toBeTruthy();
     expect(fixture.nativeElement.querySelector(`[data-testid="${dataTestID.newCrustInput}"]`)).toBeTruthy();
     expect(fixture.nativeElement.querySelector(`[data-testid="${dataTestID.newFlavorInput}"]`)).toBeTruthy();
@@ -51,7 +51,7 @@ describe('OrderSubmitterComponent', () => {
     expect(fixture.nativeElement.querySelector(`[data-testid="${dataTestID.submitOrder}"]`)).toBeTruthy();
   });
 
-  it('should disable submit button when form is invalid', async () => {
+  it('should disable submit button when form is invalid', async (): Promise<void> => {
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -59,7 +59,7 @@ describe('OrderSubmitterComponent', () => {
     expect(button.disabled).toBeTrue();
   });
 
-  it('should submit order and show success toast, and return order details', () => {
+  it('should submit order and show success toast, and return order details', (): void => {
     authStateSpy.getAuthToken.and.returnValue('mock-token');
 
     /* eslint-disable @typescript-eslint/naming-convention */
@@ -120,7 +120,7 @@ describe('OrderSubmitterComponent', () => {
     expect(ordersStateSpy.getOrdersFromApi).toHaveBeenCalled();
   });
 
-  it('should handle 401 unauthorized error and clear auth', () => {
+  it('should handle 401 unauthorized error and clear auth', (): void => {
     authStateSpy.getAuthToken.and.returnValue('expired-token');
 
     const mockError = new HttpErrorResponse({ status: 401 });
@@ -153,7 +153,7 @@ describe('OrderSubmitterComponent', () => {
     expect(toastSpy.error).toHaveBeenCalledWith('Auth Token Expired. Please log back in.', 'Error');
   });
 
-  it('should handle other errors and show toast with msg', () => {
+  it('should handle other errors and show toast with msg', (): void => {
     authStateSpy.getAuthToken.and.returnValue('mock-token');
 
     const mockError = new HttpErrorResponse({

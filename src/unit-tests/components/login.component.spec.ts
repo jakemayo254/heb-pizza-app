@@ -9,7 +9,7 @@ import { AuthResponse } from '@src/app/models/auth.model';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 import { of, throwError } from 'rxjs';
 
-describe('LoginComponent', () => {
+describe('LoginComponent', (): void => {
   let fixture: ComponentFixture<LoginComponent>;
   let authStateServiceSpy: jasmine.SpyObj<AuthStateService>;
 
@@ -25,12 +25,12 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create the component', (): void => {
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
-  it('should render login form with correct data-testids', () => {
+  it('should render login form with correct data-testids', (): void => {
     const usernameInput = fixture.debugElement.query(By.css(`[data-testid="${dataTestID.loginUserName}"]`));
     const passwordInput = fixture.debugElement.query(By.css(`[data-testid="${dataTestID.loginPassword}"]`));
     const loginButton = fixture.debugElement.query(By.css(`[data-testid="${dataTestID.loginButton}"]`));
@@ -40,7 +40,7 @@ describe('LoginComponent', () => {
     expect(loginButton).toBeTruthy();
   });
 
-  it('should toggle password visibility when icon is clicked', () => {
+  it('should toggle password visibility when icon is clicked', (): void => {
     const passwordInput = fixture.debugElement.query(
       By.css(`[data-testid="${dataTestID.loginPassword}"]`)
     ).nativeElement;
@@ -62,7 +62,7 @@ describe('LoginComponent', () => {
     expect(passwordInput.type).toBe('password');
   });
 
-  it('should call AuthStateService.setAuthToken and show loading text on form submit', () => {
+  it('should call AuthStateService.setAuthToken and show loading text on form submit', (): void => {
     spyOn(console, 'log');
 
     /* eslint-disable @typescript-eslint/naming-convention */
@@ -104,10 +104,10 @@ describe('LoginComponent', () => {
     expect(console.log).toHaveBeenCalledWith('login success');
   });
 
-  it('should handle error from AuthStateService.setAuthToken', () => {
+  it('should handle error from AuthStateService.setAuthToken', (): void => {
     spyOn(console, 'error');
 
-    authStateServiceSpy.setAuthToken.and.returnValue(throwError(() => new Error('Unauthorized')));
+    authStateServiceSpy.setAuthToken.and.returnValue(throwError((): Error => new Error('Unauthorized')));
 
     const usernameInput = fixture.debugElement.query(
       By.css(`[data-testid="${dataTestID.loginUserName}"]`)

@@ -5,6 +5,8 @@ src/unit-tests
 files
 .git
 .dockerignore
+auth.setup.ts
+playwright.config.ts
 Dockerfile
 README.md
 README_ANGULAR.md
