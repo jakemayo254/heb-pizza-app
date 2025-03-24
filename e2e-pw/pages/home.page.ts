@@ -24,7 +24,7 @@ export default class HomePage extends BasePage {
   readonly submitOrder: Locator;
 
   constructor(page: Page) {
-    const testOrderID = process.env['TEST_ORDER_ID'];
+    const testOrderID = process.env['TEST_TABLE_ID'];
 
     super(page);
 

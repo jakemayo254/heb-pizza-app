@@ -1,6 +1,6 @@
-import { chromium, FullConfig } from '@playwright/test';
+import { chromium } from '@playwright/test';
 
-async function globalSetup(config: FullConfig) {
+async function globalSetup() {
   const baseURL = process.env['HEB_PIZZA_APP_URL'] ?? '';
 
   const browser = await chromium.launch();
