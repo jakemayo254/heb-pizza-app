@@ -1,6 +1,5 @@
+import LoginPage from '@e2e-pw/pages/login.page';
 import { expect, test } from '@playwright/test';
-
-import LoginPage from '../pages/login.page';
 
 test.describe('Login Page', (): void => {
   // This gets rid of the stored username and password

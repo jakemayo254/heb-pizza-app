@@ -1,9 +1,8 @@
+import { EnvTag } from '@e2e-pw/enums/env-tag';
+import HomePage from '@e2e-pw/pages/home.page';
 import { expect, request, test } from '@playwright/test';
 import { Order } from '@src/app/models/order.model';
 import LoginPage from 'e2e-pw/pages/login.page';
-
-import { EnvTag } from '../enums/env-tag';
-import HomePage from '../pages/home.page';
 
 const pizzaAPIURL = process.env[EnvTag.pizzaAPIBaseURL] ?? '';
 const username = process.env[EnvTag.userName] ?? '';
@@ -107,13 +106,13 @@ test.describe('Order Submitter/Viewer Component', (): void => {
 
   test('searches orders correctly', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
-    await homePage.searchOrder.fill('Pepperoni');
+    await homePage.searchOrder.fill(testTableID.toString());
     await expect(homePage.orderCard).toBeVisible();
   });
 
   test('clears search correctly', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
-    await homePage.searchOrder.fill('Pepperoni');
+    await homePage.searchOrder.fill(testTableID.toString());
     await homePage.clearSearchOrder.click();
     await expect(homePage.searchOrder).toHaveValue('');
   });

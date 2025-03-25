@@ -20,7 +20,7 @@
     "baseUrl": "./",
     "paths": {
       "@src/*": ["src/*"],
-      "@tests/*": ["tests/*"]
+      "@e2e-pw/*": ["e2e-pw/*"]
     }
   },
   "angularCompilerOptions": {

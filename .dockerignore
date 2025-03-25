@@ -5,8 +5,8 @@ src/unit-tests
 files
 .git
 .dockerignore
-auth.setup.ts
 playwright.config.ts
+storageState.json
 Dockerfile
 README.md
 README_ANGULAR.md

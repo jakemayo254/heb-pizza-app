@@ -1,7 +1,7 @@
+import { EnvTag } from '@e2e-pw/enums/env-tag';
 import { Locator, Page } from '@playwright/test';
 import { dataTestID } from '@src/app/constants/data-test-id';
 
-import { EnvTag } from '../enums/env-tag';
 import BasePage from './base.page';
 
 export default class HomePage extends BasePage {
@@ -25,8 +25,6 @@ export default class HomePage extends BasePage {
   readonly submitOrder: Locator;
 
   constructor(page: Page) {
-    const testOrderID = process.env[EnvTag.testTableID];
-
     super(page);
 
     this.appHome = page.getByTestId(dataTestID.appHome);
@@ -48,6 +46,8 @@ export default class HomePage extends BasePage {
     this.appOrderViewer = this.appHomeBody.getByTestId(dataTestID.appOrderViewer);
     this.searchOrder = this.appHomeBody.getByTestId(dataTestID.searchOrder);
     this.clearSearchOrder = this.appHomeBody.getByTestId(dataTestID.clearSearchOrder);
+
+    const testOrderID = process.env[EnvTag.testTableID];
     this.orderCard = this.appHomeBody.getByTestId(dataTestID.orderCard + testOrderID);
     this.deleteOrder = this.appHomeBody.getByTestId(dataTestID.deleteOrder + testOrderID);
 
