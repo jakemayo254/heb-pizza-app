@@ -4,14 +4,17 @@
   "private": true,
   "scripts": {
     "build": "ng build",
+    "build-and-run-docker": "npm run build-docker && docker run -p 8080:80 heb-pizza-app",
+    "build-docker": "docker build -t heb-pizza-app .",
     "e2e": "start-server-and-test 'ng serve' http://localhost:4200 'npx playwright test --headed'",
+    "full-check": "npm run lint:fix && npm run lint && npm run build && npm run test && npm run e2e && npm run build-docker",
     "lint": "npm run prettier && ng lint",
     "lint:fix": "npx eslint . --ext .ts,.html --fix",
     "ng": "ng",
     "prettier": "prettier --write \"src/**/*.{ts,js,html,css,scss}\" package.json",
     "prettier:check": "prettier --check \"src/**/*.{ts,js,html,css,scss}\" package.json",
     "start": "ng serve",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "watch": "ng build --watch --configuration development"
   },
   "dependencies": {

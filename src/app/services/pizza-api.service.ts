@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
-import { PizzaOrder, PizzaOrderRequest } from '@src/app/models/order.model';
+import { PizzaOrder, PizzaOrderRequest } from '@src/app/models/pizza-order.model';
 import { environment } from '@src/environments/environment';
 import { Observable } from 'rxjs';
 

@@ -1,4 +1,4 @@
-import { PizzaOrder } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/pizza-order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 
 describe('OrderFilterPipe', (): void => {
