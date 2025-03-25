@@ -15,7 +15,7 @@ import { finalize } from 'rxjs';
       class="bg-heb-light-grey flex min-h-screen items-center justify-center p-4"
     >
       <div class="flex flex-col items-center space-y-4">
-        <img src="hebLogo.png" alt="H-E-B Logo" class="h-auto w-44" />
+        <img src="heb-logo.png" alt="H-E-B Logo" class="h-auto w-44" />
         <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-md">
           <h2 class="mb-4 text-center text-xl">Pizza App Login</h2>
           <form #loginForm="ngForm" (ngSubmit)="requestAuthToken()" class="space-y-4">

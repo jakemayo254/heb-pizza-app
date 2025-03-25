@@ -10,7 +10,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
       <div class="flex items-center justify-between">
         <!-- HEB Logo -->
         <div class="absolute left-1/2 -translate-x-1/2 md:static md:left-0 md:translate-x-0">
-          <img src="hebLogo.png" alt="H-E-B Logo" class="h-auto w-44" />
+          <img src="heb-logo.png" alt="H-E-B Logo" class="h-auto w-44" />
         </div>
 
         <!-- Desktop View Right Section -->
