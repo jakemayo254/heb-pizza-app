@@ -1,15 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: 'e2e-pw/.env' }); // Load .env before anything else
-
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+// Load .env before anything else
+dotenv.config({ path: 'e2e-pw/.env' });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
