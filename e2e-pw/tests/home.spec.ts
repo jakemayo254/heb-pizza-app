@@ -1,7 +1,7 @@
 import { EnvTag } from '@e2e-pw/enums/env-tag';
 import HomePage from '@e2e-pw/pages/home.page';
 import { expect, request, test } from '@playwright/test';
-import { PizzaOrder } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/pizza-order.model';
 import LoginPage from 'e2e-pw/pages/login.page';
 
 const pizzaAPIURL = process.env[EnvTag.pizzaAPIBaseURL] ?? '';
@@ -67,7 +67,7 @@ test.describe('Order Submitter/Viewer Component', (): void => {
     }
 
     const orders = await getResponse.json();
-    const orderToDelete = orders.find((order: PizzaOrder) => order.Table_No === Number(testTableID));
+    const orderToDelete = orders.find((order: PizzaOrder): boolean => order.Table_No === Number(testTableID));
 
     if (orderToDelete) {
       const deleteResponse = await context.delete(`/api/orders/${orderToDelete.Order_ID}`);

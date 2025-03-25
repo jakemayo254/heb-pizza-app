@@ -20,7 +20,7 @@ describe('HomeHeaderComponent', (): void => {
 
     fixture = TestBed.createComponent(HomeHeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // triggers ngAfterViewInit
+    fixture.detectChanges();
   });
 
   it('should render logo and welcome message', (): void => {

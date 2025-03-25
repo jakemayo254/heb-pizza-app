@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { AuthResponse } from '@src/app/models/auth.model';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
-import { PizzaOrder, PizzaOrderRequest } from '@src/app/models/order.model';
+import { PizzaOrder, PizzaOrderRequest } from '@src/app/models/pizza-order.model';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { environment } from '@src/environments/environment';
 

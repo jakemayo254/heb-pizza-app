@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { OrderViewerComponent } from '@src/app/components/order-viewer.component';
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
-import { PizzaOrder } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/pizza-order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';

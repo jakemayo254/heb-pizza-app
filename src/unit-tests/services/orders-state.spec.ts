@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { PizzaOrder } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/pizza-order.model';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -91,9 +91,7 @@ describe('OrdersStateService', (): void => {
       };
 
       pizzaApiServiceSpy.getOrders.and.returnValue(throwError(() => errorResponse));
-
       service.getOrdersFromApi();
-
       expect(toastrServiceSpy.error).toHaveBeenCalledWith('Server error', 'Error Getting Orders');
     });
 
@@ -104,9 +102,7 @@ describe('OrdersStateService', (): void => {
       };
 
       pizzaApiServiceSpy.getOrders.and.returnValue(throwError(() => errorResponse));
-
       service.getOrdersFromApi();
-
       expect(toastrServiceSpy.error).toHaveBeenCalledWith('Unexpected error', 'Error Getting Orders');
     });
   });

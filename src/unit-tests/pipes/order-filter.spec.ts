@@ -1,8 +1,8 @@
-import { PizzaOrder } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/pizza-order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 
 describe('OrderFilterPipe', (): void => {
-  let pipe: OrderFilterPipe;
+  const pipe: OrderFilterPipe = new OrderFilterPipe();
 
   /* eslint-disable @typescript-eslint/naming-convention */
   const mockOrders: PizzaOrder[] = [
@@ -31,10 +31,6 @@ describe('OrderFilterPipe', (): void => {
       Timestamp: new Date('2024-03-03T16:15:00Z'),
     },
   ];
-
-  beforeEach((): void => {
-    pipe = new OrderFilterPipe();
-  });
 
   it('should return all orders if searchText is null', (): void => {
     const result = pipe.transform(mockOrders, null);

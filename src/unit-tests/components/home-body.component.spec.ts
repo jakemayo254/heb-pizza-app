@@ -39,12 +39,9 @@ describe('HomeBodyComponent', (): void => {
     expect(container).toBeTruthy();
   });
 
-  it('should render OrderSubmitterComponent', (): void => {
+  it('should render Order Submitter & Order Viewer', (): void => {
     const submitter = fixture.debugElement.query(By.css('app-order-submitter'));
     expect(submitter).toBeTruthy();
-  });
-
-  it('should render OrderViewerComponent', (): void => {
     const viewer = fixture.debugElement.query(By.css('app-order-viewer'));
     expect(viewer).toBeTruthy();
   });
