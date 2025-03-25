@@ -26,6 +26,7 @@ import { PizzaApiService } from '../services/pizza-api.service';
           required
           placeholder="Table No"
           autocomplete="off"
+          (keydown)="preventNonNumeric($event)"
           class="min-w-[150px] flex-1 rounded border border-gray-300 bg-white px-3 py-2"
         />
         <input
@@ -138,6 +139,20 @@ export class OrderSubmitterComponent {
             }
           },
         });
+    }
+  }
+
+  // For Firefox and Safari allowing characters in the input field
+  preventNonNumeric(event: KeyboardEvent): void {
+    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab', 'Delete'];
+    if (
+      allowedKeys.includes(event.key) ||
+      // Allow digits
+      (event.key >= '0' && event.key <= '9')
+    ) {
+      return;
+    } else {
+      event.preventDefault();
     }
   }
 }

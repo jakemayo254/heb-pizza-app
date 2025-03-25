@@ -9,3 +9,8 @@
   --color-heb-text-gray: #414142;
   --color-heb-light-grey: #eeecec;
 }
+
+/* Hide the Safari arrow in <summary> */
+summary::-webkit-details-marker {
+  display: none;
+}
