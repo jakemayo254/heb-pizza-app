@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { Order } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/order.model';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +37,7 @@ describe('OrdersStateService', (): void => {
   describe('getOrdersFromApi', (): void => {
     it('should call pizzaService.getOrders() and emit sorted orders by descending Timestamp', (done): void => {
       /* eslint-disable @typescript-eslint/naming-convention */
-      const mockOrders: Order[] = [
+      const mockOrders: PizzaOrder[] = [
         {
           Order_ID: 1,
           Table_No: 10,

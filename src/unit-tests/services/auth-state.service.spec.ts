@@ -86,7 +86,7 @@ describe('AuthStateService', (): void => {
       spyOn(console, 'error');
 
       service.setAuthToken('testuser', 'wrongpass').subscribe({
-        error: (err) => {
+        error: (err): void => {
           expect(toastrServiceSpy.error).toHaveBeenCalledWith('Invalid credentials', 'Unauthorized');
           expect(console.error).toHaveBeenCalledWith('Auth error:', apiError);
           expect(err).toBe(apiError);

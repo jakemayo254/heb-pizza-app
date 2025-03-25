@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { AuthResponse } from '@src/app/models/auth.model';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
-import { Order, OrderRequest } from '@src/app/models/order.model';
+import { PizzaOrder, PizzaOrderRequest } from '@src/app/models/order.model';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { environment } from '@src/environments/environment';
 
@@ -53,7 +53,7 @@ describe('PizzaApiService', (): void => {
   describe('getOrders', (): void => {
     it('should GET orders from ordersURL', (): void => {
       /* eslint-disable @typescript-eslint/naming-convention */
-      const mockOrders: Order[] = [
+      const mockOrders: PizzaOrder[] = [
         {
           Order_ID: 1,
           Table_No: 10,
@@ -84,14 +84,14 @@ describe('PizzaApiService', (): void => {
 
   describe('postOrder', (): void => {
     it('should POST order to ordersURL with auth header', (): void => {
-      const orderRequest: OrderRequest = {
+      const orderRequest: PizzaOrderRequest = {
         Table_No: 7,
         Crust: 'Stuffed',
         Flavor: 'Margherita',
         Size: 'Small',
       };
 
-      const mockOrder: Order = {
+      const mockOrder: PizzaOrder = {
         Order_ID: 123,
         ...orderRequest,
         Timestamp: new Date('2025-03-24T14:00:00Z'),

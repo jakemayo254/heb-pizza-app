@@ -1,11 +1,11 @@
-import { Order } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 
 describe('OrderFilterPipe', (): void => {
   let pipe: OrderFilterPipe;
 
   /* eslint-disable @typescript-eslint/naming-convention */
-  const mockOrders: Order[] = [
+  const mockOrders: PizzaOrder[] = [
     {
       Flavor: 'Pepperoni',
       Size: 'Large',
