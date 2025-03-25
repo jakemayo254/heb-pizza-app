@@ -91,9 +91,7 @@ describe('OrdersStateService', (): void => {
       };
 
       pizzaApiServiceSpy.getOrders.and.returnValue(throwError(() => errorResponse));
-
       service.getOrdersFromApi();
-
       expect(toastrServiceSpy.error).toHaveBeenCalledWith('Server error', 'Error Getting Orders');
     });
 
@@ -104,9 +102,7 @@ describe('OrdersStateService', (): void => {
       };
 
       pizzaApiServiceSpy.getOrders.and.returnValue(throwError(() => errorResponse));
-
       service.getOrdersFromApi();
-
       expect(toastrServiceSpy.error).toHaveBeenCalledWith('Unexpected error', 'Error Getting Orders');
     });
   });

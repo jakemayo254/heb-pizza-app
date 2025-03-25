@@ -40,17 +40,11 @@ describe('HomeComponent', (): void => {
     expect(container).toBeTruthy();
   });
 
-  it('should render HomeHeaderComponent', (): void => {
+  it('should render Header/Body/Footer', (): void => {
     const header = fixture.debugElement.query(By.css('app-home-header'));
     expect(header).toBeTruthy();
-  });
-
-  it('should render HomeBodyComponent', (): void => {
     const body = fixture.debugElement.query(By.css('app-home-body'));
     expect(body).toBeTruthy();
-  });
-
-  it('should render HomeFooterComponent', (): void => {
     const footer = fixture.debugElement.query(By.css('app-home-footer'));
     expect(footer).toBeTruthy();
   });

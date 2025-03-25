@@ -67,7 +67,7 @@ test.describe('Order Submitter/Viewer Component', (): void => {
     }
 
     const orders = await getResponse.json();
-    const orderToDelete = orders.find((order: PizzaOrder) => order.Table_No === Number(testTableID));
+    const orderToDelete = orders.find((order: PizzaOrder): boolean => order.Table_No === Number(testTableID));
 
     if (orderToDelete) {
       const deleteResponse = await context.delete(`/api/orders/${orderToDelete.Order_ID}`);
