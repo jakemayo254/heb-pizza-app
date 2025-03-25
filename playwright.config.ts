@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
-dotenv.config(); // Load .env before anything else
+dotenv.config({ path: 'e2e-pw/.env' }); // Load .env before anything else
 
 /**
  * Read environment variables from file.
@@ -18,7 +18,7 @@ export default defineConfig({
   testDir: './e2e-pw/tests',
   testMatch: '**/*.spec.ts',
   testIgnore: ['src/unit-tests/**/*.spec.ts'],
-  globalSetup: require.resolve('./auth.setup.ts'),
+  globalSetup: 'e2e-pw/auth.setup.ts',
   /* Run unit-tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

@@ -1,10 +1,9 @@
+import { EnvTag } from '@e2e-pw/enums/env-tag';
 import { Page } from '@playwright/test';
 
-import { EnvTag } from '../enums/env-tag';
-
 export default class BasePage {
-  readonly page: Page;
-  readonly baseUrl: string;
+  protected readonly page: Page;
+  protected readonly baseUrl: string;
 
   constructor(page: Page) {
     this.page = page;

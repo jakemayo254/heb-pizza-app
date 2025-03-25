@@ -36,7 +36,7 @@ Open your browser and navigate to: [http://localhost:8080](http://localhost:8080
 
 4. **Start the development server:**
    ```bash
-   npm start
+   npm run start
    ```
 
 Open your browser and navigate to: [http://localhost:4200](http://localhost:4200)
@@ -49,6 +49,11 @@ Open your browser and navigate to: [http://localhost:4200](http://localhost:4200
 **Run Unit Tests:**
    ```bash
    npm test
+   ```
+
+**Run Playwright E2E Tests:**
+   ```bash
+   npm run e2e
    ```
 
 ---

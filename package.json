@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "ng build",
+    "e2e": "start-server-and-test 'ng serve' http://localhost:4200 'npx playwright test --headed'",
     "lint": "npm run prettier && ng lint",
     "lint:fix": "npx eslint . --ext .ts,.html --fix",
     "ng": "ng",
@@ -53,6 +54,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-packagejson": "^2.5.10",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "start-server-and-test": "^2.0.11",
     "tailwindcss": "^4.0.15",
     "typescript": "~5.8.2",
     "typescript-eslint": "8.26.0"
