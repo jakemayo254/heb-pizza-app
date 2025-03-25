@@ -8,7 +8,7 @@
     "docker-build-and-run": "npm run docker-build && npm run docker-run",
     "docker-run": "docker run -p 8080:80 heb-pizza-app",
     "e2e": "start-server-and-test 'ng serve' http://localhost:4200 'npx playwright test --headed'",
-    "full-check": "npm run lint:fix && npm run lint && npm run build && npm run test-no-watch && npm run e2e && npm run docker-build",
+    "full-check": "npm i && npm run lint:fix && npm run lint && npm run build && npm run test-no-watch && npm run e2e && npm run docker-build",
     "lint": "npm run prettier && ng lint",
     "lint:fix": "npx eslint . --ext .ts,.html --fix",
     "ng": "ng",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@angular/animations": "^19.2.2",
+    "@angular/cli": "^19.2.4",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",

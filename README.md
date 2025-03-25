@@ -21,16 +21,12 @@ Open your browser and navigate to: [http://localhost:8080](http://localhost:8080
 ### 🛠️ Local Development Setup
 
 1. **Install Node.js (v20+) and npm (v10+)**
-2. **Install Angular CLI globally:**
-   ```bash
-   npm install -g @angular/cli
-   ```
-3. **Install project dependencies:**
+2. **Install project dependencies:**
    ```bash
    npm install
    ```
 
-4. **Start the development server:**
+3. **Start the development server:**
    ```bash
    npm run start
    ```
