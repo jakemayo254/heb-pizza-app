@@ -21,7 +21,7 @@ export class AuthStateService {
       return throwError((): Error => new Error('Missing credentials'));
     }
 
-    // tap = when you want to peek whats getting streamed through and don't want to modify it
+    // tap = when you want to peek what's getting streamed through and don't want to modify it
     // doing tap instead of "next" because we are returning the response to whoever calls "setAuthToken"
     return this.pizzaAPIService.getAuthToken(username, password).pipe(
       tap((res): void => {

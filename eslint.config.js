@@ -1,12 +1,12 @@
 const eslint = require('@eslint/js');
-const tseslint = require('typescript-eslint');
+const typeScriptESLint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const prettier = require('eslint-plugin-prettier');
 const simpleImportSort = require('eslint-plugin-simple-import-sort');
 const path = require('path');
 const checkFile = require('eslint-plugin-check-file');
 
-module.exports = tseslint.config(
+module.exports = typeScriptESLint.config(
   {
     files: ['**/*.ts'],
     languageOptions: {
@@ -22,8 +22,8 @@ module.exports = tseslint.config(
     },
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
+      ...typeScriptESLint.configs.recommended,
+      ...typeScriptESLint.configs.stylistic,
       ...angular.configs.tsRecommended,
     ],
     processor: angular.processInlineTemplates,

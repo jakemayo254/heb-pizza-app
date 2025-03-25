@@ -129,7 +129,7 @@ export class OrderSubmitterComponent {
             this.newOrderSize = null;
             this.newOrderFlavor = null;
           },
-          error: (err: HttpErrorResponse) => {
+          error: (err: HttpErrorResponse): void => {
             if (err.status === 401) {
               this.authState.clearAuth();
               this.toast.error('Auth Token Expired. Please log back in.', 'Error');

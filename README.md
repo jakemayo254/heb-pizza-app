@@ -11,11 +11,7 @@ An Angular-based web application built for a senior software engineer interview 
 Ensure you have Docker installed before running the following commands:
 
 ```bash
-# Step 1: Build the Docker image
-docker build -t heb-pizza-app .
-
-# Step 2: Run the Docker container
-docker run -p 8080:80 heb-pizza-app
+npm run docker-build-and-run
 ```
 
 Open your browser and navigate to: [http://localhost:8080](http://localhost:8080)
