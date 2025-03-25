@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { dataTestID } from '@src/app/constants/data-test-id';
-import { OrderRequest } from '@src/app/models/order.model';
+import { PizzaOrderRequest } from '@src/app/models/order.model';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { ToastrService } from 'ngx-toastr';
@@ -105,7 +105,7 @@ export class OrderSubmitterComponent {
     ) {
       this.submitting = true;
 
-      const orderRequest: OrderRequest = {
+      const orderRequest: PizzaOrderRequest = {
         Table_No: this.newOrderTableNo, // eslint-disable-line @typescript-eslint/naming-convention
         Flavor: this.newOrderFlavor, // eslint-disable-line @typescript-eslint/naming-convention
         Crust: this.newOrderCrust, // eslint-disable-line @typescript-eslint/naming-convention

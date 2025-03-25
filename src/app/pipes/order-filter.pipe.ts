@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Order } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/order.model';
 
 @Pipe({
   name: 'orderFilter',
@@ -8,7 +8,7 @@ import { Order } from '@src/app/models/order.model';
 export class OrderFilterPipe implements PipeTransform {
   // required method of PipeTransform
   // creates a new array after transforming it. does not modify the original array
-  transform(orders: Order[] | null, searchText: string | null): Order[] {
+  transform(orders: PizzaOrder[] | null, searchText: string | null): PizzaOrder[] {
     if (!orders) return [];
     if (!searchText) return orders;
 

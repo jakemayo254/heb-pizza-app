@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { OrderSubmitterComponent } from '@src/app/components/order-submitter.component';
 import { dataTestID } from '@src/app/constants/data-test-id';
-import { Order } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/order.model';
 import { AuthStateService } from '@src/app/services/auth-state.service';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
@@ -63,7 +63,7 @@ describe('OrderSubmitterComponent', (): void => {
     authStateSpy.getAuthToken.and.returnValue('mock-token');
 
     /* eslint-disable @typescript-eslint/naming-convention */
-    const mockOrder: Order = {
+    const mockOrder: PizzaOrder = {
       Order_ID: 1001,
       Table_No: 5,
       Crust: 'Thin',
@@ -74,7 +74,7 @@ describe('OrderSubmitterComponent', (): void => {
 
     pizzaServiceSpy.postOrder.and.returnValue(
       of(
-        new HttpResponse<Order>({
+        new HttpResponse<PizzaOrder>({
           body: mockOrder,
           status: 201,
           statusText: 'Created',

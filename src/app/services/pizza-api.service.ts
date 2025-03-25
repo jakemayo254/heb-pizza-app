@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
-import { Order, OrderRequest } from '@src/app/models/order.model';
+import { PizzaOrder, PizzaOrderRequest } from '@src/app/models/order.model';
 import { environment } from '@src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -31,14 +31,14 @@ export class PizzaApiService {
     );
   }
 
-  getOrders(): Observable<HttpResponse<Order[]>> {
-    return this.http.get<Order[]>(this.ordersURL, {
+  getOrders(): Observable<HttpResponse<PizzaOrder[]>> {
+    return this.http.get<PizzaOrder[]>(this.ordersURL, {
       observe: 'response',
     });
   }
 
-  postOrder(order: OrderRequest, authToken: string): Observable<HttpResponse<Order>> {
-    return this.http.post<Order>(this.ordersURL, order, {
+  postOrder(order: PizzaOrderRequest, authToken: string): Observable<HttpResponse<PizzaOrder>> {
+    return this.http.post<PizzaOrder>(this.ordersURL, order, {
       headers: this.getAuthHeader(authToken),
       observe: 'response',
     });

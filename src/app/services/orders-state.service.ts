@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Order } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/order.model';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -7,11 +7,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class OrdersStateService {
   // BehaviorSubject = a RxJS type that holds a current value and lets you emit new values over time
-  private readonly ordersSubject = new BehaviorSubject<Order[]>([]);
+  private readonly ordersSubject = new BehaviorSubject<PizzaOrder[]>([]);
   // $ = naming convention letting use know that it is an observable variable
   // asObservable() = hides the ability to call .next() on it
   // on this class can push updates.  anything outside the class can only react to the updates
-  public orders$: Observable<Order[]> = this.ordersSubject.asObservable();
+  public orders$: Observable<PizzaOrder[]> = this.ordersSubject.asObservable();
 
   constructor(
     private readonly pizzaService: PizzaApiService,

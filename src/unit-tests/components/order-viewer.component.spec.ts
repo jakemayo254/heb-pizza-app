@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { OrderViewerComponent } from '@src/app/components/order-viewer.component';
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
-import { Order } from '@src/app/models/order.model';
+import { PizzaOrder } from '@src/app/models/order.model';
 import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
@@ -20,7 +20,7 @@ describe('OrderViewerComponent', (): void => {
   let toastSpy: jasmine.SpyObj<ToastrService>;
 
   /* eslint-disable @typescript-eslint/naming-convention */
-  const mockOrders: Order[] = [
+  const mockOrders: PizzaOrder[] = [
     {
       Order_ID: 1,
       Table_No: 10,
@@ -121,7 +121,7 @@ describe('OrderViewerComponent', (): void => {
   });
 
   it('should reset searchText on order stream emit (ngOnInit)', (): void => {
-    const ordersSubject = new Subject<Order[]>();
+    const ordersSubject = new Subject<PizzaOrder[]>();
     ordersStateSpy.orders$ = ordersSubject.asObservable();
     fixture = TestBed.createComponent(OrderViewerComponent);
     component = fixture.componentInstance;
