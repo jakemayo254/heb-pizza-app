@@ -21,6 +21,7 @@ export class OrdersStateService {
     this.getOrdersFromApi();
   }
 
+  // this ultimately updates the orders$ observable that is in this class
   getOrdersFromApi(): void {
     this.pizzaService.getOrders().subscribe({
       next: (res): void => {

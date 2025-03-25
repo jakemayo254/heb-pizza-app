@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test';
 test.describe('Login Page', (): void => {
   // This gets rid of the stored username and password
   // its originally stored for other tests that are past the login
-  // we don't want to have to login for each test so we store the auth token
+  // we don't want to have to log in for each test so we store the auth token
   test.use({ storageState: { cookies: [], origins: [] } });
 
   test('should render login page', async ({ page }): Promise<void> => {

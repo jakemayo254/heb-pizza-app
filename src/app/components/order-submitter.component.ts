@@ -116,6 +116,7 @@ export class OrderSubmitterComponent {
         .postOrder(orderRequest, authToken)
         .pipe(
           finalize((): void => {
+            // because the api is very fast I opted to call the endpoint after every modification to the list
             this.ordersState.getOrdersFromApi();
             this.submitting = false;
           })

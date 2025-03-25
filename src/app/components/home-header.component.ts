@@ -57,6 +57,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
 export class HomeHeaderComponent implements AfterViewInit {
   protected readonly dataTestID = dataTestID;
 
+  // access the mobile <details> in the DOM
   @ViewChild('mobileDropdown') mobileDropdownRef!: ElementRef<HTMLDetailsElement>;
 
   constructor(protected authState: AuthStateService) {}
@@ -74,11 +75,11 @@ export class HomeHeaderComponent implements AfterViewInit {
   }
 
   // listens to DOM events within the header component
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    const width = (event.target as Window).innerWidth;
-    if (width >= 768) {
-      // If resizing to desktop view, close mobile dropdown if open
+  // can become less performant if we were to add more logic in here
+  // because it is being called with every resize of the window
+  @HostListener('window:resize')
+  onResize(): void {
+    if (window.innerWidth >= 768) {
       this.mobileDropdownRef?.nativeElement.removeAttribute('open');
     }
   }
