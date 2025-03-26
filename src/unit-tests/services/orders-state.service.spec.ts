@@ -1,55 +1,29 @@
 import { HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { PizzaOrder } from '@src/app/models/pizza-order.model';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
+import { mockOrders, MockPizzaApiService } from '@src/unit-tests/mocks/mock-pizza-api.service';
+import { MockToastService } from '@src/unit-tests/mocks/mock-toast';
 import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 
 describe('OrdersStateService', (): void => {
   let service: OrdersStateService;
-  let pizzaService: jasmine.SpyObj<PizzaApiService>;
-  let toastr: jasmine.SpyObj<ToastrService>;
-
-  /* eslint-disable @typescript-eslint/naming-convention */
-  const mockOrders: PizzaOrder[] = [
-    {
-      Order_ID: 101,
-      Table_No: 3,
-      Crust: 'Thin',
-      Flavor: 'Pepperoni',
-      Size: 'Medium',
-      Timestamp: new Date('2025-03-25T18:00:00Z'),
-    },
-    {
-      Order_ID: 102,
-      Table_No: 5,
-      Crust: 'Cheese Burst',
-      Flavor: 'Veggie',
-      Size: 'Large',
-      Timestamp: new Date('2025-03-26T14:30:00Z'),
-    },
-  ];
+  let pizzaService: MockPizzaApiService;
+  let toastr: MockToastService;
 
   beforeEach((): void => {
-    const pizzaServiceSpy = jasmine.createSpyObj('PizzaApiService', ['getOrders']);
-    const toastrSpy = jasmine.createSpyObj('ToastrService', ['error']);
-
-    pizzaServiceSpy.getOrders.and.returnValue(
-      of(new HttpResponse({ body: mockOrders }))
-    );
-
     TestBed.configureTestingModule({
       providers: [
         OrdersStateService,
-        { provide: PizzaApiService, useValue: pizzaServiceSpy },
-        { provide: ToastrService, useValue: toastrSpy },
+        { provide: PizzaApiService, useClass: MockPizzaApiService },
+        { provide: ToastrService, useClass: MockToastService },
       ],
     });
 
     service = TestBed.inject(OrdersStateService);
-    pizzaService = TestBed.inject(PizzaApiService) as jasmine.SpyObj<PizzaApiService>;
-    toastr = TestBed.inject(ToastrService) as jasmine.SpyObj<ToastrService>;
+    pizzaService = TestBed.inject(PizzaApiService) as unknown as MockPizzaApiService;
+    toastr = TestBed.inject(ToastrService) as unknown as MockToastService;
   });
 
   it('should call pizzaService.getOrders() and update the orders signal with sorted data', (): void => {

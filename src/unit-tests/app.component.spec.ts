@@ -3,12 +3,12 @@ import { AppComponent } from '@src/app/app.component';
 import { HomeComponent } from '@src/app/components/home.component';
 import { LoginComponent } from '@src/app/components/login.component';
 import { AuthStateService } from '@src/app/services/auth-state.service';
-import { AuthStateServiceMock } from '@src/unit-tests/services/auth-state.service.mock';
+import { MockAuthStateService } from '@src/unit-tests/mocks/mock-auth-state.service';
 import { MockComponent } from 'ng-mocks';
 
 describe('AppComponent', (): void => {
   let fixture: ComponentFixture<AppComponent>;
-  let authService: AuthStateServiceMock;
+  let authService: MockAuthStateService;
 
   let getLogin: () => HTMLElement | null;
   let getHome: () => HTMLElement | null;
@@ -16,11 +16,11 @@ describe('AppComponent', (): void => {
   beforeEach(async (): Promise<void> => {
     await TestBed.configureTestingModule({
       imports: [AppComponent, MockComponent(LoginComponent), MockComponent(HomeComponent)],
-      providers: [{ provide: AuthStateService, useClass: AuthStateServiceMock }],
+      providers: [{ provide: AuthStateService, useClass: MockAuthStateService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
-    authService = TestBed.inject(AuthStateService) as never;
+    authService = TestBed.inject(AuthStateService) as unknown as MockAuthStateService;
 
     getLogin = () => fixture.nativeElement.querySelector('app-login');
     getHome = () => fixture.nativeElement.querySelector('app-home');
