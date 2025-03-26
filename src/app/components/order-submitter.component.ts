@@ -83,11 +83,11 @@ import { PizzaApiService } from '../services/pizza-api.service';
 export class OrderSubmitterComponent {
   protected readonly dataTestID = dataTestID;
 
-  protected newOrderTableNo = signal<number | null>(null);
-  protected newOrderCrust = signal<string | null>(null);
-  protected newOrderFlavor = signal<string | null>(null);
-  protected newOrderSize = signal<string | null>(null);
-  protected submitting = signal(false);
+  protected readonly newOrderTableNo = signal<number | null>(null);
+  protected readonly newOrderCrust = signal<string | null>(null);
+  protected readonly newOrderFlavor = signal<string | null>(null);
+  protected readonly newOrderSize = signal<string | null>(null);
+  protected readonly submitting = signal(false);
 
   protected isDisabled = computed(
     (): boolean =>

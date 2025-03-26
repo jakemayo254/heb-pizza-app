@@ -83,6 +83,7 @@ import { finalize } from 'rxjs';
   `,
 })
 export class OrderViewerComponent {
+  protected readonly dataTestID = dataTestID;
   protected readonly searchText = signal<string | null>(null);
 
   get orders(): Signal<PizzaOrder[]> {
@@ -109,8 +110,8 @@ export class OrderViewerComponent {
     private readonly pizzaService: PizzaApiService,
     private readonly toast: ToastrService
   ) {
-    effect(() => {
-      this.orders(); // just accessing the signal subscribes to it
+    effect((): void => {
+      this.orders();
       this.searchText.set(null);
     });
   }
@@ -120,15 +121,15 @@ export class OrderViewerComponent {
       this.pizzaService
         .deleteOrder(orderId)
         .pipe(
-          finalize(() => {
-            this.ordersState.getOrdersFromApi(); // Refresh list after deletion
+          finalize((): void => {
+            this.ordersState.getOrdersFromApi();
           })
         )
         .subscribe({
-          next: (result: HttpResponse<DeleteOrderResponse>) => {
+          next: (result: HttpResponse<DeleteOrderResponse>): void => {
             this.toast.success(result.body?.message, 'Success');
           },
-          error: (err: HttpErrorResponse) => {
+          error: (err: HttpErrorResponse): void => {
             const errorBody: ErrorResponse = err.error;
             this.toast.error(errorBody.detail, errorBody.title);
           },
@@ -139,8 +140,6 @@ export class OrderViewerComponent {
   clearSearchText(): void {
     this.searchText.set(null);
   }
-
-  protected readonly dataTestID = dataTestID;
 }
 
 // grid = turns the container into a grid layout

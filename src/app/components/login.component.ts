@@ -80,10 +80,10 @@ import { finalize } from 'rxjs';
 export class LoginComponent {
   protected readonly dataTestID = dataTestID;
 
-  protected username = signal<string | null>(null);
-  protected password = signal<string | null>(null);
-  protected showPassword = signal(false);
-  protected loading = signal(false);
+  protected readonly username = signal<string | null>(null);
+  protected readonly password = signal<string | null>(null);
+  protected readonly showPassword = signal(false);
+  protected readonly loading = signal(false);
 
   protected isDisabled = computed((): boolean => {
     return !this.username() || !this.password() || this.loading();
