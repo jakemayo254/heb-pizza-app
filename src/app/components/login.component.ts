@@ -90,11 +90,11 @@ export class LoginComponent {
 
   constructor(private readonly authState: AuthStateService) {}
 
-  togglePasswordVisibility(): void {
+  protected togglePasswordVisibility(): void {
     this.showPassword.update((value): boolean => !value);
   }
 
-  requestAuthToken(): void {
+  protected requestAuthToken(): void {
     const username = this.username();
     const password = this.password();
 

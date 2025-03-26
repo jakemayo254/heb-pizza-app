@@ -104,7 +104,7 @@ export class OrderSubmitterComponent {
     protected readonly ordersState: OrdersStateService
   ) {}
 
-  submitOrder(): void {
+  protected submitOrder(): void {
     const authToken = this.authState.authToken();
 
     if (
@@ -153,7 +153,7 @@ export class OrderSubmitterComponent {
   }
 
   // For Firefox and Safari Browsers allowing characters in the input field
-  preventNonNumeric(event: KeyboardEvent): void {
+  protected preventNonNumeric(event: KeyboardEvent): void {
     const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab', 'Delete'];
     if (
       // Allow digits

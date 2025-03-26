@@ -86,7 +86,7 @@ export class OrderViewerComponent {
   protected readonly searchText = signal<string | null>(null);
 
   // for improved readability
-  get orders(): Signal<PizzaOrder[]> {
+  protected get orders(): Signal<PizzaOrder[]> {
     return this.ordersState.ordersSignal;
   }
 
@@ -116,7 +116,7 @@ export class OrderViewerComponent {
     });
   }
 
-  deleteOrder(orderId: number): void {
+  protected deleteOrder(orderId: number): void {
     if (confirm(`Are you sure you want to delete Order ID: ${orderId}?`)) {
       this.pizzaService
         .deleteOrder(orderId)
@@ -137,7 +137,7 @@ export class OrderViewerComponent {
     }
   }
 
-  clearSearchText(): void {
+  protected clearSearchText(): void {
     this.searchText.set(null);
   }
 }

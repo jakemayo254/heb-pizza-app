@@ -63,7 +63,11 @@ export class HomeHeaderComponent implements AfterViewInit {
 
   constructor(protected authState: AuthStateService) {}
 
-  logOut(): void {
+  protected get userName(): string | null {
+    return this.authState.userName();
+  }
+
+  protected logOut(): void {
     this.authState.clearAuth();
   }
 
@@ -83,10 +87,6 @@ export class HomeHeaderComponent implements AfterViewInit {
     if (window.innerWidth >= 768) {
       this.mobileDropdownRef?.nativeElement.removeAttribute('open');
     }
-  }
-
-  get userName(): string | null {
-    return this.authState.userName();
   }
 }
 
