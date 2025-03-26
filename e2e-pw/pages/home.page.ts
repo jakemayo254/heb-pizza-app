@@ -54,4 +54,11 @@ export default class HomePage extends BasePage {
     // Home Footer
     this.appHomeFooter = this.appHome.getByTestId(dataTestID.appHomeFooter);
   }
+
+  public async fillNewOrder(tableID: string, size: string, crust: string, flavor: string): Promise<void> {
+    await this.newTableNoInput.fill(tableID);
+    await this.newSizeInput.fill(size);
+    await this.newCrustInput.fill(crust);
+    await this.newFlavorInput.fill(flavor);
+  }
 }

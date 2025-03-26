@@ -1,26 +1,17 @@
 import { EnvTag } from '@e2e-pw/enums/env-tag';
 import HomePage from '@e2e-pw/pages/home.page';
-import { expect, request, test } from '@playwright/test';
-import { PizzaOrder } from '@src/app/models/pizza-order.model';
+import { deleteTestOrder } from '@e2e-pw/utils/order-deleter';
+import { expect, test } from '@playwright/test';
 import LoginPage from 'e2e-pw/pages/login.page';
 
-const pizzaAPIURL = process.env[EnvTag.pizzaAPIBaseURL] ?? '';
 const username = process.env[EnvTag.userName] ?? '';
-const password = process.env[EnvTag.userPassword] ?? '';
 const testTableID = process.env[EnvTag.testTableID] ?? 0;
 
 test.beforeEach(async ({ page }): Promise<void> => {
   const loginPage = new LoginPage(page);
+  await loginPage.login();
+
   const homePage = new HomePage(page);
-
-  await homePage.navigateToBase();
-
-  if (await loginPage.appLogin.isVisible()) {
-    await loginPage.loginUser.fill(username);
-    await loginPage.loginPassword.fill(password);
-    await loginPage.loginButton.click();
-  }
-
   await homePage.appHomeHeader.waitFor();
 });
 
@@ -58,47 +49,18 @@ test.describe('Home Header Component', (): void => {
 
 test.describe('Order Submitter/Viewer Component', (): void => {
   test.beforeAll(async (): Promise<void> => {
-    const context = await request.newContext({ baseURL: pizzaAPIURL });
-
-    // Fetch all orders
-    const getResponse = await context.get('/api/orders');
-    if (!getResponse.ok()) {
-      throw new Error(`Failed to fetch orders: ${getResponse.status()} ${getResponse.statusText()}`);
-    }
-
-    const orders = await getResponse.json();
-    const orderToDelete = orders.find((order: PizzaOrder): boolean => order.Table_No === Number(testTableID));
-
-    if (orderToDelete) {
-      const deleteResponse = await context.delete(`/api/orders/${orderToDelete.Order_ID}`);
-
-      if (deleteResponse.ok()) {
-        console.log(`Successfully deleted order with ID ${orderToDelete.Order_ID}`);
-      } else {
-        throw new Error(`Failed to delete order: ${deleteResponse.status()} ${deleteResponse.statusText()}`);
-      }
-    } else {
-      console.log(`No existing order found for table ID ${testTableID}`);
-    }
-
-    await context.dispose();
+    await deleteTestOrder();
   });
 
   test('submit button disabled when form is incomplete', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
-    await homePage.newTableNoInput.fill('');
-    await homePage.newSizeInput.fill('Medium');
-    await homePage.newCrustInput.fill('Thin');
-    await homePage.newFlavorInput.fill('Pepperoni');
+    await homePage.fillNewOrder('', 'Medium', 'Thin', 'Pepperoni');
     await expect(homePage.submitOrder).toBeDisabled();
   });
 
   test('successfully submits a new order', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
-    await homePage.newTableNoInput.fill(testTableID.toString());
-    await homePage.newSizeInput.fill('Medium');
-    await homePage.newCrustInput.fill('Thin');
-    await homePage.newFlavorInput.fill('Pepperoni');
+    await homePage.fillNewOrder(testTableID.toString(), 'Medium', 'Thin', 'Pepperoni');
     await expect(homePage.submitOrder).toBeEnabled();
     await homePage.submitOrder.click();
     await homePage.orderCard.waitFor();
