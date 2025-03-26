@@ -79,13 +79,12 @@ import { finalize } from 'rxjs';
 })
 export class LoginComponent {
   protected readonly dataTestID = dataTestID;
-
   protected readonly username = signal<string | null>(null);
   protected readonly password = signal<string | null>(null);
   protected readonly showPassword = signal(false);
   protected readonly loading = signal(false);
 
-  protected isDisabled = computed((): boolean => {
+  protected readonly isDisabled = computed((): boolean => {
     return !this.username() || !this.password() || this.loading();
   });
 

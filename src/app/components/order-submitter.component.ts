@@ -82,7 +82,6 @@ import { PizzaApiService } from '../services/pizza-api.service';
 })
 export class OrderSubmitterComponent {
   protected readonly dataTestID = dataTestID;
-
   protected readonly newOrderTableNo = signal<number | null>(null);
   protected readonly newOrderCrust = signal<string | null>(null);
   protected readonly newOrderFlavor = signal<string | null>(null);
@@ -153,7 +152,7 @@ export class OrderSubmitterComponent {
     }
   }
 
-  // For Firefox and Safari allowing characters in the input field
+  // For Firefox and Safari Browsers allowing characters in the input field
   preventNonNumeric(event: KeyboardEvent): void {
     const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab', 'Delete'];
     if (

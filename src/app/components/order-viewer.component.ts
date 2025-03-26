@@ -86,6 +86,7 @@ export class OrderViewerComponent {
   protected readonly dataTestID = dataTestID;
   protected readonly searchText = signal<string | null>(null);
 
+  // for improved readability
   get orders(): Signal<PizzaOrder[]> {
     return this.ordersState.ordersSignal;
   }
