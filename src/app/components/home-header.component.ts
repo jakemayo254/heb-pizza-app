@@ -16,7 +16,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
 
         <!-- Desktop View Right Section -->
         <div class="ml-auto hidden items-center gap-4 md:flex">
-          <span>Welcome, {{ authState.userName() }}</span>
+          <span>Welcome, {{ userName }}</span>
           <button
             type="button"
             [attr.data-testid]="dataTestID.logoutButton"
@@ -37,7 +37,7 @@ import { AuthStateService } from '@src/app/services/auth-state.service';
               ☰
             </summary>
             <ul class="text-heb-text-gray absolute right-0 z-10 mt-2 w-40 rounded bg-white shadow-lg">
-              <li class="border-b border-gray-200 px-4 py-2">Welcome, {{ authState.userName() }}</li>
+              <li class="border-b border-gray-200 px-4 py-2">Welcome, {{ userName }}</li>
               <li class="px-4 py-2 hover:bg-gray-100">
                 <button
                   type="button"
@@ -83,6 +83,10 @@ export class HomeHeaderComponent implements AfterViewInit {
     if (window.innerWidth >= 768) {
       this.mobileDropdownRef?.nativeElement.removeAttribute('open');
     }
+  }
+
+  get userName(): string | null {
+    return this.authState.userName();
   }
 }
 

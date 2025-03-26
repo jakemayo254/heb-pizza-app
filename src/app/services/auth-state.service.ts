@@ -9,13 +9,12 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 export class AuthStateService {
   private readonly authKey = 'authToken';
   private readonly userKey = 'authUsername';
-
   private readonly _authToken = signal<string | null>(null);
   private readonly _userName = signal<string | null>(null);
+  public readonly authToken = this._authToken.asReadonly();
+  public readonly userName = this._userName.asReadonly();
 
-  readonly authToken = this._authToken.asReadonly();
-  readonly userName = this._userName.asReadonly();
-  readonly isAuthenticated = computed(
+  public readonly isAuthenticated = computed(
     (): boolean => !!this._authToken() && this._authToken() !== 'null' && this._authToken() !== ''
   );
 
