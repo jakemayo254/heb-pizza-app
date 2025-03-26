@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { AuthStateService } from '@src/app/services/auth-state.service';
@@ -7,6 +7,7 @@ import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
     <div
@@ -26,7 +27,8 @@ import { finalize } from 'rxjs';
                 name="username"
                 type="text"
                 [attr.data-testid]="dataTestID.loginUserName"
-                [(ngModel)]="username"
+                [ngModel]="username()"
+                (ngModelChange)="username.set($event)"
                 required
                 placeholder="Enter your username"
                 class="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -39,8 +41,9 @@ import { finalize } from 'rxjs';
                   id="password"
                   name="password"
                   [attr.data-testid]="dataTestID.loginPassword"
-                  [type]="showPassword ? 'text' : 'password'"
-                  [(ngModel)]="password"
+                  [type]="showPassword() ? 'text' : 'password'"
+                  [ngModel]="password()"
+                  (ngModelChange)="password.set($event)"
                   required
                   placeholder="Enter your password"
                   class="w-full rounded border border-gray-300 px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -52,7 +55,7 @@ import { finalize } from 'rxjs';
                   aria-label="Toggle password visibility"
                   class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
                 >
-                  {{ showPassword ? '👁️‍🗨️' : '👁️' }}
+                  {{ showPassword() ? '👁️‍🗨️' : '👁️' }}
                 </button>
               </div>
             </div>
@@ -60,12 +63,12 @@ import { finalize } from 'rxjs';
               <button
                 type="submit"
                 [attr.data-testid]="dataTestID.loginButton"
-                [disabled]="loginForm.invalid || loading"
-                [style.cursor]="loginForm.invalid || loading ? 'not-allowed' : 'pointer'"
+                [disabled]="isDisabled()"
+                [style.cursor]="isDisabled() ? 'not-allowed' : 'pointer'"
                 class="bg-heb-gray-2 w-full rounded py-2 font-semibold text-white transition hover:bg-blue-700 disabled:bg-gray-400"
               >
-                <span *ngIf="loading">Loading...</span>
-                <span *ngIf="!loading">Login</span>
+                <span *ngIf="loading()">Loading...</span>
+                <span *ngIf="!loading()">Login</span>
               </button>
             </div>
           </form>
@@ -76,38 +79,41 @@ import { finalize } from 'rxjs';
 })
 export class LoginComponent {
   protected readonly dataTestID = dataTestID;
-  protected username = null;
-  protected password = null;
-  protected showPassword = false;
-  protected loading = false;
+
+  protected username = signal<string | null>(null);
+  protected password = signal<string | null>(null);
+  protected showPassword = signal(false);
+  protected loading = signal(false);
+
+  protected isDisabled = computed((): boolean => {
+    return !this.username() || !this.password() || this.loading();
+  });
 
   constructor(private readonly authState: AuthStateService) {}
 
   togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
+    this.showPassword.update((value): boolean => !value);
   }
 
   requestAuthToken(): void {
-    if (this.username && this.password) {
-      this.loading = true;
+    const username = this.username();
+    const password = this.password();
 
-      // setAuthToken = returns an Observable
-      // RxJS Reactive Extensions for JavaScript
-      // pipe = chain RxJS operations that can transform, filter, or react to the observable
-      // subscribe = triggers the observable
-      // next = runs when the observable emits a value successfully
-      // error = runs if the observable fails
-      // finalize = is run when the observable is complete
+    // setAuthToken = returns an Observable
+    // RxJS Reactive Extensions for JavaScript
+    // pipe = chain RxJS operations that can transform, filter, or react to the observable
+    // subscribe = triggers the observable
+    // next = runs when the observable emits a value successfully
+    // error = runs if the observable fails
+    // finalize = is run when the observable is complete
+    if (username && password) {
+      this.loading.set(true);
       this.authState
-        .setAuthToken(this.username, this.password)
-        .pipe(finalize((): boolean => (this.loading = false)))
+        .setAuthToken(username, password)
+        .pipe(finalize((): void => this.loading.set(false)))
         .subscribe({
-          next: (): void => {
-            console.log('login success');
-          },
-          error: (): void => {
-            console.error('failed login');
-          },
+          next: (): void => console.log('login success'),
+          error: (): void => console.error('failed login'),
         });
     }
   }

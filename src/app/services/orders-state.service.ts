@@ -1,17 +1,12 @@
-import { Injectable } from '@angular/core';
-import { PizzaOrder } from '@src/app/models/pizza-order.model';
+import { Injectable, signal } from '@angular/core';
 import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable } from 'rxjs';
+
+import { PizzaOrder } from '../models/pizza-order.model';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersStateService {
-  // BehaviorSubject = a RxJS type that holds a current value and lets you emit new values over time
-  private readonly ordersSubject = new BehaviorSubject<PizzaOrder[]>([]);
-  // $ = naming convention letting use know that it is an observable variable
-  // asObservable() = hides the ability to call .next() on it
-  // on this class can push updates.  anything outside the class can only react to the updates
-  public orders$: Observable<PizzaOrder[]> = this.ordersSubject.asObservable();
+  public readonly ordersSignal = signal<PizzaOrder[]>([]);
 
   constructor(
     private readonly pizzaService: PizzaApiService,
@@ -29,7 +24,7 @@ export class OrdersStateService {
           (a, b): number => new Date(b.Timestamp).getTime() - new Date(a.Timestamp).getTime()
         );
         // replacing the older order list
-        this.ordersSubject.next(sortedOrdersByDateDescending ?? []);
+        this.ordersSignal.set(sortedOrdersByDateDescending ?? []);
       },
       error: (err): void => {
         this.toast.error(err.error?.message ?? 'Unexpected error', 'Error Getting Orders');

@@ -1,21 +1,21 @@
-import { CommonModule } from '@angular/common';
+import { DatePipe, NgFor } from '@angular/common';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
+import { Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { DeleteOrderResponse } from '@src/app/models/delete-order.model';
 import { ErrorResponse } from '@src/app/models/error-response.model';
 import { PizzaOrder } from '@src/app/models/pizza-order.model';
-import { OrderFilterPipe } from '@src/app/pipes/order-filter.pipe';
 import { OrdersStateService } from '@src/app/services/orders-state.service';
+import { PizzaApiService } from '@src/app/services/pizza-api.service';
 import { ToastrService } from 'ngx-toastr';
-import { finalize, Observable, Subscription } from 'rxjs';
-
-import { PizzaApiService } from '../services/pizza-api.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-order-viewer',
-  imports: [CommonModule, FormsModule, OrderFilterPipe],
+  standalone: true,
+  imports: [NgFor, FormsModule, DatePipe],
   template: `
     <div [attr.data-testid]="dataTestID.appOrderViewer" class="bg-heb-light-grey p-4">
       <!-- Search -->
@@ -26,7 +26,8 @@ import { PizzaApiService } from '../services/pizza-api.service';
             name="searchOrders"
             [attr.data-testid]="dataTestID.searchOrder"
             type="text"
-            [(ngModel)]="searchText"
+            [ngModel]="searchText()"
+            (ngModelChange)="searchText.set($event)"
             required
             placeholder="Search Orders..."
             autocomplete="off"
@@ -42,10 +43,11 @@ import { PizzaApiService } from '../services/pizza-api.service';
           </button>
         </form>
       </div>
+
       <!-- Orders Grid -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div
-          *ngFor="let order of orders$ | async | orderFilter: searchText"
+          *ngFor="let order of filteredOrders()"
           class="relative rounded-lg border border-gray-200 bg-white p-4 shadow-md transition hover:shadow-lg"
         >
           <!-- Trash Button -->
@@ -80,34 +82,37 @@ import { PizzaApiService } from '../services/pizza-api.service';
     </div>
   `,
 })
-export class OrderViewerComponent implements OnInit, OnDestroy {
-  private readonly subscription: Subscription = new Subscription();
-  protected readonly dataTestID = dataTestID;
-  protected searchText: string | null = null;
-  protected orders$: Observable<PizzaOrder[]>;
+export class OrderViewerComponent {
+  protected readonly searchText = signal<string | null>(null);
+
+  get orders(): Signal<PizzaOrder[]> {
+    return this.ordersState.ordersSignal;
+  }
+
+  protected readonly filteredOrders = computed((): PizzaOrder[] => {
+    const search = this.searchText()?.toLowerCase()?.trim();
+    const orders = this.orders();
+
+    if (!search) return orders;
+
+    return orders.filter(
+      (order: PizzaOrder): boolean =>
+        order.Flavor.toLowerCase().includes(search) ||
+        order.Crust.toLowerCase().includes(search) ||
+        order.Size.toLowerCase().includes(search) ||
+        order.Table_No.toString().includes(search)
+    );
+  });
 
   constructor(
+    private readonly ordersState: OrdersStateService,
     private readonly pizzaService: PizzaApiService,
-    private readonly toast: ToastrService,
-    protected readonly ordersState: OrdersStateService
+    private readonly toast: ToastrService
   ) {
-    this.orders$ = this.ordersState.orders$;
-  }
-
-  // gets called once when the component is first created
-  // every time this stream emits a new value, reset searchText
-  ngOnInit(): void {
-    this.subscription.add(
-      this.orders$.subscribe((): void => {
-        this.searchText = null;
-      })
-    );
-  }
-
-  // this is run when the component is destroyed
-  // we want to remove the subscription
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    effect(() => {
+      this.orders(); // just accessing the signal subscribes to it
+      this.searchText.set(null);
+    });
   }
 
   deleteOrder(orderId: number): void {
@@ -115,16 +120,15 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
       this.pizzaService
         .deleteOrder(orderId)
         .pipe(
-          finalize((): void => {
-            // because the api is very fast I opted to call the endpoint after every modification to the list
-            this.ordersState.getOrdersFromApi();
+          finalize(() => {
+            this.ordersState.getOrdersFromApi(); // Refresh list after deletion
           })
         )
         .subscribe({
-          next: (result: HttpResponse<DeleteOrderResponse>): void => {
+          next: (result: HttpResponse<DeleteOrderResponse>) => {
             this.toast.success(result.body?.message, 'Success');
           },
-          error: (err: HttpErrorResponse): void => {
+          error: (err: HttpErrorResponse) => {
             const errorBody: ErrorResponse = err.error;
             this.toast.error(errorBody.detail, errorBody.title);
           },
@@ -133,8 +137,10 @@ export class OrderViewerComponent implements OnInit, OnDestroy {
   }
 
   clearSearchText(): void {
-    this.searchText = null;
+    this.searchText.set(null);
   }
+
+  protected readonly dataTestID = dataTestID;
 }
 
 // grid = turns the container into a grid layout
