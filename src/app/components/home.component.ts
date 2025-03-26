@@ -6,6 +6,7 @@ import { dataTestID } from '@src/app/constants/data-test-id';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [HomeHeaderComponent, HomeBodyComponent, HomeFooterComponent],
   template: `
     <div [attr.data-testid]="dataTestID.appHome" class="bg-heb-light-grey flex min-h-screen flex-col">

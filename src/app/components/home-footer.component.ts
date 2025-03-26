@@ -3,6 +3,7 @@ import { dataTestID } from '@src/app/constants/data-test-id';
 
 @Component({
   selector: 'app-home-footer',
+  standalone: true,
   imports: [],
   template: `
     <div [attr.data-testid]="dataTestID.appHomeFooter" class="bg-heb-gray text-center text-white">
