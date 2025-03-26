@@ -29,7 +29,6 @@ describe('AppComponent', (): void => {
   it('should show login if not authenticated', (): void => {
     authService.isAuthenticated.and.returnValue(false);
     fixture.detectChanges();
-
     expect(getLogin()).toBeTruthy();
     expect(getHome()).toBeFalsy();
   });
@@ -37,7 +36,6 @@ describe('AppComponent', (): void => {
   it('should show home if authenticated', (): void => {
     authService.isAuthenticated.and.returnValue(true);
     fixture.detectChanges();
-
     expect(getLogin()).toBeFalsy();
     expect(getHome()).toBeTruthy();
   });
