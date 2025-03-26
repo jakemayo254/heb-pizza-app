@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 import LoginPage from 'e2e-pw/pages/login.page';
 
 const username = process.env[EnvTag.userName] ?? '';
-const testTableID = process.env[EnvTag.testTableID] ?? 0;
+const testTableID = process.env[EnvTag.testTableID] ?? '';
 
 test.beforeEach(async ({ page }): Promise<void> => {
   const loginPage = new LoginPage(page);
@@ -60,7 +60,7 @@ test.describe('Order Submitter/Viewer Component', (): void => {
 
   test('successfully submits a new order', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
-    await homePage.fillNewOrder(testTableID.toString(), 'Medium', 'Thin', 'Pepperoni');
+    await homePage.fillNewOrder(testTableID, 'Medium', 'Thin', 'Pepperoni');
     await expect(homePage.submitOrder).toBeEnabled();
     await homePage.submitOrder.click();
     await homePage.orderCard.waitFor();
@@ -68,13 +68,13 @@ test.describe('Order Submitter/Viewer Component', (): void => {
 
   test('searches orders correctly', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
-    await homePage.searchOrder.fill(testTableID.toString());
+    await homePage.searchOrder.fill(testTableID);
     await expect(homePage.orderCard).toBeVisible();
   });
 
   test('clears search correctly', async ({ page }): Promise<void> => {
     const homePage = new HomePage(page);
-    await homePage.searchOrder.fill(testTableID.toString());
+    await homePage.searchOrder.fill(testTableID);
     await homePage.clearSearchOrder.click();
     await expect(homePage.searchOrder).toHaveValue('');
   });
