@@ -10,7 +10,7 @@ import { of, throwError } from 'rxjs';
 describe('OrdersStateService', (): void => {
   let service: OrdersStateService;
   let pizzaService: MockPizzaApiService;
-  let toastr: MockToastService;
+  let toast: MockToastService;
 
   beforeEach((): void => {
     TestBed.configureTestingModule({
@@ -23,7 +23,7 @@ describe('OrdersStateService', (): void => {
 
     service = TestBed.inject(OrdersStateService);
     pizzaService = TestBed.inject(PizzaApiService) as unknown as MockPizzaApiService;
-    toastr = TestBed.inject(ToastrService) as unknown as MockToastService;
+    toast = TestBed.inject(ToastrService) as unknown as MockToastService;
   });
 
   it('should call pizzaService.getOrders() and update the orders signal with sorted data', (): void => {
@@ -54,7 +54,7 @@ describe('OrdersStateService', (): void => {
 
     pizzaService.getOrders.and.returnValue(throwError(() => mockError));
     service.getOrdersFromApi();
-    expect(toastr.error).toHaveBeenCalledWith('API is down', 'Error Getting Orders');
+    expect(toast.error).toHaveBeenCalledWith('API is down', 'Error Getting Orders');
   });
 
   it('should show a generic error toast when the API error lacks a message', (): void => {
@@ -64,6 +64,6 @@ describe('OrdersStateService', (): void => {
 
     pizzaService.getOrders.and.returnValue(throwError(() => mockError));
     service.getOrdersFromApi();
-    expect(toastr.error).toHaveBeenCalledWith('Unexpected error', 'Error Getting Orders');
+    expect(toast.error).toHaveBeenCalledWith('Unexpected error', 'Error Getting Orders');
   });
 });
