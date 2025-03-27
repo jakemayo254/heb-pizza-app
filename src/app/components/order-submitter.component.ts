@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, computed, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { dataTestID } from '@src/app/constants/data-test-id';
 import { PizzaOrderRequest } from '@src/app/models/pizza-order.model';
 import { AuthStateService } from '@src/app/services/auth-state.service';
@@ -14,17 +14,15 @@ import { PizzaApiService } from '../services/pizza-api.service';
 @Component({
   selector: 'app-order-submitter',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div [attr.data-testid]="dataTestID.appOrderSubmitter" class="bg-heb-dark-red p-4">
-      <form #newOrderForm="ngForm" (ngSubmit)="submitOrder()" class="flex flex-wrap items-center gap-4">
+      <form [formGroup]="orderForm" (ngSubmit)="submitOrder()" class="flex flex-wrap items-center gap-4">
         <input
           id="tableNumber"
-          name="tableNumber"
-          [attr.data-testid]="dataTestID.newTableNoInput"
           type="number"
-          [ngModel]="newOrderTableNo()"
-          (ngModelChange)="newOrderTableNo.set($event)"
+          formControlName="tableNumber"
+          [attr.data-testid]="dataTestID.newTableNoInput"
           required
           placeholder="Table No"
           autocomplete="off"
@@ -33,11 +31,9 @@ import { PizzaApiService } from '../services/pizza-api.service';
         />
         <input
           id="size"
-          name="size"
-          [attr.data-testid]="dataTestID.newSizeInput"
           type="text"
-          [ngModel]="newOrderSize()"
-          (ngModelChange)="newOrderSize.set($event)"
+          formControlName="size"
+          [attr.data-testid]="dataTestID.newSizeInput"
           required
           placeholder="Size"
           autocomplete="off"
@@ -45,11 +41,9 @@ import { PizzaApiService } from '../services/pizza-api.service';
         />
         <input
           id="crust"
-          name="crust"
-          [attr.data-testid]="dataTestID.newCrustInput"
           type="text"
-          [ngModel]="newOrderCrust()"
-          (ngModelChange)="newOrderCrust.set($event)"
+          formControlName="crust"
+          [attr.data-testid]="dataTestID.newCrustInput"
           required
           placeholder="Crust"
           autocomplete="off"
@@ -57,11 +51,9 @@ import { PizzaApiService } from '../services/pizza-api.service';
         />
         <input
           id="flavor"
-          name="flavor"
-          [attr.data-testid]="dataTestID.newFlavorInput"
           type="text"
-          [ngModel]="newOrderFlavor()"
-          (ngModelChange)="newOrderFlavor.set($event)"
+          formControlName="flavor"
+          [attr.data-testid]="dataTestID.newFlavorInput"
           required
           placeholder="Flavor"
           autocomplete="off"
@@ -70,8 +62,8 @@ import { PizzaApiService } from '../services/pizza-api.service';
         <button
           type="submit"
           [attr.data-testid]="dataTestID.submitOrder"
-          [disabled]="isDisabled()"
-          [style.cursor]="isDisabled() ? 'not-allowed' : 'pointer'"
+          [disabled]="orderForm.invalid || submitting()"
+          [style.cursor]="orderForm.invalid || submitting() ? 'not-allowed' : 'pointer'"
           class="w-36 rounded border border-gray-300 bg-white px-4 py-2 font-semibold text-black transition hover:bg-gray-100 disabled:opacity-50"
         >
           {{ submitting() ? 'Submitting...' : 'Submit Order' }}
@@ -82,45 +74,36 @@ import { PizzaApiService } from '../services/pizza-api.service';
 })
 export class OrderSubmitterComponent {
   protected readonly dataTestID = dataTestID;
-  protected readonly newOrderTableNo = signal<number | null>(null);
-  protected readonly newOrderCrust = signal<string | null>(null);
-  protected readonly newOrderFlavor = signal<string | null>(null);
-  protected readonly newOrderSize = signal<string | null>(null);
   protected readonly submitting = signal(false);
-
-  protected isDisabled = computed(
-    (): boolean =>
-      this.submitting() ||
-      !this.newOrderFlavor() ||
-      !this.newOrderCrust() ||
-      !this.newOrderSize() ||
-      this.newOrderTableNo() === null
-  );
+  protected orderForm!: FormGroup;
 
   constructor(
+    private readonly fb: FormBuilder,
     private readonly pizzaService: PizzaApiService,
     private readonly toast: ToastrService,
     protected readonly authState: AuthStateService,
     protected readonly ordersState: OrdersStateService
-  ) {}
+  ) {
+    this.orderForm = this.fb.group({
+      tableNumber: [null, Validators.required],
+      crust: ['', [Validators.required, this.trimValidator]],
+      flavor: ['', [Validators.required, this.trimValidator]],
+      size: ['', [Validators.required, this.trimValidator]],
+    });
+  }
 
   protected submitOrder(): void {
     const authToken = this.authState.authToken();
+    const { flavor, crust, size, tableNumber } = this.orderForm.value;
 
-    if (
-      authToken &&
-      this.newOrderFlavor() &&
-      this.newOrderCrust() &&
-      this.newOrderSize() &&
-      this.newOrderTableNo() !== null
-    ) {
+    if (authToken && flavor && crust && size && tableNumber !== null) {
       this.submitting.set(true);
 
       const orderRequest: PizzaOrderRequest = {
-        Table_No: this.newOrderTableNo()!, // eslint-disable-line @typescript-eslint/naming-convention
-        Flavor: this.newOrderFlavor()!, // eslint-disable-line @typescript-eslint/naming-convention
-        Crust: this.newOrderCrust()!, // eslint-disable-line @typescript-eslint/naming-convention
-        Size: this.newOrderSize()!, // eslint-disable-line @typescript-eslint/naming-convention
+        Table_No: tableNumber, // eslint-disable-line @typescript-eslint/naming-convention
+        Flavor: flavor.trim(), // eslint-disable-line @typescript-eslint/naming-convention
+        Crust: crust.trim(), // eslint-disable-line @typescript-eslint/naming-convention
+        Size: size.trim(), // eslint-disable-line @typescript-eslint/naming-convention
       };
 
       this.pizzaService
@@ -135,10 +118,7 @@ export class OrderSubmitterComponent {
         .subscribe({
           next: (): void => {
             this.toast.success('Order added successfully.', 'Success');
-            this.newOrderTableNo.set(null);
-            this.newOrderCrust.set(null);
-            this.newOrderSize.set(null);
-            this.newOrderFlavor.set(null);
+            this.orderForm.reset();
           },
           error: (err: HttpErrorResponse): void => {
             if (err.status === 401) {
@@ -164,6 +144,11 @@ export class OrderSubmitterComponent {
     } else {
       event.preventDefault();
     }
+  }
+
+  private trimValidator(control: import('@angular/forms').AbstractControl): Record<string, boolean> | null {
+    const value = control.value as string;
+    return value && value.trim().length === 0 ? { trimmed: true } : null;
   }
 }
 

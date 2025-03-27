@@ -26,7 +26,7 @@ import { finalize } from 'rxjs';
             [attr.data-testid]="dataTestID.searchOrder"
             type="text"
             [ngModel]="searchText()"
-            (ngModelChange)="searchText.set($event)"
+            (ngModelChange)="searchText.set($event.trim())"
             required
             placeholder="Search Orders..."
             autocomplete="off"
@@ -91,7 +91,7 @@ export class OrderViewerComponent {
   }
 
   protected readonly filteredOrders = computed((): PizzaOrder[] => {
-    const search = this.searchText()?.toLowerCase()?.trim();
+    const search = this.searchText()?.toLowerCase();
     const orders = this.orders();
 
     if (!search) return orders;
